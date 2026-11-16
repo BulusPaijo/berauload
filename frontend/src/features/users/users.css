@@ -1,0 +1,16 @@
+.user-manager-form{display:flex;flex-direction:column;gap:18px}
+.user-identity{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.user-account-section{min-width:0;border:1px solid #e1ebee;border-radius:10px;padding:15px 17px}
+.user-account-section legend{font-weight:800;font-size:13px;color:#28485c;padding:0 6px}
+.user-account-section>.field{max-width:300px}
+.user-account-note{margin:12px 0 0;color:#527b83;font-size:12px}
+.user-grant-list{display:grid;gap:8px;margin-top:10px}
+.user-grant-row{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px;background:#f8fbfc;border:1px solid #e3edf0;border-radius:9px}
+.user-unit-checkbox{display:flex;align-items:center;gap:10px;flex:1;min-width:0;font-size:12px;font-weight:700;cursor:pointer}
+.user-unit-checkbox input{width:17px;height:17px;flex:none}
+.user-unit-checkbox span{overflow-wrap:anywhere}
+.user-unit-checkbox small{font-size:10px;color:#7d98a3;font-weight:600}
+.user-unit-role{width:min(300px,48%);flex:none}
+.user-grant-error{color:#aa424a;font-weight:700;font-size:12px;margin:7px 0}
+.user-access-summary{max-width:390px;min-width:180px;white-space:normal;line-height:1.7}
+@media(max-width:800px){.user-identity{grid-template-columns:1fr}.user-grant-row{align-items:stretch;flex-direction:column;gap:10px}.user-unit-role{width:100%}}

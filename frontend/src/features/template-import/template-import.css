@@ -1,0 +1,18 @@
+.template-import {max-width:1180px;margin:0 auto}
+.template-panel {background:var(--surface,#fff);border:1px solid var(--line,#d8e5ec);border-radius:14px;padding:19px;margin-bottom:18px}
+.template-panel h3 {margin:0 0 12px;font-size:1.1rem}
+.template-fields {display:flex;flex-wrap:wrap;gap:12px;margin:12px 0}
+.template-fields label,.template-upload {display:flex;flex-direction:column;gap:5px;font-weight:600;font-size:.88rem}
+.template-fields input,.template-fields select,.template-upload input {padding:9px;border:1px solid #b5cbd5;border-radius:8px;max-width:350px}
+.template-tabs {display:flex;gap:8px 18px;flex-wrap:wrap;margin:15px 0}
+.template-tabs label {display:flex;gap:5px;align-items:center}
+.template-tabs small {color:#617787}
+.template-stats {display:flex;gap:12px;flex-wrap:wrap;margin:15px 0}
+.template-stats>div {display:flex;flex-direction:column;border:1px solid #cfdae2;border-radius:9px;padding:9px;min-width:125px}
+.template-stats span {font-size:.78rem;color:#586e7b}
+.template-stats b {font-size:1.3rem}
+.template-scroll {max-height:250px;overflow:auto}
+.template-error {border-color:#d76c6c;background:#fff1f1}
+.template-error p {margin:5px 0;font-size:.85rem}
+.template-message {padding:13px;border-radius:9px;background:#e2f6f1;color:#176f60}
+.template-import details {margin:10px 0 15px}

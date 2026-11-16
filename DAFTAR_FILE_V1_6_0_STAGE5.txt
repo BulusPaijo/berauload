@@ -1,0 +1,57 @@
+BerauLoad V1.6.0 Stage 5 — Full Source
+Perubahan terhadap BerauLoad 1.6.0 Stage 4c UI Hotfix 1.
+File baru/berubah berikut disertakan LENGKAP di ZIP:
+
+ARSITEKTUR.md
+CHANGELOG.md
+DAFTAR_FILE_V1_6_0_STAGE5.txt
+PANDUAN_PENGGUNA.md
+QA_STATUS.md
+README.md
+README_UPGRADE_V1_6_0_STAGE5.md
+VERSION
+backend/app/main.py
+backend/app/modules/dashboard_builder/router.py
+backend/app/modules/data_export/router.py
+backend/app/modules/data_export/service.py
+backend/app/modules/engineering/repository.py
+backend/app/modules/engineering/router.py
+backend/app/modules/formulas/router.py
+backend/app/modules/historical/repository.py
+backend/app/modules/historical/router.py
+backend/app/modules/legacy_import/router.py
+backend/app/modules/org_units/references.py
+backend/app/modules/performance/router.py
+backend/app/modules/records/entry.py
+backend/app/modules/records/router.py
+backend/app/modules/report_builder/router.py
+backend/app/modules/report_builder/service.py
+backend/app/modules/topology/repository.py
+backend/app/modules/topology/router.py
+backend/app/modules/unit_references/__init__.py
+backend/app/modules/unit_references/migrations.py
+backend/app/modules/unit_references/models.py
+backend/app/modules/unit_references/recalculation.py
+backend/app/modules/unit_references/router.py
+backend/tests/test_stage5_unit_sources.py
+frontend/package.json
+frontend/src/features/dashboard-builder/PanelCard.tsx
+frontend/src/features/dashboard-builder/PanelEditor.tsx
+frontend/src/features/dashboard-builder/dashboard-builder.css
+frontend/src/features/dashboard-builder/loadPanel.ts
+frontend/src/features/dashboard-builder/types.ts
+frontend/src/features/data-export/ExportBuilder.tsx
+frontend/src/features/engineering/EngineeringRules.tsx
+frontend/src/features/formulas/FormulaBuilder.tsx
+frontend/src/features/formulas/formulas.css
+frontend/src/features/historical/HistoricalCalculations.tsx
+frontend/src/features/input-form/InputPage.tsx
+frontend/src/features/report-builder/ReportBuilder.tsx
+frontend/src/features/report-builder/types.ts
+frontend/src/features/topology/TopologyPage.tsx
+frontend/src/features/topology/types.ts
+frontend/src/features/unit-references/SourceStatus.tsx
+frontend/src/features/unit-references/UnitMetricOptions.tsx
+frontend/src/features/unit-references/useUnitMetricReferences.ts
+
+Pengujian dan petunjuk instalasi tersedia di QA_STATUS.md dan README_UPGRADE_V1_6_0_STAGE5.md.

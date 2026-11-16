@@ -1,0 +1,21 @@
+Pembaruan dari V1.6.0 Stage 1:
+ARSITEKTUR.md
+ATURAN_PROYEK.md
+CHANGELOG.md
+PANDUAN_PENGGUNA.md
+QA_STATUS.md
+README.md
+README_UPGRADE_V1_6_0_STAGE1_1.md
+VERSION
+backend/app/main.py
+backend/app/modules/formulas/router.py
+backend/app/modules/org_units/migration_home.py
+backend/app/modules/org_units/migrations.py
+backend/app/modules/org_units/models.py
+backend/app/modules/org_units/repository.py
+backend/app/modules/org_units/router.py
+backend/tests/test_org_units_home.py
+build_manifest.sha256
+frontend/package.json
+
+Pembaruan kumulatif dari V1.5.0 Stage 4.2: seluruh tambahan Stage 1 ditambah daftar Stage 1.1.

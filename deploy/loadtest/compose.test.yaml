@@ -1,0 +1,40 @@
+name: berauload-stage7-loadtest
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: stage7
+      POSTGRES_PASSWORD: stage7-isolated-only
+      POSTGRES_DB: berauload_stage7_test
+    volumes:
+      - stage7testdb:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U stage7 -d berauload_stage7_test"]
+      interval: 5s
+      retries: 15
+  backend:
+    build: ../../backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://stage7:stage7-isolated-only@db:5432/berauload_stage7_test
+      ADMIN_USERNAME: admin_test
+      ADMIN_PASSWORD: Stage7-Admin-Isolated-Password
+      UPLOAD_DIR: /data/uploads
+      BERAULOAD_TEST_INSTANCE: 'true'
+      UVICORN_WORKERS: 1
+    ports:
+      - "127.0.0.1:18093:8000"
+    volumes:
+      - ../../deploy/loadtest:/srv/loadtest:ro
+      - stage7testuploads:/data/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+  web:
+    build: ../../frontend
+    ports:
+      - 127.0.0.1:18092:80
+    depends_on:
+      - backend
+volumes:
+  stage7testdb:
+  stage7testuploads:

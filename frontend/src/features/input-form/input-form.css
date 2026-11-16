@@ -1,0 +1,48 @@
+.input-layout-editor .panel-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.input-layout-editor .panel-head p{margin:5px 0 0}
+.input-layout-help{padding:13px 17px;background:#eaf6f6;color:#235a63;font-size:13px;border-radius:9px;margin:12px 17px}
+.layout-editor-grid{display:grid;grid-template-columns:minmax(210px,270px) minmax(0,1fr);gap:17px;padding:0 16px 22px}
+.layout-tab-side,.layout-editor-main{border:1px solid #dae7ea;border-radius:12px;background:#fff;min-width:0;padding:15px}
+.layout-tab-side h4,.layout-editor-main h4{margin:0 0 12px;font-size:14px}
+.layout-tab-row{display:flex;align-items:center;border:1px solid #e0e9ec;border-radius:9px;margin-bottom:7px;padding:3px}
+.layout-tab-row.selected{border-color:#1a929c;background:#e9f8f7}
+.layout-tab-select{flex:1;min-width:0;text-align:left;border:0;background:transparent;padding:8px;font-weight:650;color:#184455;overflow-wrap:anywhere}
+.layout-tab-select small{display:block;color:#80969b;font-weight:400;font-size:10px}
+.layout-tab-row>button:not(.layout-tab-select),.layout-move-actions button{border:1px solid #d6e4e8;background:white;border-radius:6px;padding:5px;color:#345765;display:inline-flex;align-items:center;margin:1px}
+.layout-add-tab{display:flex;gap:7px;margin-top:15px;flex-wrap:wrap}
+.layout-add-tab input{min-width:0;flex:1}
+.layout-tab-properties{display:flex;flex-wrap:wrap;align-items:end;gap:15px;padding:12px;border-radius:9px;background:#f6f9fa}
+.layout-tab-properties label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:650;flex:1}
+.layout-tab-properties .inline-check{flex:0 0 auto;flex-direction:row;align-items:center;padding-bottom:10px}
+.layout-list-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:20px 0 10px;flex-wrap:wrap}
+.layout-list-head h4{margin:0}
+.layout-editor-main select{min-width:130px;max-width:220px}
+.layout-visibility{display:inline-flex;align-items:center;gap:5px;border:1px solid #dce8eb;background:#fff;border-radius:7px;padding:7px;font-size:12px}
+.layout-preview-tags{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.layout-preview-tags span{border:1px solid #d3e6e8;background:white;border-radius:16px;padding:5px 9px;font-size:11px}
+.input-layout-preview{margin-top:17px;background:#f6f9fa;border-radius:10px;padding:14px}
+.input-layout-preview p,.input-layout-preview small{color:#617f88;font-size:12px}
+.input-layout-editor input:not([type=checkbox]){padding:8px 11px;border:1px solid #d7e4e7;border-radius:8px;max-width:100%}
+@media(max-width:860px){.layout-editor-grid{grid-template-columns:1fr}.layout-tab-side{display:block}}
+.settings-navigation{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0 22px}
+.settings-navigation>div{flex:1;min-width:215px}
+.settings-section-title{font-size:11px;font-weight:800;color:#61808d;letter-spacing:.08em;margin-bottom:9px}
+.settings-nav-links{display:flex;flex-direction:column;gap:5px}
+.settings-nav-links button{border:1px solid #dde9ec;background:#fff;border-radius:9px;text-align:left;padding:11px 14px;color:#31596a;font-size:13px;font-weight:650}
+.settings-nav-links button.active{background:#e3f4f3;border-color:#26a2aa;color:#075e68}
+.settings-overview{padding:20px}
+.settings-overview h3{margin:0 0 10px}
+.settings-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.settings-steps button{display:flex;align-items:center;gap:12px;text-align:left;border:1px solid #d9e6e9;background:white;padding:15px;border-radius:11px;color:#23485b}
+.settings-steps button b{display:grid;place-items:center;background:#e0f3f0;color:#086d76;border-radius:8px;min-width:32px;height:32px}
+.settings-steps button span{display:flex;flex-direction:column;flex:1;gap:5px}
+.settings-steps button small{font-size:11px;color:#6c8792}
+@media(max-width:690px){.settings-steps{grid-template-columns:1fr}}
+.autosave-status{display:block;font-size:10px;font-weight:500;white-space:normal;color:#536978}
+.input-conflict{padding:16px;margin:12px 0}
+.conflict-item{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid #edf2f4}
+.session-overlay{position:fixed;inset:0;z-index:10000;background:#1c3241bd;display:grid;place-items:center;padding:16px}
+.session-dialog{width:min(100%,460px);padding:28px;display:grid;gap:14px}
+.session-dialog label{display:grid;gap:5px}
+.session-dialog input{width:100%;padding:10px;border:1px solid #cbd9dd;border-radius:8px}
+.session-banner{margin-bottom:12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}

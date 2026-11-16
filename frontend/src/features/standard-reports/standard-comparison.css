@@ -1,0 +1,29 @@
+.std-comparison{min-width:0}
+.std-compare-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:14px}
+.std-compare-heading h3{margin:0 0 7px}
+.std-compare-heading p{margin:0}
+.std-compare-years{align-items:end}
+.std-compare-years label{font-size:12px;display:flex;flex-direction:column;gap:5px;color:#667e88;font-weight:600}
+.std-compare-years select{min-width:92px;color:#18394d}
+.std-compare-summary{display:flex;justify-content:space-between;align-items:center;gap:16px;background:#f1f6f7;border-radius:10px;padding:13px 16px;margin-bottom:14px}
+.std-compare-summary strong,.std-compare-summary small{display:block}
+.std-compare-summary small{margin-top:4px;color:#68818c}
+.std-compare-picker{border:1px solid #d5e6e9;border-radius:12px;padding:16px;background:#f8fbfb;margin-bottom:20px}
+.std-compare-picker-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.std-compare-picker>input{width:100%;max-width:420px;margin-bottom:12px}
+.std-compare-list{max-height:245px;overflow:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;padding-right:4px}
+.std-compare-list label{display:flex;align-items:center;gap:10px;border:1px solid #d9e6e9;border-radius:9px;padding:10px;background:white;cursor:pointer;min-width:0}
+.std-compare-list label.selected{border-color:#0e9ca2;background:#e9f7f7}
+.std-compare-list label input{flex:0 0 auto;accent-color:#108e95}
+.std-compare-list label span{min-width:0;overflow-wrap:anywhere}
+.std-compare-list label strong,.std-compare-list label small{display:block}
+.std-compare-list label strong{font-size:13px}
+.std-compare-list label small{font-size:11px;margin-top:3px;color:#6e8591}
+.std-compare-actions{display:flex;flex-wrap:wrap;align-items:end;gap:9px;margin:15px 0 8px}
+.std-compare-actions label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600}
+.std-compare-actions select{min-width:138px}
+.std-compare-success{color:#087e58;font-weight:600}
+.std-compare-error{color:#ba3030;font-weight:600}
+.std-compare-loading{padding:70px 0;text-align:center;color:#647e8b}
+.std-compare-graph{width:100%;height:315px;min-width:0}
+@media(max-width:760px){.std-compare-list{grid-template-columns:1fr}.std-compare-graph{height:265px}.std-compare-summary{align-items:start;flex-direction:column}.std-compare-actions .btn{width:100%;justify-content:center}}

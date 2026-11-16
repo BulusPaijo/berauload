@@ -1,0 +1,17 @@
+File baru/diubah untuk V1.6.0 Stage 4c UI Hotfix 1:
+frontend/src/App.tsx
+frontend/src/features/users/UserManager.tsx
+frontend/src/features/users/userAccess.mjs
+frontend/src/features/users/userAccess.d.mts
+frontend/src/features/users/users.css
+frontend/tests/userAccess.test.mjs
+backend/app/main.py (hanya metadata versi aplikasi dan /api/health)
+frontend/package.json
+VERSION
+README.md
+CHANGELOG.md
+ARSITEKTUR.md
+PANDUAN_PENGGUNA.md
+QA_STATUS.md
+README_UPGRADE_V1_6_0_STAGE4C_UI_HOTFIX.md
+DAFTAR_FILE_V1_6_0_STAGE4C_UI_HOTFIX1.txt

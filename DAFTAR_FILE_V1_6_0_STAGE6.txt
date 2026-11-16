@@ -1,0 +1,42 @@
+BerauLoad Stage 6 — berkas baru/diubah dari Stage 5 Hotfix1
+
+BERKAS BARU:
+README_UPGRADE_V1_6_0_STAGE6.md
+backend/app/modules/completeness/__init__.py
+backend/app/modules/completeness/export.py
+backend/app/modules/completeness/router.py
+backend/app/modules/completeness/service.py
+backend/app/modules/topology/links.py
+backend/tests/benchmark_stage6_completeness.py
+backend/tests/test_stage6_completeness.py
+backend/tests/test_stage6_topology_links.py
+frontend/src/features/completeness/UnitCompleteness.tsx
+frontend/src/features/completeness/completeness.css
+frontend/src/features/completeness/completeness.d.mts
+frontend/src/features/completeness/completeness.mjs
+frontend/tests/completeness.test.mjs
+frontend/tests/topologyLinks.test.mjs
+
+BERKAS DIUBAH:
+ARSITEKTUR.md
+CHANGELOG.md
+PANDUAN_PENGGUNA.md
+QA_STATUS.md
+README.md
+VERSION
+backend/app/main.py
+backend/app/modules/topology/router.py
+backend/app/modules/topology/service.py
+frontend/package.json
+frontend/src/App.tsx
+frontend/src/features/topology/Canvas.tsx
+frontend/src/features/topology/SymbolProperties.tsx
+frontend/src/features/topology/TopologyEditor.tsx
+frontend/src/features/topology/TopologyPage.tsx
+frontend/src/features/topology/stage4State.mjs
+frontend/src/features/topology/topology.css
+frontend/src/features/topology/topologyApi.ts
+frontend/src/features/topology/types.ts
+
+BERKAS LAMA DIHAPUS: (tidak ada)
+

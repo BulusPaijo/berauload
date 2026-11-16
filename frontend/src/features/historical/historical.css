@@ -1,0 +1,28 @@
+.historical-feature { display: grid; gap: 18px; }
+.historical-definition-list { display: grid; gap: 7px; padding: 12px 18px 18px; }
+.historical-definition { display: flex; justify-content: space-between; align-items: center; width: 100%; text-align: left; padding: 13px; border: 1px solid #dbe4ed; border-radius: 10px; background: #fff; cursor: pointer; }
+.historical-definition.selected { border-color: #087f8c; background: #f1fbfb; }
+.historical-definition small { display: block; color: #67788d; margin-top: 4px; }
+.historical-period { display: flex; align-items: end; flex-wrap: wrap; gap: 10px; margin: 14px 18px; }
+.historical-period label { display: grid; gap: 4px; font-size: .82rem; }
+.historical-period input { padding: 9px; border: 1px solid #dbe4ed; border-radius: 7px; }
+.historical-summary { margin: 14px 18px; display: flex; flex-wrap: wrap; gap: 12px; }
+.historical-summary span { border-radius: 10px; background: #eef4f6; padding: 12px 18px; display: grid; gap: 4px; }
+.historical-summary small { color: #5b6d7d; }
+.historical-chart { min-width: 0; height: 320px; margin: 8px 14px; }
+.historical-output .parameter-hint, .historical-output .scroll-table { margin: 12px 18px; }
+.historical-drawer { max-width: 650px; }
+.historical-drawer textarea { width: 100%; resize: vertical; font-family: ui-monospace, monospace; font-size: .9rem; }
+.historical-insert { display: flex; flex-wrap: wrap; gap: 8px; }
+.historical-insert select { min-width: 0; flex: 1; }
+.historical-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.historical-actions button { flex: 1; }
+@media(max-width: 700px) { .historical-chart { height: 260px; } .historical-actions button { flex: auto; } }
+
+.historical-preview { padding: 12px; border: 1px solid #cbdfe2; border-radius: 8px; display: grid; gap: 8px; }
+.historical-preview small { color: #607689; }
+.historical-preview div { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-top: 7px; border-top: 1px solid #e0e8ef; }
+
+.historical-management { margin: 12px 18px; padding: 14px; border: 1px solid #dbe4ed; border-radius: 10px; display: grid; gap: 10px; }
+.historical-management input, .historical-management select { width: 100%; min-width: 0; border: 1px solid #ccd7df; border-radius: 7px; padding: 9px; }
+.historical-management label { display: grid; gap: 5px; }

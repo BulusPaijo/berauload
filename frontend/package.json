@@ -1,0 +1,24 @@
+{
+  "name": "berauload-web",
+  "private": true,
+  "version": "1.6.0-stage7-hotfix1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "lucide-react": "0.468.0",
+    "recharts": "2.15.3"
+  },
+  "devDependencies": {
+    "typescript": "5.8.3",
+    "vite": "6.3.5",
+    "@vitejs/plugin-react": "4.4.1",
+    "@types/react": "19.0.12",
+    "@types/react-dom": "19.0.4"
+  }
+}

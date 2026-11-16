@@ -1,0 +1,14 @@
+.org-manager .org-columns{display:grid;grid-template-columns:minmax(280px,1fr) minmax(290px,1fr);gap:18px}
+.org-tree,.org-side{min-width:0;border:1px solid #dce9ed;border-radius:12px;padding:12px}
+.org-unit-line{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:9px;padding-bottom:9px;border-radius:8px}
+.org-unit-line.selected{background:#e8f5f5}
+.org-unit-select{background:none;border:0;display:flex;flex-direction:column;align-items:flex-start;text-align:left;min-width:0;cursor:pointer}
+.org-unit-select small{color:#557988;margin-top:4px;word-break:break-all}
+.org-unit-actions{display:flex;gap:6px;flex-wrap:wrap}
+.org-unit-actions button{border:1px solid #bad3dc;border-radius:6px;background:white;padding:7px;cursor:pointer}
+.org-form,.org-access{display:flex;flex-direction:column;gap:12px}
+.org-form label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:650}
+.org-form input,.org-access select{min-width:0;width:100%;padding:9px;border:1px solid #c6dce3;border-radius:7px}
+.org-buttons{display:flex;gap:8px}.org-access-table{max-height:380px;overflow:auto}
+.org-manager :is(button,input,select):focus-visible{outline:3px solid #1faaa5;outline-offset:2px}
+@media(max-width:900px){.org-manager .org-columns{grid-template-columns:1fr}}

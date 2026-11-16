@@ -1,0 +1,14 @@
+.export-builder .export-section{padding:22px;margin-bottom:17px}.export-section h3{font-size:16px;margin:0 0 15px}
+.export-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:10px}
+.export-fields label,.export-selected-item label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:700;color:#496575}
+.export-fields input,.export-fields select,.export-selected-item input,.export-selected-item select{width:100%;min-height:38px;border:1px solid #d5e3e9;border-radius:9px;background:white;padding:8px;font-size:13px;color:#12384e}
+.export-columns{display:grid;grid-template-columns:minmax(270px,1fr) minmax(350px,1.4fr);gap:16px}
+.export-search{display:flex;gap:6px;align-items:center;border:1px solid #d5e3e9;border-radius:9px;padding:4px 10px;margin-bottom:10px}
+.export-search input{width:100%;border:0;min-height:34px;outline:none}.export-available{max-height:470px;overflow:auto;display:flex;flex-direction:column;gap:5px}
+.export-add{text-align:left;border:1px solid #e3edf0;background:#fff;color:#143b52;padding:10px;border-radius:8px;display:flex;align-items:center;gap:8px;cursor:pointer}
+.export-add:hover{border-color:#0c9298;background:#f1fafb}.export-add:disabled{opacity:.5;cursor:not-allowed}.export-selected{display:flex;flex-direction:column;gap:9px;max-height:530px;overflow:auto}
+.export-selected-item{border:1px solid #e0eaf0;border-radius:10px;padding:11px;display:grid;gap:8px}.export-selected-top{display:flex;gap:8px;align-items:center;justify-content:space-between;color:#173e53;font-size:13px}
+.export-move{display:flex;gap:3px}.export-move button{width:29px;height:29px;border:1px solid #dbe8ed;border-radius:8px;background:white;cursor:pointer;color:#143b52}
+.export-move button:disabled{opacity:.3;cursor:not-allowed}.export-unit{display:flex!important;flex-direction:row!important;align-items:center}.export-unit select{max-width:115px}
+.export-actions{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}.export-builder .scroll-table{margin-top:12px}
+@media(max-width:1000px){.export-columns{grid-template-columns:1fr}}

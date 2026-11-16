@@ -1,0 +1,64 @@
+BERAULOAD V1.6.0 STAGE4B — NEW/CHANGED FILES
+Base: 1.6.0-stage4a (with previous TS2552 hotfix)
+New / modified files (compared with Stage 4a):
+
+UPDATE ARSITEKTUR.md
+UPDATE CHANGELOG.md
+UPDATE PANDUAN_PENGGUNA.md
+UPDATE QA_STATUS.md
+UPDATE README.md
+NEW    README_UPGRADE_V1_6_0_STAGE4B.md
+UPDATE VERSION
+UPDATE backend/app/db.py
+UPDATE backend/app/main.py
+UPDATE backend/app/modules/catalog_api/router.py
+UPDATE backend/app/modules/dashboard_builder/models.py
+UPDATE backend/app/modules/dashboard_builder/repository.py
+UPDATE backend/app/modules/dashboard_builder/router.py
+UPDATE backend/app/modules/dashboard_settings/models.py
+UPDATE backend/app/modules/dashboard_settings/repository.py
+UPDATE backend/app/modules/dashboard_settings/router.py
+UPDATE backend/app/modules/dashboard_settings/service.py
+UPDATE backend/app/modules/data_export/models.py
+UPDATE backend/app/modules/data_export/router.py
+UPDATE backend/app/modules/engineering/models.py
+UPDATE backend/app/modules/engineering/repository.py
+UPDATE backend/app/modules/engineering/router.py
+UPDATE backend/app/modules/formulas/models.py
+UPDATE backend/app/modules/historical/migrations.py
+UPDATE backend/app/modules/historical/models.py
+UPDATE backend/app/modules/historical/repository.py
+UPDATE backend/app/modules/historical/router.py
+NEW    backend/app/modules/input_forms/bootstrap.py
+UPDATE backend/app/modules/input_forms/models.py
+UPDATE backend/app/modules/input_forms/repository.py
+UPDATE backend/app/modules/input_forms/router.py
+UPDATE backend/app/modules/input_forms/service.py
+NEW    backend/app/modules/org_units/configuration_models.py
+UPDATE backend/app/modules/org_units/context.py
+NEW    backend/app/modules/org_units/copy_router.py
+NEW    backend/app/modules/org_units/copy_settings.py
+NEW    backend/app/modules/org_units/migration_config.py
+UPDATE backend/app/modules/org_units/router.py
+NEW    backend/app/modules/org_units/scoping.py
+UPDATE backend/app/modules/report_builder/models.py
+UPDATE backend/app/modules/report_builder/router.py
+UPDATE backend/app/modules/standard_reports/models.py
+UPDATE backend/app/modules/standard_reports/router.py
+UPDATE backend/app/modules/standard_reports/service.py
+UPDATE backend/app/modules/template_import/repository.py
+UPDATE backend/app/modules/topology/models.py
+UPDATE backend/app/modules/topology/repository.py
+UPDATE backend/app/modules/topology/router.py
+UPDATE backend/tests/test_dashboard_builder.py
+UPDATE backend/tests/test_dashboard_settings.py
+UPDATE backend/tests/test_report_builder_v146.py
+UPDATE backend/tests/test_stage4a_units.py
+NEW    backend/tests/test_stage4b_config.py
+UPDATE backend/tests/test_standard_reports_v1461.py
+UPDATE backend/tests/test_template_import.py
+UPDATE backend/tests/test_topology.py
+UPDATE backend/tests/test_v144_export_management.py
+UPDATE frontend/package.json
+
+No old source files removed.

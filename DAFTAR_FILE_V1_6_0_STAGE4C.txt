@@ -1,0 +1,50 @@
+BerauLoad V1.6.0 Stage 4c — Complete Modified/New File List
+
+Setiap file pada daftar ini tersedia dalam paket full source dan patch, dengan isi lengkap.
+Dokumentasi QA secara eksplisit menyatakan bahwa npm install/build gagal karena EAI_AGAIN.
+
+Changed/New (41):
+ARSITEKTUR.md
+CHANGELOG.md
+PANDUAN_PENGGUNA.md
+QA_STATUS.md
+README.md
+README_UPGRADE_V1_6_0_STAGE4C.md
+VERSION
+backend/app/main.py
+backend/app/modules/dashboard_settings/repository.py
+backend/app/modules/org_units/router.py
+backend/app/modules/records/router.py
+backend/app/modules/records/service.py
+backend/app/modules/standard_reports/router.py
+backend/app/modules/users/router.py
+backend/tests/test_dashboard_builder.py
+backend/tests/test_dashboard_settings.py
+backend/tests/test_equipment_kinds.py
+backend/tests/test_input_forms.py
+backend/tests/test_org_units.py
+backend/tests/test_org_units_home.py
+backend/tests/test_report_builder_v146.py
+backend/tests/test_stage4a_units.py
+backend/tests/test_standard_reports_v1461.py
+backend/tests/test_topology.py
+backend/tests/test_v144_export_management.py
+frontend/package.json
+frontend/src/App.tsx
+frontend/src/api.ts
+frontend/src/features/dashboard-builder/DashboardManagement.tsx
+frontend/src/features/data-export/ExportBuilder.tsx
+frontend/src/features/input-form/InputPage.tsx
+frontend/src/features/org-units/CopySettings.tsx
+frontend/src/features/org-units/OrgUnitManager.tsx
+frontend/src/features/org-units/UnitAccess.tsx
+frontend/src/features/org-units/UnitSelector.tsx
+frontend/src/features/org-units/unitSelection.d.mts
+frontend/src/features/org-units/unitSelection.mjs
+frontend/src/features/org-units/unitSelection.test.mjs
+frontend/src/features/org-units/useActiveUnit.ts
+frontend/src/features/template-import/TemplateImportPage.tsx
+frontend/src/style.css
+
+Omitted from distribution (cache/generated only, 0):
+

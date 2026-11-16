@@ -1,0 +1,11 @@
+import type {TopologyLayout,TopologyArea} from './types';
+export const MAX_CANVAS:number;
+export const AREA_BORDERS:string[];
+export const AREA_COLORS:string[];
+export function expandForRect(layout:TopologyLayout,x:number,y:number,w:number,h:number,padding?:number):TopologyLayout;
+export function expandForPoint(layout:TopologyLayout,x:number,y:number,padding?:number):TopologyLayout;
+export function resizeCanvas(layout:TopologyLayout,width:number,height:number):TopologyLayout|null;
+export function contentBounds(layout:TopologyLayout):{minX:number;minY:number;maxX:number;maxY:number};
+export function addArea(layout:TopologyLayout,x?:number,y?:number):TopologyLayout|null;
+export function patchArea(layout:TopologyLayout,id:string,patch:Partial<TopologyArea>):TopologyLayout;
+export function removeArea(layout:TopologyLayout,id:string):TopologyLayout;

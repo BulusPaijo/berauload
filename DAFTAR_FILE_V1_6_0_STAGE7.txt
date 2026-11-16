@@ -1,0 +1,43 @@
+BerauLoad V1.6.0 Stage 7
+Semua file di bawah tersedia lengkap di Full Source ZIP.
+
+DIUBAH   .env.example
+DIUBAH   ARSITEKTUR.md
+DIUBAH   CHANGELOG.md
+DIUBAH   PANDUAN_PENGGUNA.md
+DIUBAH   QA_STATUS.md
+BARU     QA_STATUS_STAGE7.md
+DIUBAH   README.md
+BARU     README_UPGRADE_V1_6_0_STAGE7.md
+DIUBAH   VERSION
+DIUBAH   backend/Dockerfile
+DIUBAH   backend/app/db.py
+DIUBAH   backend/app/main.py
+BARU     backend/app/modules/records/conflicts.py
+DIUBAH   backend/app/modules/records/entry.py
+BARU     backend/app/modules/records/locking.py
+BARU     backend/app/modules/sessions/migrations.py
+BARU     backend/app/modules/sessions/models.py
+DIUBAH   backend/app/security.py
+BARU     backend/tests/test_stage7_records.py
+BARU     backend/tests/test_stage7_sessions.py
+DIUBAH   compose.yaml
+BARU     deploy/__init__.py
+BARU     deploy/loadtest/README.md
+BARU     deploy/loadtest/__init__.py
+BARU     deploy/loadtest/compose.test.yaml
+BARU     deploy/loadtest/fixture.py
+BARU     deploy/loadtest/runner.py
+DIUBAH   frontend/nginx.conf
+DIUBAH   frontend/package.json
+DIUBAH   frontend/src/App.tsx
+DIUBAH   frontend/src/features/input-form/InputPage.tsx
+BARU     frontend/src/features/input-form/autosave/InputSaveFeedback.tsx
+BARU     frontend/src/features/input-form/autosave/SessionBanner.tsx
+BARU     frontend/src/features/input-form/autosave/core.d.mts
+BARU     frontend/src/features/input-form/autosave/core.mjs
+BARU     frontend/src/features/input-form/autosave/sessionActivity.d.mts
+BARU     frontend/src/features/input-form/autosave/sessionActivity.mjs
+BARU     frontend/src/features/input-form/autosave/useHourlyAutosave.ts
+DIUBAH   frontend/src/features/input-form/input-form.css
+BARU     frontend/tests/autosaveStage7.test.mjs

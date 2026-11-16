@@ -1,0 +1,17 @@
+.report-builder{min-width:0}.report-top{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;padding:15px}
+.report-builder label{display:grid;gap:5px;font-weight:700;font-size:12px;color:#547180;min-width:0}
+.report-builder input,.report-builder select,.report-builder textarea{border:1px solid #d3e3e8;border-radius:8px;min-height:37px;padding:8px;background:#fff;color:#193e53;width:100%;font:inherit}
+.report-top label:first-child{min-width:230px;flex:1}.report-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.report-title-fields{display:flex;align-items:flex-end;gap:10px;flex:1;flex-wrap:wrap}.report-title-fields label{flex:1;min-width:200px}
+.report-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.report-workspace{display:grid;grid-template-columns:minmax(280px,410px) minmax(0,1fr);gap:14px;align-items:start}
+.report-editor,.report-preview{padding:20px;min-width:0}.report-workspace h3{margin:0 0 8px}
+.report-block-form{border:1px solid #dce9ed;padding:12px;border-radius:10px;display:grid;gap:11px;margin:12px 0}
+.report-block-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.report-block-head strong{font-size:13px}
+.report-block-head>div{display:flex;gap:5px}.report-block-head button{border:1px solid #d8e5e9;background:#fff;padding:5px;border-radius:6px;color:#236177;cursor:pointer}
+.report-inline{display:grid;grid-template-columns:1fr 1fr;gap:8px}.report-add{display:flex;flex-wrap:wrap;gap:6px}
+.report-paper{background:#fff;box-shadow:0 4px 18px #12304c12;border:1px solid #e1ebf0;min-height:380px;padding:25px;color:#143649;margin:12px 0;overflow:auto}
+.report-paper h2{font-size:22px}.report-paper section{margin:18px 0;padding-bottom:12px;border-bottom:1px solid #e8eef0}
+.report-paper h4{font-size:14px}.report-paper small{display:block;color:#68838f;font-size:11px;margin-top:8px}
+.report-paper .report-stat{font-size:31px;color:#087f8c;display:block}.report-chart{height:250px;min-width:260px}
+.report-note-text{white-space:pre-wrap;overflow-wrap:anywhere}.report-bottom-actions{display:flex;gap:8px;justify-content:flex-end}
+@media(max-width:1000px){.report-workspace{grid-template-columns:1fr}}@media print{.report-editor,.report-top,.report-toolbar,.report-actions,.report-bottom-actions{display:none!important}.report-paper{box-shadow:none;border:0}}

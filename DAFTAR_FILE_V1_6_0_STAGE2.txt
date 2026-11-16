@@ -1,0 +1,24 @@
+# Perubahan BerauLoad V1.6.0 Stage 1.2 → Stage 2
+# 22 file baru/diubah, 0 file dihapus
+ARSITEKTUR.md
+CHANGELOG.md
+PANDUAN_PENGGUNA.md
+QA_STATUS.md
+README.md
+README_UPGRADE_V1_6_0_STAGE2.md
+VERSION
+backend/app/db.py
+backend/app/main.py
+backend/app/modules/template_import/__init__.py
+backend/app/modules/template_import/migrations.py
+backend/app/modules/template_import/repository.py
+backend/app/modules/template_import/router.py
+backend/app/modules/template_import/service.py
+backend/app/modules/template_import/validator.py
+backend/app/modules/template_import/workbook.py
+backend/tests/test_template_import.py
+build_manifest.sha256
+frontend/package.json
+frontend/src/App.tsx
+frontend/src/features/template-import/TemplateImportPage.tsx
+frontend/src/features/template-import/template-import.css

@@ -1,0 +1,65 @@
+name: berauload
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      TZ: Asia/Makassar
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [internal]
+  init-upload-permissions:
+    image: alpine:3.20
+    command: ["sh", "-c", "mkdir -p /data/uploads && chown -R 10001:10001 /data/uploads"]
+    volumes:
+      - uploads:/data/uploads
+    networks: [internal]
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      SESSION_HOURS: ${SESSION_HOURS:-12}
+      SESSION_MAX_HOURS: ${SESSION_MAX_HOURS:-24}
+      UVICORN_WORKERS: ${UVICORN_WORKERS:-1}
+      DB_POOL_SIZE: ${DB_POOL_SIZE:-5}
+      DB_MAX_OVERFLOW: ${DB_MAX_OVERFLOW:-5}
+      DB_POOL_TIMEOUT: ${DB_POOL_TIMEOUT:-30}
+      DB_POOL_RECYCLE: ${DB_POOL_RECYCLE:-1800}
+      BERAULOAD_TEST_INSTANCE: ${BERAULOAD_TEST_INSTANCE:-false}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      UPLOAD_DIR: /data/uploads
+      TZ: Asia/Makassar
+    depends_on:
+      db:
+        condition: service_healthy
+      init-upload-permissions:
+        condition: service_completed_successfully
+    volumes:
+      - uploads:/data/uploads
+    networks: [internal]
+  web:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "${APP_PORT:-8092}:80"
+    networks: [internal]
+volumes:
+  pgdata:
+  uploads:
+networks:
+  internal:
+    driver: bridge

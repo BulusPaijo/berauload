@@ -1,0 +1,276 @@
+/* Read-only SLD isolated theme. No changes to BerauLoad's global palette. */
+.topology-page{--topo-bg:#061523;--topo-panel:#10263a;--topo-border:#29495c;--topo-text:#e1f0f6;--topo-muted:#91b0bf;background:var(--topo-bg);color:var(--topo-text);border:1px solid #23485c;border-radius:16px;overflow:hidden;min-width:0;box-shadow:0 12px 36px #092a3a1b}
+.topology-page *{box-sizing:border-box}
+.topology-page button,.topology-page select,.topology-page input{font:inherit}
+.topology-page button:focus-visible,.topology-page select:focus-visible,.topology-page input:focus-visible{outline:3px solid #60d8ef;outline-offset:2px}
+.topo-header{padding:24px 28px 18px;background:linear-gradient(110deg,#0d293a,#092130 68%,#104354);display:flex;justify-content:space-between;align-items:flex-start;gap:15px}
+.topo-header h2{margin:4px 0 6px;font-size:24px;letter-spacing:-.6px;color:#f5fbff;display:flex;align-items:center;gap:10px}
+.topo-header p{margin:0;color:#a4c3cf;font-size:12px;line-height:1.7}
+.topo-kicker{font-size:10px;font-weight:850;letter-spacing:1.2px;color:#59d3d8}
+.topo-readonly{display:inline-flex;align-items:center;gap:7px;border-radius:30px;padding:9px 13px;border:1px solid #40858a;background:#154f56;color:#a8faf4;font-size:11px;font-weight:750;white-space:nowrap}
+.topo-toolbar{display:flex;align-items:end;justify-content:space-between;gap:16px;padding:15px 26px;background:#0d2130;border-bottom:1px solid var(--topo-border);flex-wrap:wrap}
+.topo-toolbar label,.topo-select-label{display:flex;flex-direction:column;gap:7px;color:#9ebecb;font-weight:700;font-size:11px;min-width:240px}
+.topology-page select,.topology-page input[type=date]{appearance:auto;background:#173348;color:#effafe;border:1px solid #386074;border-radius:8px;padding:10px 12px;min-height:38px}
+.topology-page select option{background:#173348;color:white}
+.topo-toolbar-end{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.topology-page button{background:#1b3b50;color:#d4eef6;border:1px solid #426277;border-radius:7px;padding:9px 11px;display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:12px;cursor:pointer}
+.topology-page button:hover:not(:disabled){background:#245065}
+.topology-page button:disabled{opacity:.45;cursor:not-allowed}
+.topo-zoom{display:flex;align-items:center;gap:0;border:1px solid #3d6175;border-radius:9px;overflow:hidden}
+.topo-zoom button{border:0;border-radius:0;min-width:34px}
+.topo-zoom span{font-weight:800;font-size:11px;padding:0 12px;min-width:65px;text-align:center}
+.topo-error{margin:12px 24px;color:#ffd1cc;background:#542c36;border:1px solid #9b5662;border-radius:9px;padding:12px;display:flex;align-items:center;gap:9px;font-size:12px}
+.topo-main{padding:18px;background:#0a1d2c;min-height:390px}
+.topo-canvas-meta{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px;font-size:11px;color:#8fabbc}
+.topo-canvas-meta>div{display:flex;flex-direction:column;gap:4px}
+.topo-canvas-meta strong{font-size:15px;color:#f4fcff}
+.topo-scroll{overflow:auto;background:#091929;border:1px solid #2e5166;border-radius:12px;max-height:75vh;min-height:290px;scrollbar-color:#345b70 #102a3b}
+.topo-svg{display:block;max-width:none}
+.topo-symbol-label{font:650 15px system-ui,sans-serif;fill:#d7eefa;paint-order:stroke;stroke:#071726;stroke-width:2px;stroke-linejoin:round}
+.topo-foreign{width:100%;height:100%;font-family:system-ui,sans-serif;color:#def3fc}
+.topo-param-box{width:100%;height:100%;display:flex;flex-direction:column;background:#0e263b;border:1px solid #3b6276;border-radius:10px;box-shadow:0 5px 18px #0005;overflow:hidden}
+.topo-param-head{min-height:35px;display:flex;align-items:center;gap:8px;background:#0c3445;padding:7px 10px}
+.topo-param-head strong{font-size:13px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topo-box-dot{width:8px;height:8px;flex:0 0 auto;border-radius:50%;background:#5cb8d2}
+.topo-rule-chip{font-size:10px;border-radius:20px;padding:3px 6px;background:#244b5b;color:#bfe0eb}
+.topo-param-box.has-trend{cursor:pointer}
+.topo-param-box.has-trend:hover{border-color:#6bd9e6}
+.topo-param-box.status-normal .topo-box-dot{background:#30c798}
+.topo-param-box.status-warning .topo-box-dot{background:#f1bd59}
+.topo-param-box.status-critical .topo-box-dot{background:#f77983}
+.topo-param-box.status-normal .topo-rule-chip{background:#185343;color:#9df0c9}
+.topo-param-box.status-warning .topo-rule-chip{background:#65481c;color:#ffe2a0}
+.topo-param-box.status-critical .topo-rule-chip{background:#672f36;color:#ffc1c7}
+.topo-param-body{padding:6px 10px;display:flex;flex:1;flex-direction:column;gap:0;overflow:hidden}
+.topo-param-row{min-height:27px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #214156;font-size:12px}
+.topo-param-row:last-child{border:0}
+.topo-param-row>span{color:#9ac0d0;min-width:0;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;text-transform:capitalize}
+.topo-param-row strong{font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap;color:#e1f8f8}
+.topo-param-row small{font-size:10px;color:#a3d4dc}
+.topo-param-muted{font-size:11px;color:#96b6c5;padding:4px 0;line-height:1.45}
+.topology-page .topo-trend-trigger{margin:0 8px 7px;align-self:flex-end;border:0;background:none;color:#75d8e6;font-weight:700;font-size:10px;padding:2px 3px;cursor:pointer}
+.topo-trend-trigger span{font-size:13px}
+.topo-empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:440px;color:#bad2df;background:repeating-linear-gradient(0deg,transparent,transparent 29px,#103047 30px),repeating-linear-gradient(90deg,transparent,transparent 29px,#103047 30px);border:1px solid #28485e;border-radius:12px;padding:20px}
+.topo-empty-state h3{font-size:20px;color:#effbff;margin:16px 0 4px}
+.topo-empty-state p{font-size:12px;line-height:1.8;max-width:500px}
+.topo-timebar{padding:17px 26px 15px;background:#0c2839;border-top:1px solid #24475c}
+.topo-time-title{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:13px}
+.topo-time-title strong{font-size:15px;color:#e9fbff}
+.topo-time-title span{font-size:11px;color:#adcad6}
+.topo-time-title .topo-day-final{color:#72e6b7}
+.topo-time-title .topo-day-verified{color:#f6d28b}
+.topo-time-controls{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.topo-time-controls label{font-size:10px;color:#a0becc;display:flex;align-items:center;gap:9px;margin-right:9px}
+.topo-time-controls input[type=date]{max-width:164px}
+.topology-page .topo-play{background:#0d8590;border-color:#21a4af;color:white;font-weight:800}
+.topo-hour-slider{flex:1;min-width:135px;accent-color:#52cbd7;cursor:pointer}
+.topo-hour-output{font-size:15px;font-variant-numeric:tabular-nums;font-weight:800;color:#e8ffff;min-width:54px;text-align:right}
+.topo-ticks{display:flex;justify-content:space-between;font-size:10px;color:#7f9eb0;margin:9px 8px 0 226px}
+.topo-disclaimer{padding:12px 24px 16px;background:#0a1d2b;border-top:1px solid #1f3d50;font-size:11px;line-height:1.7;color:#9fbcca}
+.topo-modal-backdrop{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:18px;background:#02111dcc}
+.topo-trend-dialog{width:min(760px,96vw);max-height:90vh;overflow:auto;background:#0b2334;color:#e7f8ff;border:1px solid #467187;box-shadow:0 28px 80px #0009;border-radius:15px;padding:24px}
+.topo-dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:20px}
+.topo-dialog-head span{font-size:10px;letter-spacing:1px;font-weight:800;color:#5bc7d4}
+.topo-dialog-head h3{font-size:22px;margin:6px 0}
+.topo-dialog-head p{font-size:12px;color:#a1c5d5;margin:0}
+.topo-trend-dialog .topo-select-label{max-width:500px;margin-bottom:16px}
+.topo-trend-graph{height:310px;background:#102a3c;border:1px solid #345268;border-radius:10px;padding:12px 4px}
+.topo-chart-note,.topo-faint{font-size:12px;color:#a4c5d4;line-height:1.6}
+.topo-no-trend{height:100%;display:grid;place-content:center;font-size:12px;color:#aac8d3}
+@media(max-width:740px){.topo-header{padding:18px;flex-direction:column}.topo-header h2{font-size:20px}.topo-toolbar{padding:12px 18px}.topo-toolbar label{min-width:100%}.topo-main{padding:9px}.topo-timebar{padding:13px}.topo-ticks{margin-left:8px}.topo-time-controls label{flex-basis:100%}.topo-hour-slider{order:10;flex-basis:75%}.topo-hour-output{order:11}}
+/* V1.5.0 Stage 3 — isolated admin editor, no global styling changes. */
+.topo-admin-bar{padding:9px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;background:#112e40;border-bottom:1px solid #325166;font-size:11px;color:#b0cdd9;flex-wrap:wrap}
+.topo-admin-bar>div{display:flex;gap:8px;flex-wrap:wrap}
+.topology-page .topo-primary{background:#0a7e89;color:#f5ffff;border-color:#1c9eac;font-weight:750}
+.topology-page .topo-primary:hover:not(:disabled){background:#0896a0}
+.topo-create-form{padding:14px 20px;background:#0f2e42;display:flex;align-items:end;gap:10px;flex-wrap:wrap;border-bottom:1px solid #375b72}
+.topo-create-form>strong{width:100%;font-size:13px}
+.topo-create-form label,.topo-palette label,.topo-properties label{color:#a9c7d4;font-size:11px;font-weight:700;display:flex;flex-direction:column;gap:6px}
+.topo-create-form label{flex:1;min-width:220px}
+.topology-page .topo-create-form input,.topology-page .topo-editor input:not([type=checkbox]),.topology-page .topo-editor textarea{background:#173348;color:#f2fcff;border:1px solid #3b657a;border-radius:7px;padding:9px;min-height:38px;width:100%;font-size:12px}
+.topo-create-form>span{color:#ffc1bb;font-size:12px}
+.topo-editor{background:#0a1c2c;min-width:0}
+.topo-editor-header{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:#0e3041;border-bottom:1px solid #386076;padding:15px 18px}
+.topo-editor-header>div:first-child{display:flex;flex-direction:column;gap:4px}
+.topo-editor-header strong{font-size:15px;color:#e8fcff}
+.topo-editor-header span{font-size:11px;color:#9ec0ce}
+.topo-editor-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.topo-editor-actions.stack{margin-top:14px;display:flex;flex-direction:column;align-items:stretch}
+.topo-editor-layout{display:grid;grid-template-columns:215px minmax(0,1fr) 280px;min-height:570px}
+.topo-palette,.topo-properties{background:#10283b;padding:16px;overflow-y:auto;max-height:77vh;min-width:0;display:flex;flex-direction:column;gap:12px;border-color:#294c61}
+.topo-palette{border-right:1px solid #294c61}
+.topo-properties{border-left:1px solid #294c61}
+.topo-palette h3,.topo-properties h3{font-size:14px;color:#f0fbff;margin:0}
+.topo-palette hr{width:100%;border:0;border-top:1px solid #34566a;margin:2px 0}
+.topo-editor-canvas{min-width:0;padding:10px;background:#091b2c}
+.topo-editor-canvas .topo-scroll{max-height:73vh}
+.topo-editor-subtitle{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:10px;color:#95b4c3;padding:3px 8px 10px}
+.topo-editor-id{font-size:11px;color:#78c9d6;margin-top:-9px}
+.topo-palette .topo-faint,.topo-properties .topo-faint{margin:0;font-size:11px}
+.topo-property-heading{font-size:12px;font-weight:850;color:#bce5eb;margin:3px 0}
+.topo-selected-metrics{display:flex;flex-direction:column;gap:6px}
+.topo-selected-metrics>div{display:flex;align-items:center;gap:3px;background:#19394b;border:1px solid #3a5669;padding:5px;border-radius:7px}
+.topo-selected-metrics span{flex:1;font-size:11px;line-height:1.4;overflow-wrap:anywhere}
+.topo-selected-metrics button{min-width:25px;padding:4px 6px;font-size:12px}
+.topo-metric-options{display:flex;flex-direction:column;gap:4px;max-height:190px;overflow-y:auto;border:1px solid #31576b;padding:7px;border-radius:7px;background:#0b2436}
+.topo-properties .topo-check-row{flex-direction:row;align-items:start;gap:7px;font-weight:500;font-size:11px;line-height:1.4;cursor:pointer}
+.topo-check-row input[type=checkbox]{flex:0 0 auto;margin-top:2px;accent-color:#27aab9;width:14px;height:14px}
+.topo-check-row small{color:#87acbb}
+.topo-properties-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.topo-property-flags{display:flex;flex-direction:column;gap:10px;margin-top:3px}
+.topo-input-warning{font-size:11px;color:#ffce9e;margin:0}
+.topo-info{display:flex;align-items:center;gap:8px;background:#103e3e;color:#b4f4e8;border:1px solid #287f77;border-radius:7px;margin:9px 18px;padding:9px 12px;font-size:11px}
+.topology-page .topo-danger{border-color:#8e4e5a;background:#512b38;color:#ffd7d7}
+.topo-revision-list{display:flex;flex-direction:column;gap:6px;max-height:130px;overflow:auto}
+.topo-revision-list button{justify-content:space-between}
+.topo-revision-list small{font-size:10px;color:#82d6e4}
+.topo-no-actions{pointer-events:none}
+.topo-drag-hit{cursor:grab;touch-action:none;user-select:none}
+.topo-drag-hit:active{cursor:grabbing}
+.topo-locked-hit{cursor:pointer;touch-action:none}
+@media(max-width:1220px){.topo-editor-layout{grid-template-columns:200px minmax(0,1fr)}.topo-properties{grid-column:1/-1;border-left:0;border-top:1px solid #2d5066;max-height:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}.topo-properties>h3{grid-column:1/-1}.topo-properties .topo-metric-options{max-height:170px}}
+@media(max-width:780px){.topo-editor-layout{display:flex;flex-direction:column}.topo-palette,.topo-properties{max-height:none;border:0;border-bottom:1px solid #294c61}.topo-properties{display:flex}.topo-editor-header{padding:12px}.topo-palette{gap:9px}.topo-editor-canvas{padding:5px}}
+/* V1.5.0 Stage 4 — palette, author-drawn wires and informational cards. */
+.topo-palette-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.topo-palette-grid button{font-size:11px;justify-content:flex-start;text-align:left;min-height:35px;padding:7px 8px;line-height:1.3}
+.topo-palette-grid .is-active{border-color:#5ddadf;background:#185c65;color:#e6ffff;box-shadow:inset 0 0 0 1px #4fbfc6}
+.topo-palette button[draggable=true]{cursor:grab}
+.topo-palette button[draggable=true]:active{cursor:grabbing}
+.topo-placement-surface{cursor:crosshair;touch-action:none}
+.topo-wire-hit{cursor:pointer;pointer-events:stroke}
+.topo-vertex-hit{cursor:grab;touch-action:none;pointer-events:all}
+.topo-vertex-hit:active{cursor:grabbing}
+.topo-wire-toolbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:9px;background:#123448;border:1px solid #376177;border-radius:9px;margin-bottom:7px;font-size:11px}
+.topo-wire-toolbar label{display:flex;flex-direction:row;align-items:center;gap:6px;min-width:0}
+.topo-wire-toolbar select{max-width:190px;min-height:34px;padding:6px}
+.topo-wire-toolbar span{flex:1;color:#aac4d3}
+.topo-summary-count{font-size:10px;font-weight:700;color:#77d5e0;padding:2px 0 4px}
+.topo-sparkline{flex:0 0 44px;height:44px;padding:3px 10px;background:#102e3e;border-top:1px solid #274e60;display:flex;align-items:center}
+.topo-sparkline span{font-size:9px;color:#91b5c5}
+.topo-legend-body{display:flex;flex-direction:column;gap:7px;font-size:10px}
+.topo-legend-body>div{display:flex;align-items:center;gap:9px}
+.topo-legend-body small{color:#91b1c2;line-height:1.35;font-size:9px}
+.topo-legend-line{width:28px;height:0;border-top:3px solid #7d9fb0;display:inline-block;flex-shrink:0}
+.topo-legend-line.level-20kv{border-color:#43b8fa}
+
+/* V1.5.0 Stage 4.1: Topology owns the available workspace, not the global page margins. */
+.workspace-topology .content-topology{max-width:none;width:100%;padding:0;margin:0;min-height:0}
+.workspace-topology .topbar,.workspace-topology .footer{display:none}
+.workspace-topology .topology-page{border:0;border-radius:0;box-shadow:none;min-height:100dvh}
+.shell.topology-focus .sidebar{display:none}
+.shell.topology-focus .workspace{margin-left:0}
+.shell.topology-focus .mobile-backdrop{display:none}
+/* Viewer: make the canvas fill remaining screen height; keep WITA time control visible. */
+.topology-page:not(.is-editing){height:100dvh;min-height:640px;display:flex;flex-direction:column}
+.topology-page:not(.is-editing) .topo-main{flex:1;display:flex;flex-direction:column;min-height:0;padding:10px 12px}
+.topology-page:not(.is-editing) .topo-scroll{flex:1;max-height:none;min-height:0;width:100%}
+.topology-page:not(.is-editing) .topo-empty-state{flex:1;min-height:230px}
+.topology-page:not(.is-editing) .topo-timebar{flex-shrink:0;padding:10px 17px}
+.topology-page:not(.is-editing) .topo-time-title{margin-bottom:6px}
+.topology-page:not(.is-editing) .topo-disclaimer{flex-shrink:0;padding:5px 17px;font-size:10px}
+.topology-page:not(.is-editing) .topo-header{padding:13px 19px}
+.topology-page:not(.is-editing) .topo-toolbar{padding:9px 18px}
+.topology-page:not(.is-editing) .topo-admin-bar{padding:7px 18px}
+/* Editor: three resizable-by-viewport columns and independent, fully-height property scrolling. */
+.topology-page.is-editing{height:100dvh;min-height:640px;display:flex;flex-direction:column}
+.topology-page.is-editing .topo-editor{min-height:0;flex:1;display:flex;flex-direction:column}
+.topology-page.is-editing .topo-editor-header{padding:10px 14px;flex-shrink:0}
+.topology-page.is-editing .topo-editor-layout{flex:1;min-height:0;grid-template-columns:220px minmax(0,1fr) clamp(330px,23vw,410px)}
+.topology-page.is-editing .topo-palette,.topology-page.is-editing .topo-properties{max-height:none;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.topology-page.is-editing .topo-editor-canvas{min-height:0;display:flex;flex-direction:column;padding:7px}
+.topology-page.is-editing .topo-editor-canvas .topo-scroll{max-height:none;min-height:0;flex:1}
+.topology-page.is-editing .topo-timebar{flex-shrink:0;padding:8px 15px}
+.topology-page.is-editing .topo-time-title{margin-bottom:4px}
+.topology-page.is-editing .topo-disclaimer{flex-shrink:0;padding:5px 15px;font-size:10px}
+/* Parameter rows must remain legible even when equipment has dozens of metrics. */
+.topo-selected-metrics{max-height:175px;overflow-y:auto;min-height:0;scrollbar-color:#456a7b #132a3c;padding-right:3px}
+.topo-selected-metrics>div{min-height:36px;flex-shrink:0;padding:7px}
+.topo-selected-metrics>div span{min-width:0;white-space:normal;line-height:1.5}
+.topo-selected-metrics>div button{flex:0 0 29px;min-width:29px;min-height:29px}
+.topo-metric-options{max-height:270px;min-height:105px;flex-shrink:0;gap:7px;padding:9px;scrollbar-color:#456a7b #102538}
+.topo-metric-options .topo-check-row{min-height:36px;padding:6px 4px;align-items:center;word-break:break-word}
+.topo-param-search{margin-bottom:-6px}
+.topo-param-search input[type=search]{width:100%}
+.topology-page .topo-editor .topo-properties input[type=range]{appearance:auto;accent-color:#49cbd4;background:transparent;border:0;padding:0;min-height:20px;height:24px;width:100%;cursor:pointer}
+@media(max-width:1220px){
+ .topology-page.is-editing{height:auto;min-height:100dvh}
+ .topology-page.is-editing .topo-editor-layout{grid-template-columns:200px minmax(0,1fr)}
+ .topology-page.is-editing .topo-properties{grid-column:1/-1;display:flex;max-height:none;min-height:unset;overflow:visible}
+ .topology-page.is-editing .topo-editor-canvas .topo-scroll{min-height:420px;max-height:70dvh}
+}
+@media(max-width:780px){
+ .topology-page.is-editing .topo-editor-layout{display:flex;flex-direction:column}
+ .topology-page:not(.is-editing){height:auto;min-height:100dvh}
+ .topology-page:not(.is-editing) .topo-scroll{min-height:350px;height:60dvh;flex:unset}
+ .topology-page.is-editing .topo-palette,.topology-page.is-editing .topo-properties{overflow:visible}
+}
+
+.topo-editor-zoom{min-width:42px;text-align:center;font-size:12px;color:#d6edf4;font-weight:750}
+
+/* Stage 4.2: compact monitoring bar, preserving all controls and WITA history. */
+.topo-sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.topo-compact-toolbar{display:flex;align-items:center;gap:12px;justify-content:space-between;padding:7px 13px;background:#0d2838;border-bottom:1px solid #315266;flex-shrink:0;min-width:0}
+.topo-compact-title{display:flex;align-items:center;gap:7px;flex-shrink:0;color:#e6fbff;min-width:0}
+.topo-compact-title strong{font-size:14px;white-space:nowrap}
+.topo-info-tooltip{display:flex;align-items:center;color:#8eb2c1;cursor:help}
+.topo-compact-diagram{flex:0 1 230px;min-width:100px}
+.topology-page .topo-compact-diagram select{width:100%;min-height:30px;height:32px;padding:5px 8px;font-size:11px}
+.topo-compact-actions{display:flex;align-items:center;gap:5px;flex-wrap:nowrap;min-width:0}
+.topology-page .topo-compact-actions button{padding:6px 8px;min-height:30px;font-size:11px;white-space:nowrap}
+.topo-compact-actions .topo-zoom button{min-height:28px;min-width:28px}
+.topo-compact-actions .topo-zoom span{padding:0 6px;min-width:48px}
+.topology-page:not(.is-editing) .topo-main{padding:5px 8px;min-height:0}
+.topo-canvas-meta{margin-bottom:5px!important;align-items:center;font-size:10px}
+.topo-canvas-meta>div{gap:2px;flex-direction:row;align-items:center}
+.topo-canvas-meta strong{font-size:12px}
+.topo-canvas-meta>div>span{font-size:10px;color:#8eabb9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:45vw}
+.topology-page .topo-time-compact{padding:6px 12px!important;flex-shrink:0}
+.topo-time-compact .topo-time-controls{gap:6px;flex-wrap:nowrap;min-height:30px}
+.topo-time-compact .topo-date-label{margin-right:0}
+.topology-page .topo-time-compact input[type=date]{max-width:136px;min-height:30px;padding:4px 5px;font-size:11px}
+.topology-page .topo-time-compact button{padding:5px 7px;min-height:30px}
+.topo-time-compact .topo-hour-slider{min-width:80px;flex:1}
+.topo-time-compact .topo-hour-output{font-size:12px;min-width:74px}
+.topo-compact-day{color:#a1c0cd;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;font-size:10px}
+.topo-compact-day.topo-day-final{color:#71e5b5}
+.topo-compact-day.topo-day-verified{color:#f6d28b}
+.topology-page .topo-disclaimer.topo-sr-only{padding:0!important;border:0!important}
+.topology-page.is-editing .topo-editor-header{padding:5px 10px;min-height:45px}
+.topo-editor-header>div:first-child span{display:none}
+.topology-page.is-editing .topo-time-compact{padding:5px 10px!important}
+.topo-editor-actions{gap:4px}
+.topology-page .topo-editor-actions button{padding:6px 8px;min-height:30px;font-size:11px}
+.topology-page .topo-editor-canvas{padding:4px}
+.topology-page .topo-editor-subtitle{padding:2px 5px 4px;font-size:10px}
+.topo-canvas-settings{display:flex;flex-direction:column;gap:6px;border:1px solid #294e62;border-radius:8px;padding:9px;background:#0d2435}
+.topo-canvas-settings .topo-properties-grid{gap:5px}
+.topo-canvas-settings .topo-faint{font-size:10px}
+.topo-area-resize{cursor:nwse-resize;touch-action:none}
+/* Parameter selection is explicit; every mini chart says which metric it shows. */
+.topology-page .topo-param-row{width:100%;min-height:27px;display:flex;align-items:center;justify-content:space-between;gap:8px;
+ border:0;border-bottom:1px solid #214156;border-radius:0;background:transparent!important;color:#dff5fb;
+ text-align:left;padding:2px 1px;font-size:12px;cursor:pointer;flex-shrink:0}
+.topology-page .topo-param-row:hover{background:#194358!important}
+.topology-page .topo-param-row.is-trend-selected>span{color:#86e6eb}
+.topo-param-row>span{color:#a1c3d1;min-width:0;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;text-transform:capitalize;flex:1}
+.topo-param-row strong{font-size:12px;flex:0 0 auto;white-space:nowrap;font-variant-numeric:tabular-nums}
+.topo-param-row small{font-size:10px;color:#a3d4dc}
+.topo-param-box .topo-param-body{min-height:0}
+.topo-param-box .topo-sparkline{flex:0 0 64px;height:64px;display:flex;flex-direction:column;gap:1px;padding:4px 8px}
+.topo-spark-caption{width:100%;display:flex;align-items:center;justify-content:space-between;gap:6px;color:#9cc7d4;font-size:10px}
+.topo-spark-caption>span{max-width:85%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topo-spark-caption small{flex:0 0 auto;color:#6dbfcf;font-size:9px}
+.topo-trend-options{display:flex;align-items:end;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+.topo-trend-options .topo-select-label{margin-bottom:0;flex:1}
+.topo-trend-compare{display:flex;align-items:center;gap:8px;font-size:12px;color:#d6edf4;padding-bottom:10px;white-space:nowrap;cursor:pointer}
+.topo-trend-compare input{accent-color:#45c5cc}
+@media(max-width:1120px){.topo-compact-toolbar{gap:6px;flex-wrap:wrap}.topo-compact-title{flex:1}.topo-compact-diagram{flex:1 1 150px}.topo-compact-actions{flex:1 1 100%;justify-content:flex-end}.topology-page .topo-editor-layout{grid-template-columns:190px minmax(0,1fr) 305px}}
+@media(max-width:780px){.topo-compact-actions{overflow-x:auto;justify-content:flex-start}.topo-action-label{display:none}.topo-compact-title strong{font-size:13px}.topo-time-compact .topo-time-controls{flex-wrap:wrap}.topo-time-compact .topo-hour-slider{order:10;flex-basis:60%}.topo-time-compact .topo-hour-output{order:11}.topo-time-compact .topo-date-label{flex-basis:auto}}
+/* Stage 6: navigation only. Nothing below depicts physical connectivity. */
+.topo-linked-symbol{cursor:pointer}.topo-linked-symbol:focus-visible{outline:3px solid #a0d9ed;outline-offset:5px}
+.topo-link-editor{display:grid;gap:8px;padding:12px 0;border-top:1px solid #304f60}
+.topo-nav-breadcrumb{display:flex;flex-wrap:wrap;align-items:center;gap:9px;padding:10px}
+.topo-nav-breadcrumb button,.topo-hierarchy button{border:1px solid #79a8c3;border-radius:7px;padding:5px 9px;cursor:pointer}
+.topo-hierarchy{padding:14px;border:1px solid #28516a;border-radius:9px;display:grid;gap:8px}
+.topo-hierarchy-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.topo-hierarchy-row span{min-width:170px}.topo-hierarchy-row small{opacity:.7}

@@ -1,0 +1,16 @@
+import type {Asset,Metric} from '../../api';
+import type {TopologyLayout} from './types';
+export const EMPTY_LAYOUT:TopologyLayout;
+export function clone<T>(value:T):T;
+export function nearest(value:number,grid:number):number;
+export function boxHeight(box:{metric_codes:string[]}):number;
+export function place(layout:TopologyLayout,id:string,type:'symbol'|'box',x:number,y:number):TopologyLayout;
+export function updateBox(layout:TopologyLayout,id:string,patch:Record<string,unknown>):TopologyLayout;
+export function newId(layout:TopologyLayout,prefix:string):string;
+export function addMetricBox(layout:TopologyLayout,options:{asset_code:string|null;metric_code:string;title?:string}):TopologyLayout|null;
+export function duplicateBox(layout:TopologyLayout,id:string):TopologyLayout|null;
+export function removeBox(layout:TopologyLayout,id:string):TopologyLayout;
+export function assetDraft(layout:TopologyLayout,assets:Asset[]):{layout:TopologyLayout;added:number;skipped:number};
+export function validEditorMetric(metric:Metric,assetCode:string|null,assets:Asset[]):boolean;
+export function rebindBox(layout:TopologyLayout,id:string,assetCode:string|null,allowedCodes:string[]):TopologyLayout;
+export function applySameKind(layout:TopologyLayout,sourceId:string,assets:Asset[],metrics:Metric[]):{layout:TopologyLayout;added:number;skipped:number};

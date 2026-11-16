@@ -1,0 +1,28 @@
+BerauLoad V1.6.0 Stage 7 Hotfix 1 — daftar file baru/diubah
+
+KODE & DEPLOYMENT
+- deploy/loadtest/runner.py (skenario, dua jalur, laporan dan verdict)
+- deploy/loadtest/fixture.py (fixture 60 parameter, 20 writer, 60 reader, data role/history/diagram)
+- deploy/loadtest/README.md (panduan aman instans PostgreSQL staging dan SQLite)
+- backend/tests/test_loadtest_runner.py (BARU; 5 tes dua jalur, 4xx dan payload)
+- frontend/nginx.conf (kutip regex asset hashed yang sebelumnya gagal parse)
+- deploy/smoke-test.sh (hanya executable bit 0644 -> 0755, isi sama)
+
+METADATA VERSI
+- VERSION
+- backend/app/main.py (hanya app.version dan /api/health.version)
+- frontend/package.json (hanya version)
+
+DOKUMENTASI
+- README.md
+- ARSITEKTUR.md
+- PANDUAN_PENGGUNA.md
+- CHANGELOG.md
+- QA_STATUS.md
+- QA_STATUS_STAGE7_HOTFIX1.md (BARU)
+- README_UPGRADE_V1_6_0_STAGE7_HOTFIX1.md (BARU)
+- DAFTAR_FILE_V1_6_0_STAGE7_HOTFIX1.txt (BARU)
+
+Tidak ada perubahan aturan bisnis, API, schema_migrations, database, atau kode
+frontend UI. README/QA memisahkan pengujian HTTP SQLite dari PostgreSQL 16
+sebenarnya. npm/Vite belum lulus di QA karena DNS EAI_AGAIN.

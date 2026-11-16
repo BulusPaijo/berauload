@@ -1,0 +1,16 @@
+import type {TopologyLayout,SymbolType,BoxKind,WireLevel} from './types';
+export const SYMBOL_TYPES:SymbolType[];
+export const BOX_TYPES:BoxKind[];
+export const LEVELS:WireLevel[];
+export function addSymbol(layout:TopologyLayout,type:SymbolType,x:number,y:number):TopologyLayout|null;
+export function patchSymbol(layout:TopologyLayout,id:string,patch:Partial<{label:string;asset_code:string|null;rotation:number;type:SymbolType;x:number;y:number;w:number}>):TopologyLayout;
+export function removeSymbol(layout:TopologyLayout,id:string):TopologyLayout;
+export function normalPoint(layout:TopologyLayout,x:number,y:number):[number,number];
+export function validPolyline(points:[number,number][]):boolean;
+export function addWire(layout:TopologyLayout,points:[number,number][],level?:WireLevel):TopologyLayout|null;
+export function removeWire(layout:TopologyLayout,id:string):TopologyLayout;
+export function changeWireLevel(layout:TopologyLayout,id:string,level:WireLevel):TopologyLayout;
+export function moveWirePoint(layout:TopologyLayout,id:string,index:number,x:number,y:number):TopologyLayout;
+export function addWireVertex(layout:TopologyLayout,id:string,index:number):TopologyLayout;
+export function removeWireVertex(layout:TopologyLayout,id:string,index:number):TopologyLayout;
+export function addDisplayBox(layout:TopologyLayout,kind:BoxKind,metricCode?:string|null):TopologyLayout|null;

@@ -1,0 +1,16 @@
+Hotfix dari BerauLoad V1.6.0 Stage 5 Full Source.
+File kode yang diubah:
+- backend/app/modules/template_import/service.py
+- backend/tests/test_stage5_template_import_recalculation.py (baru)
+Metadata/dokumen diperbarui:
+- backend/app/main.py (metadata versi saja)
+- frontend/package.json (metadata versi saja)
+- VERSION
+- README.md
+- ARSITEKTUR.md
+- CHANGELOG.md
+- PANDUAN_PENGGUNA.md
+- QA_STATUS.md
+- README_UPGRADE_V1_6_0_STAGE5_HOTFIX1.md (baru)
+- DAFTAR_FILE_V1_6_0_STAGE5_HOTFIX1.txt (baru)
+Tidak ada perubahan lain, migrasi, aturan bisnis, atau dependensi.
