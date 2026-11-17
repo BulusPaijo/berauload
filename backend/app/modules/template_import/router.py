@@ -14,6 +14,7 @@ from sqlalchemy.exc import IntegrityError
 from ...db import get_db, User, ImportBatch
 from ...security import current_user, require
 from ..org_units.context import UnitContext, unit_context, require_action
+from ..branding.service import current as branding_current, slug as brand_slug
 from . import repository
 from .migrations import run as migrate
 from .service import plan, write, MODES
@@ -96,7 +97,7 @@ def template(start: date, end: date, tabs: str | None = None,
         path = build(db, unit.id, unit, start, end, names)
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
-    filename = f'BerauLoad_Template_{unit.code}_{start}_{end}.xlsx'
+    filename = f'{brand_slug(branding_current(db)["app_short_name"])}_Template_{unit.code}_{start}_{end}.xlsx'
     return StreamingResponse(_stream_file(path), media_type=(
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
         headers={'Content-Disposition': f'attachment; filename="{filename}"'})

@@ -7,9 +7,10 @@ from openpyxl import Workbook
 from openpyxl.cell import WriteOnlyCell
 from openpyxl.styles import Font, PatternFill
 from .service import safe_spreadsheet_text
+from ..branding.service import sheet_title
 
 
-def render_file(headings, rows, fmt):
+def render_file(headings, rows, fmt, branding=None):
     fd, path = tempfile.mkstemp(prefix='berauload_export_', suffix='.' + fmt)
     os.close(fd)
     try:
@@ -21,7 +22,7 @@ def render_file(headings, rows, fmt):
                     writer.writerow([safe_spreadsheet_text(x) if x is not None else '' for x in row])
         else:
             wb = Workbook(write_only=True)
-            ws = wb.create_sheet('Data BerauLoad')
+            ws = wb.create_sheet(sheet_title(branding['app_short_name'] if branding else 'BerauLoad'))
             ws.freeze_panes = 'B2'
             titles = []
             for heading in headings:

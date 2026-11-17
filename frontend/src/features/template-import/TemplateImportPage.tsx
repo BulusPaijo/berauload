@@ -1,3 +1,5 @@
+import {useBranding} from '../branding/BrandingContext';
+import {safeBrandSlug} from '../branding/branding.mjs';
 import {useEffect,useState} from 'react';
 import {api,apiFetch,isoWita,csrf} from '../../api';
 import './template-import.css';
@@ -32,6 +34,7 @@ async function previewFile(file:File,mode:string):Promise<Preview>{
 }
 
 export default function TemplateImportPage(){
+ const {branding}=useBranding();
   const [config,setConfig]=useState<Configuration|null>(null);
   const [selected,setSelected]=useState<string[]>([]);
   const [start,setStart]=useState(isoWita());
@@ -55,7 +58,7 @@ export default function TemplateImportPage(){
       if(!r.ok){const body=await r.json().catch(()=>({}));throw new Error(body.detail||`HTTP ${r.status}`)}
       const blob=await r.blob();const url=URL.createObjectURL(blob);
       const a=document.createElement('a');a.href=url;
-      a.download=`BerauLoad_Template_${config?.unit.code}_${start}_${end}.xlsx`;
+      a.download=`${safeBrandSlug(branding.app_short_name)}_Template_${config?.unit.code}_${start}_${end}.xlsx`;
       a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);
       setStatus('Template berhasil diunduh. Isi sel kuning pada Excel lalu unggah kembali.');
     }catch(e){setErrors([String(e instanceof Error?e.message:e)])}
@@ -80,7 +83,7 @@ export default function TemplateImportPage(){
   }
   return <div className="template-import page-space">
     <div className="page-top"><div><div className="eyebrow">IMPORT PER JAM · WITA</div>
-      <h2>Template BerauLoad</h2><p>Unduh template berdasarkan form input aktif, isi, lalu periksa sebelum menyimpan.</p>
+      <h2>Template {branding.app_short_name}</h2><p>Unduh template berdasarkan form input aktif, isi, lalu periksa sebelum menyimpan.</p>
     </div></div>
     {config&&<div className="template-panel"><h3>1. Unduh template</h3>
       <p>Unit tujuan: <strong>{config.unit.name}</strong> ({config.unit.code}). Belum ada pemilih unit pada tahap ini.</p>
@@ -121,7 +124,7 @@ export default function TemplateImportPage(){
     <div className="template-panel"><h3>Riwayat Import (Semua Jenis)</h3>
       <div className="scroll-table"><table><thead><tr><th>Waktu</th><th>Jenis</th><th>File</th><th>Periode awal</th><th>Nilai baru</th></tr></thead>
         <tbody>{history.map(r=><tr key={r.id}><td>{r.created_at?.slice(0,19).replace('T',' ')}</td>
-          <td>{r.kind==='template'?'Template BerauLoad':'Laporan lama'}</td>
+          <td>{r.kind==='template'?'Template {branding.app_short_name}':'Laporan lama'}</td>
           <td>{r.filename}</td><td>{r.year}-{String(r.month).padStart(2,'0')}</td>
           <td>{r.readings_created}</td></tr>)}</tbody></table></div>
     </div>

@@ -13,6 +13,7 @@ from ...db import AuditLog, Metric, User, get_db
 from ...security import current_user
 from .models import ExportTemplate
 from .renderer import render_file
+from ..branding.service import current as branding_current, slug as brand_slug
 from .service import export_rows, headers, validate_spec
 
 router = APIRouter(prefix='/api/data-export', tags=['Custom Data Export'], dependencies=[Depends(unit_context('read'))])
@@ -158,14 +159,15 @@ def download(body: ExportRequest, u: User = Depends(current_user),
              db: Session = Depends(get_db), ctx:UnitContext=Depends(unit_context('read'))):
     spec = body.model_dump(exclude={'start', 'end'})
     metrics, units = validate_spec(db, spec, body.start, body.end,ctx.id)
+    brand = branding_current(db)
     path = render_file(headers(spec, metrics),
-                       export_rows(db, spec, body.start, body.end, metrics, units,ctx.id), body.format)
+                       export_rows(db, spec, body.start, body.end, metrics, units,ctx.id), body.format, brand)
     db.add(AuditLog(user_id=u.id, unit_id=ctx.id, action='data_custom_export', target='readings',
                     detail={'start': str(body.start), 'end': str(body.end),
                             'format': body.format, 'columns': spec['columns']}))
     db.commit()
     suffix = body.format
-    return FileResponse(path, filename=f'BerauLoad_{body.start}_{body.end}.{suffix}',
+    return FileResponse(path, filename=f'{brand_slug(brand["app_short_name"])}_{body.start}_{body.end}.{suffix}',
                         media_type=('text/csv; charset=utf-8' if suffix == 'csv' else
                                     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
                         background=BackgroundTask(Path(path).unlink, missing_ok=True))

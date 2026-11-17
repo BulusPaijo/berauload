@@ -113,7 +113,7 @@ async def writer(base_url, user, password, stats, end, i, fixtures, transport=No
     try:
         await asyncio.sleep(i * .12)
         hour = cycle = 0
-        while time.monotonic() < end:
+        while hour == 0 or time.monotonic() < end:
             h = hour % 8
             values = {code: float(h * 100 + i + j + cycle / 100)
                       for j, code in enumerate(user['codes'])}
@@ -131,7 +131,9 @@ async def reader(base_url, user, password, stats, end, i, fixtures, transport=No
     client = await actor_client(base_url, user, password, transport)
     try:
         await asyncio.sleep(i * .05)
-        while time.monotonic() < end:
+        cycles = 0
+        while cycles == 0 or time.monotonic() < end:
+            cycles += 1
             for label, path in endpoints(user, fixtures):
                 response = await measured(client, label, 'GET', path, stats)
                 check_reader_payload(label, response, stats)
@@ -194,19 +196,24 @@ async def readback(base_url, fixtures, stats, writers, transport=None):
     return mismatch
 
 
-def verdict(stats, mismatch, collision, put_ms, dashboard_ms):
+def verdict(stats, mismatch, collision, put_ms, dashboard_ms, logic_only=False):
     checks = {
         'no_unexpected_HTTP_or_network': not stats.unexpected,
         'no_bad_reader_payload': not stats.semantic_errors,
         'no_5xx': not any(int(status) >= 500 for counts in stats.statuses.values()
                           for status in counts if status.isdecimal()),
-        'PUT_p95_limit': stats.percentile('PUT records', .95) is not None and
-                          stats.percentile('PUT records', .95) < put_ms,
-        'dashboard_p95_limit': stats.percentile('GET dashboard', .95) is not None and
-                                stats.percentile('GET dashboard', .95) < dashboard_ms,
+        'PUT_has_samples': bool(stats.latency.get('PUT records')),
+        'dashboard_has_samples': bool(stats.latency.get('GET dashboard')),
         'no_lost_updates': mismatch == 0,
         'collision_safe': collision,
     }
+    if not logic_only:
+        checks['PUT_p95_limit'] = stats.percentile('PUT records', .95) is not None and \
+                                 stats.percentile('PUT records', .95) < put_ms
+        checks['dashboard_p95_limit'] = stats.percentile('GET dashboard', .95) is not None and \
+                                       stats.percentile('GET dashboard', .95) < dashboard_ms
+    else:
+        print('LOGIC-ONLY: p95 performance limits not evaluated')
     print('Acceptance checks (test instance only):')
     for name, passed in checks.items():
         print(f'  {name}: {"LULUS" if passed else "GAGAL"}')
@@ -215,7 +222,7 @@ def verdict(stats, mismatch, collision, put_ms, dashboard_ms):
 
 
 async def run(base_url, fixtures, duration, writers, readers, exports, transport=None,
-              put_ms=1000, dashboard_ms=2000):
+              put_ms=1000, dashboard_ms=2000, logic_only=False):
     if len(fixtures['writers']) < writers or len(fixtures['readers']) < readers:
         raise ValueError('Fixture tidak cukup untuk jumlah pengguna yang diminta')
     stats = Stats(); end = time.monotonic() + duration
@@ -234,7 +241,7 @@ async def run(base_url, fixtures, duration, writers, readers, exports, transport
     print('Lost / mismatched values:', mismatch)
     print('Disjoint writes and expected stale-base 409:', collision)
     stats.report()
-    passed = verdict(stats, mismatch, collision, put_ms, dashboard_ms)
+    passed = verdict(stats, mismatch, collision, put_ms, dashboard_ms, logic_only)
     if transport is not None:
         print('SQLITE LOGIC TEST — NOT A POSTGRESQL CAPACITY BENCHMARK')
     if not passed:
@@ -254,6 +261,8 @@ def arguments():
     p.add_argument('--dashboard-p95-ms', type=float, default=2000)
     p.add_argument('--confirm-isolated', action='store_true')
     p.add_argument('--asgi-sqlite', action='store_true')
+    p.add_argument('--logic-only', action='store_true',
+                   help='Check functional correctness without enforcing capacity p95 SLAs')
     args = p.parse_args()
     if not args.confirm_isolated:
         raise SystemExit('Requires explicit --confirm-isolated')
@@ -286,7 +295,8 @@ async def main():
             if response.json().get('test_instance') is not True:
                 raise SystemExit('Refusing unmarked instance; BERAULOAD_TEST_INSTANCE not true')
     await run(args.base_url, fixtures, args.duration, args.writers, args.readers,
-              args.exports, transport, args.put_p95_ms, args.dashboard_p95_ms)
+              args.exports, transport, args.put_p95_ms, args.dashboard_p95_ms,
+              args.logic_only)
 
 
 if __name__ == '__main__':

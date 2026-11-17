@@ -13,6 +13,7 @@ from .models import ReportTemplate
 from .schemas import ReportCreate, ReportUpdate, ReportPreview
 from .service import MAX_TEMPLATES, validate_blocks, render_blocks
 from .renderers import render_pdf, render_xlsx
+from ..branding.service import current as branding_current, slug as brand_slug
 
 router = APIRouter(prefix='/api/report-builder', tags=['Report Builder'], dependencies=[Depends(unit_context('read'))])
 
@@ -127,8 +128,9 @@ def download_report(template_id: int, start: date, end: date, format: str = 'pdf
     if format not in {'pdf', 'xlsx'}:
         raise HTTPException(422, 'Format didukung: pdf, xlsx')
     content = render_blocks(db, item.blocks, start, end, ctx.id)
-    data = render_pdf(item.name, content) if format == 'pdf' else render_xlsx(item.name, content)
+    brand = branding_current(db)
+    data = render_pdf(item.name, content, brand) if format == 'pdf' else render_xlsx(item.name, content, brand)
     mime = 'application/pdf' if format == 'pdf' else 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     return StreamingResponse(BytesIO(data), media_type=mime, headers={
-        'Content-Disposition': f'attachment; filename="BerauLoad_Report_{item.id}_{start}.{format}"',
+        'Content-Disposition': f'attachment; filename="{brand_slug(brand["app_short_name"])}_Report_{item.id}_{start}.{format}"',
         'Cache-Control': 'no-store'})

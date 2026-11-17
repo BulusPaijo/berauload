@@ -17,6 +17,8 @@ from .catalog import ASSETS, METRICS, CODE_MAP, calculate
 from .importer import parse_load_excel, MAX_FILE_BYTES
 from .security import (hash_password, password_ok, rate_limit, new_session, resolve_session,
                        current_user, require, COOKIE_NAME, SECURE_COOKIE, clear_attempts, cleanup_sessions, set_session_cookie)
+from .modules.branding.router import router as branding_router
+from .modules.branding.migrations import run as run_branding_migration
 from .modules.sessions.migrations import run as run_session_migration
 from .modules.sessions.models import LoginAttempt
 from .modules.completeness.router import router as completeness_router
@@ -91,7 +93,8 @@ async def app_lifespan(_app):
     setup()
     yield
 
-app=FastAPI(title='BerauLoad',version='1.6.0-stage7-hotfix1',docs_url=None,redoc_url=None,lifespan=app_lifespan)
+app=FastAPI(title='BerauLoad',version='1.6.0-stage8',docs_url=None,redoc_url=None,lifespan=app_lifespan)
+app.include_router(branding_router)
 app.include_router(formula_router)
 app.include_router(monitoring_router)
 app.include_router(chart_settings_router)
@@ -130,11 +133,12 @@ def audit(db, u, action, target=None, detail=None):
 def setup():
     precreate_org_units(engine)
     legacy_tables=[t for t in Base.metadata.tables.values()
-                   if t.name not in ('formula_definitions','schema_migrations','dashboard_chart_settings','historical_definitions', 'historical_revisions', 'engineering_rules', 'engineering_rule_revisions', 'dashboard_layouts', 'equipment_kinds', 'input_form_tabs', 'input_form_placements', 'input_form_revision', 'unit_definitions', 'export_templates', 'dashboard_revisions', 'dashboard_shares', 'report_templates', 'standard_report_selections', 'topology_diagrams', 'topology_revisions', 'org_units', 'unit_day_states', 'user_unit_access', 'unit_source_changes', 'login_attempts')]
+                   if t.name not in ('formula_definitions','schema_migrations','dashboard_chart_settings','historical_definitions', 'historical_revisions', 'engineering_rules', 'engineering_rule_revisions', 'dashboard_layouts', 'equipment_kinds', 'input_form_tabs', 'input_form_placements', 'input_form_revision', 'unit_definitions', 'export_templates', 'dashboard_revisions', 'dashboard_shares', 'report_templates', 'standard_report_selections', 'topology_diagrams', 'topology_revisions', 'org_units', 'unit_day_states', 'user_unit_access', 'unit_source_changes', 'login_attempts', 'app_branding')]
     Base.metadata.create_all(bind=engine,tables=legacy_tables)
     ensure_config_schema(engine)
     run_migrations(engine)
     run_session_migration(engine)
+    run_branding_migration(engine)
     run_chart_migration(engine)
     run_historical_revision_migration(engine)
     run_engineering_migration(engine)
@@ -180,7 +184,7 @@ def setup():
 def health(db:Session=Depends(get_db)):
     try:db.execute(text('SELECT 1'))
     except Exception:raise HTTPException(503,'Database tidak dapat dihubungi')
-    return {'status':'ok','app':'BerauLoad','version':'1.6.0-stage7-hotfix1','test_instance':os.getenv('BERAULOAD_TEST_INSTANCE','false').lower()=='true'}
+    return {'status':'ok','app':'BerauLoad','version':'1.6.0-stage8','test_instance':os.getenv('BERAULOAD_TEST_INSTANCE','false').lower()=='true'}
 
 class LoginBody(BaseModel):
     username:str=Field(min_length=2,max_length=70)

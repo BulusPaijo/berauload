@@ -1,3 +1,7 @@
+### Stage 8 — Branding global yang dapat diatur
+
+Versi terbaru `1.6.0-stage8`: Pengaturan → Branding (admin) mengubah nama tampilan, logo, favicon, warna, teks login, header/footer laporan dan unduhan tanpa rebuild setelah perubahan setting. Identitas teknis BerauLoad, format template Excel/JSON, kunci localStorage/cookie, database serta Compose **tetap**. Lihat `README_UPGRADE_V1_6_0_STAGE8.md` dan `QA_STATUS_STAGE8.md` sebelum pemasangan staging/produksi.
+
 ## BerauLoad 1.6.0-stage7-hotfix1 — Hotfix alat uji beban dan Nginx (16 November 2026)
 
 Hotfix terbatas `deploy/loadtest`: runner mendukung dua jalur, skenario pembaca memakai endpoint sebenarnya, fixture memberi role system.load/capacity serta data/diagram sintetis, dan laporan menegakkan kriteria LULUS/GAGAL. `frontend/nginx.conf` diperbaiki dengan tanda kutip pada regex cache aset; `deploy/smoke-test.sh` executable. Perubahan backend/UI hanya **metadata versi**, tanpa migrasi, logika kelistrikan, atau izin. PostgreSQL 16/20+60 pengguna belum diuji di lingkungan build; `npm install` gagal DNS `EAI_AGAIN`, `npm run build` belum lulus. Lihat `README_UPGRADE_V1_6_0_STAGE7_HOTFIX1.md`, `deploy/loadtest/README.md`, `QA_STATUS_STAGE7_HOTFIX1.md`.

@@ -29,7 +29,7 @@ membuat hasil GAGAL; payload kosong/`configured:false` juga gagal.
 ```bash
 PYTHONPATH=backend:. python3 -m deploy.loadtest.runner \
   --confirm-isolated --asgi-sqlite --fixture /tmp/ignored.json \
-  --duration 8 --writers 2 --readers 2 --exports 1
+  --duration 8 --writers 2 --readers 2 --exports 1 --logic-only
 ```
 
 Tidak membutuhkan PostgreSQL. Hasil p95 SQLite bukan SLA produksi.
@@ -98,3 +98,15 @@ loopback acak, dengan database SQLite dan fixture baru, lalu memanggil CLI **tan
 `--asgi-sqlite`**. Tes ini menangkap bug `UnboundLocalError: Path` dan memvalidasi
 jalur HTTP (auth, marker, seluruh endpoint, write readback, konflik). Ini tetap
 bukan pengganti pengujian PostgreSQL 16 di LXC.
+
+## Pemisahan smoke test dan pengujian kapasitas
+
+`--logic-only` hanya untuk uji logika singkat SQLite/HTTP staging: semua endpoint
+wajib memiliki sampel, tidak boleh ada HTTP/network error atau payload invalid,
+serta data akhir dan konflik harus benar. Ambang p95 **tidak dinilai** pada mode
+ini, karena waktu SQLite di CI bukan representasi kapasitas PostgreSQL.
+
+Tanpa `--logic-only`, batas p95 PUT dan dashboard tetap wajib, dan pengujian
+kapasitas 300 detik terhadap PostgreSQL staging tetap memakai aturan semula.
+Setiap pembaca dan penulis kini menyelesaikan minimal satu siklus, sehingga
+durasi singkat tidak menghasilkan sampel kosong secara diam-diam.

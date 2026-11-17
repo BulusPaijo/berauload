@@ -7,6 +7,8 @@ import {SourceStatusSummary} from '../unit-references/SourceStatus';
 import UnitMetricOptions from '../unit-references/UnitMetricOptions';
 import {newBlock,type ReportBlock,type ReportKind,type ReportResult,type ReportTemplate} from './types';
 import './report-builder.css';
+import {useBranding} from '../branding/BrandingContext';
+import {safeBrandSlug} from '../branding/branding.mjs';
 
 const kinds:[ReportKind,string][]=[['heading','Judul Bagian'],['text','Paragraf'],['stat','KPI'],['chart','Grafik'],['table','Tabel']];
 const errorText=(e:unknown)=>e instanceof Error?e.message:String(e);
@@ -35,6 +37,7 @@ function ReportBlockPreview({block}:{block:ReportResult['blocks'][number]}){
 }
 
 export default function ReportBuilder({catalog,user}:{catalog:Catalog;user:User}){
+ const {branding}=useBranding();
   const [templates,setTemplates]=useState<ReportTemplate[]>([]);
   const [draft,setDraft]=useState<ReportTemplate|null>(null);
   const [dirty,setDirty]=useState(false);
@@ -90,7 +93,7 @@ export default function ReportBuilder({catalog,user}:{catalog:Catalog;user:User}
   }
   const download=async(format:'pdf'|'xlsx')=>{
     if(!draft?.id||dirty){setError('Simpan template terlebih dahulu sebelum ekspor.');return;}
-    try{await downloadApi(`/report-builder/${draft.id}/download?${qs({start,end,format})}`,`BerauLoad_Laporan_${start}_${end}.${format}`)}
+    try{await downloadApi(`/report-builder/${draft.id}/download?${qs({start,end,format})}`,`${safeBrandSlug(branding.app_short_name)}_Laporan_${start}_${end}.${format}`)}
     catch(e){setError(errorText(e))}
   };
   return <div className="report-builder page-space">

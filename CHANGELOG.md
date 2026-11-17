@@ -1,3 +1,10 @@
+## V1.6.0 Stage 8 — Branding dapat diatur (2026-11-17)
+
+- Modul baru `modules/branding` berisi default authoritative, tabel global `app_branding` ber-ID 1, migrasi aditif/idempotent `20261117_16_stage8_branding`, validasi CSRF/admin, audit, publik GET/ETag/cache, unggahan aman melalui Pillow, dan reset.
+- UI `features/branding`: context sebelum login dan cache public localStorage aman, judul/icon/theme/meta, logo login/sidebar dan fallback, form admin dengan preview, sanitasi warna kontras, upload/hapus/reset.
+- Identitas tampilan dipakai pada kop PDF dan output Excel, nama file unduhan, nama template/help/sidebar/footer, tanpa mengubah penanda teknis `BerauLoad`, kunci format/import, database/Compose/cookie.
+- Migrasi tidak memodifikasi pembacaan, status, formula, hak unit, atau dashboard lama. Pillow 12.3.0 dipin untuk pemrosesan gambar; tes serta batas QA tersedia di `QA_STATUS_STAGE8.md`.
+
 ## 1.6.0-stage7-hotfix1 (2026-11-16) — Loadtest & Nginx Hotfix
 
 - Runner: hapus impor `Path` lokal yang menutupi impor global dan menghentikan jalur HTTP non-ASGI.

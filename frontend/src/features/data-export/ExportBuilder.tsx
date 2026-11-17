@@ -5,6 +5,8 @@ import {useUnitMetricReferences,metricsForSelection} from '../unit-references/us
 import {SourceStatusSummary,type Status} from '../unit-references/SourceStatus';
 import type {UnitItem} from '../units/UnitManager';
 import './export-builder.css';
+import {useBranding} from '../branding/BrandingContext';
+import {safeBrandSlug} from '../branding/branding.mjs';
 
 type Format='xlsx'|'csv';
 type Grain='hour'|'day'|'month'|'year';
@@ -17,6 +19,7 @@ const meta:Record<string,string>={tanggal:'Tanggal (WITA)',jam:'Jam (WITA)',stat
 const message=(e:unknown)=>e instanceof Error?e.message:String(e);
 
 export default function ExportBuilder({catalog,role}:{catalog:Catalog;role:string}){
+ const {branding}=useBranding();
   const today=isoWita();
   const [start,setStart]=useState(today.slice(0,8)+'01');
   const [end,setEnd]=useState(today);
@@ -55,7 +58,7 @@ export default function ExportBuilder({catalog,role}:{catalog:Catalog;role:strin
     const response=await apiFetch('/api/data-export/download',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','X-CSRF-Token':csrf},body:JSON.stringify(request)});
     if(!response.ok){const body=await response.json().catch(()=>({}));throw new Error(body.detail||`HTTP ${response.status}`)}
     const blob=await response.blob(),url=URL.createObjectURL(blob),link=document.createElement('a');
-    link.href=url;link.download=`BerauLoad_${start}_${end}.${spec.format}`;document.body.append(link);link.click();link.remove();
+    link.href=url;link.download=`${safeBrandSlug(branding.app_short_name)}_${start}_${end}.${spec.format}`;document.body.append(link);link.click();link.remove();
     URL.revokeObjectURL(url);setNotice('File export disiapkan. Periksa folder unduhan browser.');
   }catch(e){setError(message(e))}finally{setBusy(false)}}
   async function saveTemplate(){setBusy(true);setError('');try{

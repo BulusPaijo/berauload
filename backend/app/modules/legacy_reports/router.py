@@ -7,6 +7,7 @@ from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 from ...db import Metric, Reading, HourRecord, get_db
 from ..org_units.models import UnitDayState
+from ..branding.service import current as branding_current, slug as brand_slug, sheet_title, pdf_logo
 from ..org_units.context import UnitContext, unit_context
 from ...security import current_user
 from ..analytics_core.router import load_analytics
@@ -20,7 +21,8 @@ def export_report(start:date,end:date,ctx:UnitContext=Depends(unit_context('read
     from openpyxl import Workbook
     from openpyxl.styles import Font,PatternFill,Alignment
     from openpyxl.utils import get_column_letter
-    wb=Workbook();ws=wb.active;ws.title='Pembacaan Per Jam'
+    wb=Workbook();ws=wb.active;brand=branding_current(db)
+    ws.title='Pembacaan Per Jam' if brand['app_short_name']=='BerauLoad' else sheet_title(brand['app_short_name'])
     metrics=db.query(Metric).filter_by(active=True,unit_id=ctx.id).order_by(Metric.display_order).all()
     metric_by_id={m.id:m for m in metrics}
     heads=['Tanggal (WITA)','Jam (WITA)','Status']+[m.name+' ('+m.unit+')' for m in metrics]
@@ -47,7 +49,7 @@ def export_report(start:date,end:date,ctx:UnitContext=Depends(unit_context('read
     for c in 'ABCDEF':sh.column_dimensions[c].width=23
     out=io.BytesIO();wb.save(out);out.seek(0)
     return StreamingResponse(out,media_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-           headers={'Content-Disposition':f'attachment; filename="BerauLoad_{start}_{end}.xlsx"'})
+           headers={'Content-Disposition':f'attachment; filename="{brand_slug(brand["app_short_name"])}_{start}_{end}.xlsx"'})
 
 @router.get('/reports/pdf')
 def pdf_report(start:date,end:date,ctx:UnitContext=Depends(unit_context('read')),db:Session=Depends(get_db)):
@@ -59,18 +61,27 @@ def pdf_report(start:date,end:date,ctx:UnitContext=Depends(unit_context('read'))
     from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,Table,TableStyle
     load=metric_for_role(db,ctx.id,SYSTEM_LOAD)
     rows=load_analytics(db,load.code,'day',start,end,ctx.id)['data'] if load else []
+    brand=branding_current(db)
     buffer=io.BytesIO()
     doc=SimpleDocTemplate(buffer,pagesize=A4,rightMargin=38,leftMargin=38,topMargin=45,bottomMargin=45,
-                          title='BerauLoad - Laporan Beban Sistem Berau')
+                          title=f'{brand["app_name"]} - Laporan Beban Sistem Berau')
     styles=getSampleStyleSheet()
     title_style=ParagraphStyle('titleBerau',parent=styles['Title'],fontName='Helvetica-Bold',fontSize=16,
                                textColor=colors.HexColor('#143B52'),alignment=TA_CENTER,spaceAfter=9)
     body_style=ParagraphStyle('detailBerau',parent=styles['Normal'],fontSize=9,leading=14,
                               textColor=colors.HexColor('#395968'))
-    story=[Paragraph('LAPORAN BEBAN SISTEM KELISTRIKAN BERAU',title_style),
+    from xml.sax.saxutils import escape
+    title = ('LAPORAN BEBAN SISTEM KELISTRIKAN BERAU' if brand['app_name']=='BerauLoad'
+             else f'LAPORAN BEBAN SISTEM - {brand["app_name"]}')
+    story=[Paragraph(escape(title),title_style),
            Paragraph(f'Periode: {start} s.d. {end} | Zona waktu: WITA (UTC+08:00)',body_style),
-           Paragraph('Sumber: pembacaan historis BerauLoad. Nilai kosong tidak dianggap nol.',body_style),
+           Paragraph(f'Sumber: pembacaan historis {escape(brand["app_name"])}. Nilai kosong tidak dianggap nol.',body_style),
            Spacer(1,16)]
+    if brand['organization_name']:
+        story.insert(1, Paragraph(escape(brand['organization_name']), body_style))
+    logo = pdf_logo(brand)
+    if logo is not None:
+        story.insert(0, logo)
     vals=[r['peak'] for r in rows]
     story.append(Paragraph(f'Hari memiliki data: {len(rows)} | Puncak tertinggi: {max(vals):,.2f} kW' if vals else
                            'Belum ada data pengukuran untuk periode terpilih.',body_style))
@@ -94,4 +105,4 @@ def pdf_report(start:date,end:date,ctx:UnitContext=Depends(unit_context('read'))
                   'Bulan/hari parsial tidak direkayasa menjadi data lengkap. Laporan ini bukan telemetry real-time.',body_style)])
     doc.build(story);buffer.seek(0)
     return StreamingResponse(buffer,media_type='application/pdf',
-           headers={'Content-Disposition':f'attachment; filename="BerauLoad_{start}_{end}.pdf"'})
+           headers={'Content-Disposition':f'attachment; filename="{brand_slug(brand["app_short_name"])}_{start}_{end}.pdf"'})

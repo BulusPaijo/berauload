@@ -1,5 +1,6 @@
 """CRUD for personal/system dashboards; no access to measurement write operations."""
 from ..org_units.context import UnitContext, unit_context
+from ..branding.service import current as branding_current
 from ..org_units.repository import home_unit
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import JSONResponse
@@ -374,7 +375,7 @@ def create_from_template(key: str, u: User = Depends(require('admin')),
     sample = PanelInput(id='template-main', title=config['name'], kind=config['kind'],
                         metric_codes=codes, w=12, h=2)
     panels = _validated(db, [sample], ctx.id)
-    item = DashboardLayout(name=config['name'], description='Dashboard dari template BerauLoad',
+    item = DashboardLayout(name=config['name'], description=f'Dashboard dari template {branding_current(db)["app_name"]}',
                            scope='personal', owner_id=u.id, panels=panels, updated_by=u.id, unit_id=ctx.id)
     db.add(item)
     db.flush()

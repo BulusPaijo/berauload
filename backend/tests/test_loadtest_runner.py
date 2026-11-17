@@ -30,13 +30,14 @@ def environment(tmp_path):
 def test_sqlite_inprocess_branch(tmp_path):
     args = ['deploy.loadtest.runner', '--confirm-isolated', '--asgi-sqlite',
             '--fixture', str(tmp_path / 'ignored.json'), '--duration', '1',
-            '--writers', '1', '--readers', '1', '--exports', '1']
+            '--writers', '1', '--readers', '1', '--exports', '1', '--logic-only']
     result = subprocess.run(command(*args), cwd=ROOT, env=environment(tmp_path),
                             capture_output=True, text=True, timeout=80)
     assert result.returncode == 0, result.stdout + result.stderr
     assert 'GET topology' in result.stdout
     assert 'GET completeness export' in result.stdout
     assert 'KEPUTUSAN: LULUS' in result.stdout
+    assert 'dashboard_has_samples: LULUS' in result.stdout
 
 
 def test_http_branch_with_local_isolated_server(tmp_path):
@@ -68,7 +69,7 @@ def test_http_branch_with_local_isolated_server(tmp_path):
             raise AssertionError('Local isolated HTTP server did not start')
         args = ['deploy.loadtest.runner', '--confirm-isolated', '--base-url', base,
                 '--fixture', str(fixture), '--duration', '1', '--writers', '1',
-                '--readers', '1', '--exports', '1']
+                '--readers', '1', '--exports', '1', '--logic-only']
         run = subprocess.run(command(*args), env=env, cwd=ROOT,
                              capture_output=True, text=True, timeout=80)
         assert run.returncode == 0, run.stdout + run.stderr
@@ -76,6 +77,7 @@ def test_http_branch_with_local_isolated_server(tmp_path):
         assert 'PUT collision stale' in run.stdout
         assert "'409': 1" in run.stdout
         assert 'KEPUTUSAN: LULUS' in run.stdout
+        assert 'dashboard_has_samples: LULUS' in run.stdout
     finally:
         server.terminate()
         try:
@@ -108,3 +110,18 @@ def test_unmarked_instance_guard(tmp_path):
         env=environment(tmp_path), capture_output=True, text=True, timeout=10)
     assert result.returncode != 0
     assert '--confirm-isolated' in result.stderr
+
+
+def test_logic_only_skips_latency_limits_but_requires_requests(capsys):
+    stats = Stats()
+    stats.add('PUT records', 200, 3.0)
+    stats.add('GET dashboard', 200, 3.0)
+    assert verdict(stats, 0, True, 1000, 2000, logic_only=True)
+    assert not verdict(stats, 0, True, 1000, 2000)
+    assert 'LOGIC-ONLY' in capsys.readouterr().out
+
+
+def test_logic_only_no_dashboard_is_still_failure():
+    stats = Stats()
+    stats.add('PUT records', 200, .1)
+    assert not verdict(stats, 0, True, 1000, 2000, logic_only=True)

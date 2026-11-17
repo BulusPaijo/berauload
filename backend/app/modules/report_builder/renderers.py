@@ -11,6 +11,7 @@ from reportlab.graphics.shapes import Drawing, Line, String
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from ..data_export.service import safe_spreadsheet_text
+from ..branding.service import pdf_logo, sheet_title
 
 
 def _fmt(value):
@@ -53,7 +54,7 @@ def _chart(block):
     return drawing
 
 
-def render_pdf(name: str, data: dict) -> bytes:
+def render_pdf(name: str, data: dict, branding=None) -> bytes:
     memory = BytesIO()
     doc = SimpleDocTemplate(memory, pagesize=landscape(A4), leftMargin=48,
                             rightMargin=48, topMargin=46, bottomMargin=46)
@@ -65,6 +66,12 @@ def render_pdf(name: str, data: dict) -> bytes:
     elements = [Paragraph(escape(name), styles['ReportTitle']),
                 Paragraph(f'Periode: {data["start"]} s.d. {data["end"]} | WITA', styles['ReportNote']),
                 Spacer(1, 20)]
+    if branding:
+        if branding.get('organization_name'):
+            elements.insert(1, Paragraph(escape(branding['organization_name']), styles['ReportNote']))
+        logo = pdf_logo(branding)
+        if logo is not None:
+            elements.insert(0, logo)
     for block in data['blocks']:
         title = Paragraph(escape(block['title']), styles['Heading2'])
         if block['kind'] == 'heading':
@@ -93,16 +100,16 @@ def render_pdf(name: str, data: dict) -> bytes:
                                           'Gunakan ekspor Excel untuk seluruh baris periode.',
                                           styles['ReportNote']))
             elements.append(Spacer(1, 14))
-    elements.append(Paragraph('Sumber: BerauLoad. Data kosong tidak diperlakukan sebagai nol.',
+    elements.append(Paragraph(f'Sumber: {escape(branding["app_name"] if branding else "BerauLoad")}. Data kosong tidak diperlakukan sebagai nol.',
                               styles['ReportNote']))
     doc.build(elements)
     return memory.getvalue()
 
 
-def render_xlsx(name: str, data: dict) -> bytes:
+def render_xlsx(name: str, data: dict, branding=None) -> bytes:
     workbook = Workbook()
     sheet = workbook.active
-    sheet.title = 'Laporan'
+    sheet.title = sheet_title(branding['app_short_name']) if branding and branding['app_short_name']!='BerauLoad' else 'Laporan'
     sheet.append([safe_spreadsheet_text(name)])
     sheet.append([f'Periode {data["start"]} s.d. {data["end"]} (WITA)'])
     sheet.append([])

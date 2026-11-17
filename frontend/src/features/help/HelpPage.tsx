@@ -1,3 +1,4 @@
+import {useBranding} from '../branding/BrandingContext';
 import {useState} from 'react';
 import {BookOpen,Printer,Search} from 'lucide-react';
 import './help.css';
@@ -18,7 +19,7 @@ const TOPICS:Topic[]=[
   'Klik Simpan. Periksa data 24 jam dan pastikan jam kosong tidak diisi nol kecuali benar-benar hasil pembacaan.',
   'Hari draft dapat diperbaiki. Hari verified/final terkunci. Pembukaan kembali memerlukan admin dan alasan yang tercatat.']},
  {name:'4. Import Excel Historis',summary:'Migrasi workbook bulanan',items:[
-  'Buka Import Excel; unggah workbook bulanan yang menggunakan format laporan BerauLoad dan pilih periode yang benar.',
+  'Buka Import Excel; unggah workbook bulanan yang menggunakan format laporan {branding.app_name} dan pilih periode yang benar.',
   'Klik Pratinjau sebelum commit. Teliti jumlah jam, nilai, peringatan, duplikat, serta konflik dengan data yang sudah tercatat.',
   'File dengan format berbeda perlu diperiksa/manual mapping. Jangan menganggap semua sheet kosong berisi angka nol.',
   'Commit hanya setelah pratinjau benar. Simpan workbook asli sebagai bukti; proses tidak boleh menimpa data final secara diam-diam.']},
@@ -125,10 +126,11 @@ const TOPICS:Topic[]=[
 ];
 
 export default function HelpPage({version}:{version:string}){
+ const {branding}=useBranding();
   const [query,setQuery]=useState('');
   const filtered=TOPICS.filter(t=>`${t.name} ${t.summary} ${t.items.join(' ')}`.toLowerCase().includes(query.toLowerCase()));
   return <div className="page-space help-page"><div className="page-top"><div>
-    <div className="eyebrow">PANDUAN PENGGUNA</div><h2>Petunjuk BerauLoad V{version}</h2>
+    <div className="eyebrow">PANDUAN PENGGUNA</div><h2>Petunjuk {branding.app_name} V{version}</h2>
     <p>Alur penggunaan lengkap untuk operator, pengawas, admin, dan manajemen.</p></div>
     <button className="btn secondary" onClick={()=>window.print()}><Printer size={16}/> Cetak / Simpan sebagai PDF</button></div>
     <div className="panel help-search"><Search size={19}/><input aria-label="Cari topik panduan" placeholder="Cari topik: import, parameter, formula, dashboard..." value={query} onChange={e=>setQuery(e.target.value)}/>
@@ -136,8 +138,8 @@ export default function HelpPage({version}:{version:string}){
     <div className="help-grid"><nav className="panel help-index"><strong><BookOpen size={16}/> Daftar Isi</strong>
       {filtered.map((t,i)=><a key={t.name} href={`#help-${TOPICS.indexOf(t)+1}`}>{t.name}</a>)}</nav>
       <article className="help-content">{filtered.map(t=><section id={`help-${TOPICS.indexOf(t)+1}`} className="panel help-section" key={t.name}>
-        <h3>{t.name}</h3><p>{t.summary}</p><ol>{t.items.map((x,i)=><li key={i}>{x}</li>)}</ol>
+        <h3>{t.name}</h3><p>{t.summary}</p><ol>{t.items.map((x,i)=><li key={i}>{x.replaceAll('BerauLoad',branding.app_name)}</li>)}</ol>
       </section>)}{!filtered.length&&<div className="panel">Tidak ditemukan topik yang sesuai.</div>}</article></div>
-    <div className="panel help-footer"><strong>Catatan keselamatan data</strong><p>BerauLoad adalah aplikasi pencatatan dan analisis data operasional. Hasil rule tidak boleh dijadikan satu-satunya dasar keputusan manuver atau kendali real-time.</p></div>
+    <div className="panel help-footer"><strong>Catatan keselamatan data</strong><p>{branding.app_name} adalah aplikasi pencatatan dan analisis data operasional. Hasil rule tidak boleh dijadikan satu-satunya dasar keputusan manuver atau kendali real-time.</p></div>
   </div>;
 }

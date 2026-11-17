@@ -1,3 +1,10 @@
+## Stage 8 — Global display branding (2026-11-17)
+
+- `app_branding` adalah **satu baris global** (`id=1`, CHECK), terpisah dari master unit dan data operasional. Semuanya nullable; `modules/branding/defaults.py` authoritative, disalin ke `features/branding/branding.mjs` dengan pengujian kesamaan. `schema_migrations` menyimpan versi sekali jalan; tanpa backfill data historis.
+- `GET /api/branding`, `/logo`, `/favicon` **publik** untuk login. `PUT`/`POST`/`DELETE` memerlukan admin + CSRF dan audit. Unggahan bukan SVG; magic bytes, Pillow decode, limit ukuran/dimensi, dan re-encode PNG sebelum atomic replace ke volume uploads.
+- Context branding dipasang di `frontend/src/main.tsx` sebelum login, dengan fallback cache publik. UI hanya mengganti display labels, CSS brand vars, favicon/title/metadata, tanpa mengganti `berauload` compose, cookie, storage teknis, format Excel/JSON, atau data per unit.
+- Renderer PDF/Excel mengambil snapshot identitas dari database saat export dipanggil. Logo PDF opsional/fault tolerant. Branding bersifat global tanpa pemanggilan rekap ulang ataupun mutasi angka.
+
 ## 1.6.0-stage7-hotfix1 — alat uji terisolasi (tanpa perubahan arsitektur aplikasi)
 
 `deploy/loadtest/runner.py` dapat menjalankan ASGITransport/SQLite sementara atau HTTP loopback terhadap instans berpenanda `test_instance:true` (termasuk PostgreSQL 16 staging). Kedua jalur menolak port produksi 8092 dan membutuhkan `--confirm-isolated`. Fixture membuat ULP dengan dua peran utama, data tahun berjalan/lalu, diagram dan akun baca di unit terkait. Laporan runner menghitung latensi per endpoint dan semua status HTTP; hanya 409 sengaja pada skenario konflik diperbolehkan. Perbaikan Nginx hanya menyentuh tanda kutip regex hashed asset, dan permission smoke test. API, SQLAlchemy model, schema_migrations, izin dan rekap tetap identik dengan Stage 7.

@@ -1,3 +1,9 @@
+## Stage 8 — Pengaturan Branding (hanya admin)
+
+Admin membuka **Pengaturan → Branding**, mengubah nama aplikasi, nama pendek, tagline, teks login, organisasi/footer serta warna utama/aksen. Cek indikator kontras teks putih (minimal 4.5:1) dan pratinjau login/sidebar sebelum menekan **Simpan Branding**. Unggah logo PNG/JPEG/WebP maksimal 512 KB dan 1024 px; favicon PNG/ICO/WebP maksimal 128 KB dan 256 px. Berkas akan diproses ulang menjadi PNG; SVG unggahan tidak diizinkan. Gunakan tombol Hapus untuk kembali ke ikon bawaan dan tombol **Kembalikan semua ke bawaan** dengan konfirmasi untuk reset menyeluruh.
+
+Perubahan langsung terlihat di halaman admin; pengguna lain melihat setelah memuat ulang. Perubahan nama hanya pada tampilan, tidak pada kode internal, data pengukuran, format template Excel/JSON, atau hak akses. Pemilik aplikasi bertanggung jawab atas penggunaan logo resmi organisasi. Browser mungkin memerlukan refresh tab untuk mengganti favicon.
+
 ## 1.6.0-stage7-hotfix1 — Pemeriksaan setelah upgrade
 
 Tidak ada perubahan menu atau cara pengisian. Admin/operator tetap memakai Input Beban Harian, manajemen konflik dan autosave seperti Stage 7. Petugas teknis dapat memeriksa `docker compose exec web nginx -t`, `./deploy/smoke-test.sh`, dan menguji kinerja secara terisolasi mengikuti `deploy/loadtest/README.md`. Uji beban **tidak boleh** dijalankan pada aplikasi produksi atau data sungguhan.
