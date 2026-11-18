@@ -1,0 +1,45 @@
+/* 9d-5 measurement detail: header strip, tabs, Excel-like table, story timeline */
+.vd{display:grid;gap:14px}
+.vd-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:0}
+.vd-meta div{background:#f2f6f8;border-radius:10px;padding:8px 11px}.vd-meta dt{font-size:11px;color:#5b7480;font-weight:600}
+.vd-meta dd{margin:2px 0 0;font-weight:700;color:#13384b;font-size:14px}.vd-meta dd small{display:block;font-weight:500;color:#6b8592;font-size:11px}
+.vd-state{display:inline-block;border-radius:99px;padding:2px 10px;font-size:12px;font-weight:800}
+.vd-state.draft{background:#fff3dc;color:#8a5600}.vd-state.verified{background:#e1f5ea;color:#0e7a4a}
+.vd-tabs{display:flex;gap:4px;border-bottom:1px solid #dce7eb}
+.vd-tabs button{border:0;background:none;padding:10px 14px;font:inherit;font-weight:700;color:#5b7480;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
+.vd-tabs button.on{color:#0b6a73;border-bottom-color:#0b8190}.vd-tabs button:hover{color:#13384b}
+.vd-legend{display:flex;gap:8px;align-items:center;margin:0 0 8px;font-size:12px;color:#7a4d06}
+.vd-swatch{display:inline-block;width:14px;height:14px;border-radius:3px;background:#fcd9b6;border:1px solid #e9a868}
+.vd-scroll{overflow:auto;border:1px solid #dce7eb;border-radius:12px}
+.vd-table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+.vd-table th,.vd-table td{padding:7px 10px;border-bottom:1px solid #e8eef1;border-right:1px solid #f0f4f6;white-space:nowrap}
+.vd-table thead th{background:#eef4f6;color:#26495a;font-weight:700;text-align:right}
+.vd-table thead .vd-grp{text-align:center}.vd-table thead .vd-grp span{font-weight:500;color:#5b7480}
+.vd-table .vd-rowhead{text-align:left;position:sticky;left:0;background:#f7fafb;color:#13384b;min-width:110px;z-index:1}
+.vd-table td{text-align:right;min-width:62px;color:#13384b}.vd-table .vd-first{border-left:2px solid #d3e2e7}
+.vd-changed{background:#fcd9b6!important;box-shadow:inset 0 0 0 1px #e9a868;cursor:help}
+.vd-flag{color:#5b3aa4;font-weight:700}
+.vd-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:12px}
+.vd-card{border:1px solid #dce7eb;border-radius:12px;overflow:hidden;background:#fff}
+.vd-card header{padding:8px 12px;font-weight:800;font-size:13px;background:#e9edf0;color:#26495a}.vd-card header span{font-weight:500}
+.vd-card table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.vd-card th,.vd-card td{padding:6px 12px;border-top:1px solid #edf2f4}.vd-card th{text-align:left;font-weight:600;color:#26495a}.vd-card td{text-align:right;font-weight:700;color:#13384b}
+.vd-t-relfn{border-color:#a9dcd6}.vd-t-relfn header{background:#d5efec;color:#0b5f66}
+.vd-t-relff{border-color:#b5cdee}.vd-t-relff header{background:#d9e6f8;color:#1d4f8f}
+.vd-t-ujung{border-color:#ecc98d}.vd-t-ujung header{background:#f6e3c2;color:#7a4d06}
+.vd-t-ground{border-color:#cfcdc5}.vd-t-ground header{background:#e2e1dc;color:#4a4943}
+.vd-empty{color:#9aacb4;font-weight:500;font-style:italic}
+.vd-note{font-size:13px;color:#26495a;background:#f7fafb;border-radius:10px;padding:8px 12px}
+.vd-story{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.vd-ev{display:grid;grid-template-columns:22px 1fr;gap:10px;position:relative;padding-bottom:16px}
+.vd-ev:not(:last-child)::before{content:'';position:absolute;left:6px;top:16px;bottom:0;width:2px;background:#e3ecef}
+.vd-dot{width:14px;height:14px;border-radius:50%;margin-top:3px;background:#7b8a95;box-shadow:0 0 0 3px #fff}
+.vd-new .vd-dot{background:#0b8190}.vd-edit .vd-dot{background:#e08a1e}.vd-ok .vd-dot{background:#0e7a4a}.vd-warn .vd-dot{background:#b5651d}.vd-danger .vd-dot{background:#c0392b}
+.vd-sum{margin:0;color:#13384b;font-size:14px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.vd-rev{font-size:11px;font-weight:700;color:#4d6876;background:#eef2f4;border-radius:99px;padding:1px 8px}
+.vd-when{margin:2px 0 0;font-size:12px;color:#6b8592}.vd-when q{color:#26495a}
+.vd-ev ul{margin:6px 0 2px;padding-left:18px;font-size:13px;color:#26495a;font-variant-numeric:tabular-nums}.vd-ev ul li{margin:2px 0}
+.vd-none{color:#5b7480;font-size:13px}
+.vd-raw p{margin:0 0 8px;color:#5b7480;font-size:13px}
+.vd-raw pre{max-height:420px;overflow:auto;background:#0f2633;color:#d8e8ee;border-radius:10px;padding:12px;font-size:12px}
+.vd-err{color:#a32d2d;font-size:12px;margin-right:auto}

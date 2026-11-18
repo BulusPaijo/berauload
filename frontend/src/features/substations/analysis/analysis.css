@@ -1,0 +1,88 @@
+.analysis-page{display:flex;flex-direction:column;gap:14px;min-width:0;color:#173548}
+.analysis-head{display:flex;justify-content:space-between;align-items:end;gap:14px;flex-wrap:wrap}
+.analysis-head h2{font-size:27px;margin:5px 0}
+.analysis-head p,.analysis-card p{color:#617986;font-size:12px;margin:5px 0}
+.analysis-actions{display:flex;gap:7px;flex-wrap:wrap}
+.analysis-actions select,.analysis-filters select,.analysis-filters input,.analysis-number-filter input,.analysis-number-filter select{height:37px;padding:7px 10px;border:1px solid #ccdae0;border-radius:8px;background:#fff;color:#153548;min-width:110px;max-width:100%}
+.analysis-summary{display:grid;grid-template-columns:1.2fr 1fr;gap:13px}
+.analysis-card,.analysis-columns,.analysis-table-wrap,.analysis-detail,.analysis-number-filter,.analysis-filters{background:#fff;border:1px solid #d7e3e8;border-radius:12px;padding:14px}
+.analysis-card h3{font-size:14px;margin:0}
+.analysis-summary-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:4px;margin-top:12px}
+.analysis-summary-items button{border:0;border-bottom:1px solid #edf0f2;background:#fff;display:flex;align-items:center;gap:9px;cursor:pointer;text-align:left;font-size:12px;padding:8px}
+.analysis-summary-items button i,.analysis-filter-chips button i{display:inline-block;width:10px;height:10px;min-width:10px;border-radius:50%}
+.analysis-summary-items button strong{margin-left:auto;font-size:12px;white-space:nowrap}
+.analysis-card small{font-size:10px;color:#627986}
+.analysis-stats{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}
+.analysis-stats>div{background:#f2f7f9;border-radius:9px;padding:14px;min-width:120px;display:flex;flex-direction:column}
+.analysis-stats strong{font-size:25px}
+.analysis-stats span{font-size:11px;color:#627986}
+.analysis-filters{display:flex;flex-wrap:wrap;gap:8px;padding:12px}
+.analysis-filters input[aria-label="Cari gardu"]{min-width:240px;flex:1}
+.analysis-filter-chips{display:flex;flex-wrap:wrap;gap:6px}
+.analysis-filter-chips button,.analysis-columns button{border:1px solid #cad9e0;border-radius:18px;padding:8px 12px;background:#fff;color:#264653;font-size:11px;font-weight:600;cursor:pointer}
+.analysis-filter-chips button{display:flex;align-items:center;gap:6px}
+.analysis-filter-chips button.selected,.analysis-columns button.selected{border-color:#078597;background:#e1f4f6}
+.analysis-filter-chips select{padding:7px;border-radius:18px;border:1px solid #cad9e0}
+.analysis-number-filter{display:flex;flex-wrap:wrap;gap:7px;align-items:center;padding:10px 13px;font-size:12px}
+.analysis-columns>div{display:flex;flex-wrap:wrap;gap:6px}
+.analysis-table-wrap{padding:0;overflow:hidden}
+.analysis-table-scroll{width:100%;overflow:auto;max-height:66vh}
+.analysis-table-scroll table{min-width:100%;border-collapse:separate;border-spacing:0;width:max-content}
+.analysis-table-scroll th,.analysis-table-scroll td{white-space:nowrap;padding:11px;border-bottom:1px solid #e4eaec;font-size:12px;text-align:left}
+.analysis-table-scroll th{position:sticky;top:0;background:#ebf2f4;z-index:2}
+.analysis-table-scroll th:nth-child(2),.analysis-table-scroll td:nth-child(2){position:sticky;left:39px;z-index:1;background:#fff}
+.analysis-table-scroll thead th:nth-child(2){z-index:3;background:#ebf2f4}
+.analysis-table-scroll th:first-child,.analysis-table-scroll td:first-child{position:sticky;left:0;z-index:4;width:39px;min-width:39px;background:inherit}
+.analysis-table-scroll th button{border:0;background:transparent;font-size:11px;color:#294b59;font-weight:750;cursor:pointer}
+.analysis-table-scroll td.numeric{text-align:right;font-variant-numeric:tabular-nums}
+.analysis-table-scroll td .analysis-stale{display:block;color:#a26819}
+.analysis-link{border:0;background:transparent;color:#008194;text-decoration:underline;font-weight:700;cursor:pointer}
+.analysis-meter{display:flex;align-items:center;gap:10px;justify-content:flex-end;font-weight:700}
+.analysis-track{width:95px;height:9px;border-radius:5px;background:#e5ebee;overflow:hidden}
+.analysis-track i{display:block;height:100%;border-radius:5px}
+.analysis-tag{display:inline-flex;border-radius:20px;padding:4px 9px;font-size:10px;font-weight:750}
+.analysis-tags{display:flex;flex-wrap:wrap;gap:4px;max-width:300px;white-space:normal}
+.analysis-calculated{cursor:help}
+.analysis-footer{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px;color:#5f7785;font-size:12px;flex-wrap:wrap}
+.analysis-footer>span:last-child{display:flex;flex-wrap:wrap;gap:6px}
+.analysis-detail-cols{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.analysis-detail-cols>div>div{border-bottom:1px solid #e8edef;padding:7px;font-size:12px}
+.analysis-detail-cols small{display:block;color:#758792}
+.analysis-toggle{display:none!important}
+@media(max-width:760px){.analysis-summary{grid-template-columns:1fr}
+.analysis-toggle{display:block!important}
+.analysis-filters{display:none}
+.analysis-filters.opened{display:flex}
+.analysis-head{display:block}
+.analysis-actions{margin-top:12px}
+.analysis-detail-cols{grid-template-columns:1fr}
+.analysis-table-scroll{max-height:65vh}
+}
+
+
+/* Stage 9d1: density, improved empty/error state and keyboard access */
+.analysis-table-wrap.density-compact td,.analysis-table-wrap.density-compact th{padding:6px 9px}
+.analysis-table-scroll tbody tr:nth-child(even) td{background:#f8fafb}
+.analysis-table-scroll td:nth-child(2){background:#fff!important}
+.analysis-table-scroll tbody tr:nth-child(even) td:nth-child(2){background:#f8fafb!important}
+.analysis-density{display:flex;justify-content:end;font-size:12px}.analysis-density select{margin-left:6px;border:1px solid #cddce2;border-radius:7px;padding:7px;background:#fff}
+.analysis-calculated[title]:focus-visible{outline:2px solid #0b8190}
+.analysis-table-scroll td{font-variant-numeric:tabular-nums}
+/* 9d-2: fixed column widths (no slider), menus, advanced filters, side drawer */
+.analysis-table-scroll th.col-code{width:120px}.analysis-table-scroll th.col-text{min-width:200px}
+.analysis-table-scroll th.col-num{width:110px}.analysis-table-scroll th.col-tag{min-width:160px}
+.analysis-table-scroll thead th{position:sticky;top:0;z-index:3}
+.analysis-sort{display:inline-flex;gap:4px;align-items:center;padding:6px 0}
+.analysis-sort-mark{font-size:9px;opacity:.35}.analysis-table-scroll th[aria-sort="ascending"] .analysis-sort-mark,.analysis-table-scroll th[aria-sort="descending"] .analysis-sort-mark{opacity:1;color:#0b8190}
+.analysis-row{cursor:pointer}.analysis-row:focus-visible{outline:2px solid #0b8190;outline-offset:-2px}.analysis-row.is-open td{background:#e3f4f5!important}
+.analysis-menu{position:relative}.analysis-menu>summary{list-style:none;cursor:pointer}.analysis-menu>summary::-webkit-details-marker{display:none}
+.analysis-menu-pop{position:absolute;right:0;top:calc(100% + 6px);z-index:30;background:#fff;border:1px solid #dce7ec;border-radius:10px;box-shadow:0 10px 28px rgba(18,54,73,.16);min-width:240px;padding:6px;display:grid}
+.analysis-menu-pop button{border:0;background:none;text-align:left;padding:9px 10px;border-radius:7px;cursor:pointer;color:#163f52;font-size:13px;display:grid;gap:2px}
+.analysis-menu-pop button:hover,.analysis-menu-pop button:focus-visible{background:#eef6f7}.analysis-menu-pop small{color:#668290;font-size:11px}
+.analysis-advanced{border:1px solid #dfeaee;border-radius:12px;background:#fff;padding:4px 12px;margin:8px 0}
+.analysis-advanced>summary{cursor:pointer;font-weight:700;color:#24515e;padding:8px 0;font-size:13px}
+.analysis-badge{margin-left:8px;background:#0b8190;color:#fff;border-radius:99px;font-size:11px;padding:1px 8px}
+.analysis-clear{display:flex;justify-content:flex-end;margin:4px 0 8px}
+.analysis-drawer-backdrop{position:fixed;inset:0;background:rgba(10,30,40,.28);z-index:60}
+.analysis-detail.analysis-drawer{position:fixed;top:0;right:0;bottom:0;width:min(460px,100%);overflow:auto;z-index:61;background:#fff;margin:0;border-radius:0;box-shadow:-14px 0 34px rgba(10,30,40,.2);padding:18px 20px}
+.analysis-drawer .analysis-detail-cols{grid-template-columns:1fr!important}

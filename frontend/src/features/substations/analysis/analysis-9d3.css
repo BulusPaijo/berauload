@@ -1,0 +1,29 @@
+.an9 .an-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.an9 .an-head h2{font-size:28px;margin:2px 0}.an9 .an-head p{margin:0;color:#5b7480}
+.an-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.an-actions select{min-height:38px;border:1px solid #cfdde3;border-radius:9px;padding:0 10px;background:#fff}
+.an-density{display:flex;gap:6px;align-items:center;padding:8px 10px;font-size:13px;color:#4d6876}
+.an-top{display:grid;grid-template-columns:1.1fr 1.1fr .9fr;gap:14px;margin-bottom:14px}
+.an-attn{background:#fff;border:1px solid #dce7eb;border-radius:14px;padding:14px 16px;display:flex;flex-direction:column}
+.an-attn h3{margin:0 0 8px;font-size:16px}.an-attn button{display:flex;justify-content:space-between;gap:8px;border:0;background:none;padding:5px 6px;border-radius:7px;cursor:pointer;text-align:left;font-size:14px;color:#13384b}
+.an-attn button:hover,.an-attn button.on{background:#eef7f7}.an-attn b{white-space:nowrap}.an-attn p{margin:auto 0 0;padding-top:8px;font-size:12px;color:#5b7480}
+.an-filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0}
+.an-filters input,.an-filters select,.an-adv input,.an-adv select{min-height:40px;border:1px solid #cfdde3;border-radius:10px;padding:0 12px;background:#fff;font:inherit;color:#13384b}
+.an-filters input[aria-label="Cari gardu"]{min-width:240px;flex:1 1 240px}
+.an-chips{display:flex;flex-wrap:wrap;gap:6px}.an-chips button{border:1px solid #cfdde3;background:#fff;border-radius:99px;padding:8px 14px;font-weight:600;color:#26495a;cursor:pointer}
+.an-chips button.on{background:#e3f4f4;border-color:#0b8190;color:#0b6a73}.an-count{margin-left:auto;color:#5b7480;font-size:14px}
+.an-adv{display:flex;flex-wrap:wrap;gap:8px;padding:6px 0 10px}
+.an-table table{font-variant-numeric:tabular-nums}.an-table th.num,.an-table td.num{text-align:right}
+.an-table thead th{background:#f3f7f8}.an-table td{height:52px}
+.an-link{border:0;background:none;padding:0;color:#0b6a73;font-weight:700;text-decoration:underline;cursor:pointer;font:inherit}
+.an-name small{display:block;color:#647d89;font-size:11px}
+.an-cat{display:inline-block;border-radius:7px;padding:3px 9px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
+.an-tags{display:flex;gap:4px;flex-wrap:wrap}.an-tags span{border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600}.an-more{background:#eef2f5;color:#4a5964}
+.an-meter{display:inline-flex;align-items:center;gap:8px;justify-content:flex-end;min-width:150px}.an-meter b{min-width:44px;text-align:right}
+.an-track{display:inline-block;width:96px;height:9px;background:#e6edf1;border-radius:9px;overflow:hidden}.an-track i{display:block;height:100%;border-radius:9px}
+.an-hit em{font-style:normal;color:#a32d2d;font-weight:700}.an-dim{color:#8aa0aa}
+.an-follow{display:inline-flex;flex-direction:column;line-height:1.2}.an-follow small{font-size:11px;color:#647d89;text-transform:capitalize}
+.an-follow.fl-open small{color:#8a5200}.an-follow.fl-work small{color:#1d4a7c}.an-follow.fl-done small{color:#0f5c3e}
+.an-empty{display:grid;gap:6px;justify-items:center;padding:28px;color:#5b7480}.an-empty b{color:#13384b}
+.an-foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:#5b7480}.an-foot>span:last-child{display:flex;gap:8px;align-items:center}
+.an-drawer{position:fixed;top:0;right:0;bottom:0;width:min(470px,100%);z-index:61;box-shadow:-14px 0 34px rgba(10,30,40,.2)}
+@media(max-width:1100px){.an-top{grid-template-columns:1fr}}

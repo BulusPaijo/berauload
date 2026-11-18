@@ -1,0 +1,17 @@
+export type CalcColumn={id:number;code:string;name:string;unit:string;decimals:number;expression:string;
+ empty_mode:'batal'|'lewati';description:string|null;display_order:number;active:boolean;
+ origin:'default'|'custom';default_expression:string|null};
+export type CalcRule={id:number;code:string;name:string;kind:'category'|'finding';group_name:string;
+ expression:string;color:string;marker:string;display_order:number;active:boolean;origin:string;gardu_count:number};
+export type CalcConst={id:number;code:string;name:string;unit:string;value:number;description:string|null;active:boolean};
+export type CalcData={columns:CalcColumn[];rules:CalcRule[];constants:CalcConst[];
+ settings:{version:number;stale_days:number}|null;warning:string;provisional:boolean};
+export type CalcResult={code:string;name:string;unit:string;decimals:number;value:number|null;
+ incomplete:boolean;filled:number;total:number;note:string};
+export type CalcResults={version:number|null;latest_version:number;stale:boolean;
+ columns:CalcResult[];matches:{code:string;name:string;kind:string;color:string;marker:string}[]};
+export type CalcTest={current:number|null;draft:number|null;difference:number|null;
+ missing:string[];result:CalcResult|null;stale:boolean};
+export type CalcPreview={scanned:number;truncated:boolean;rule_changes:Record<string,{added:number;removed:number}>;
+ sample:{measurement_id:number;current:number|null;draft:number|null}[];warning:string|null};
+export type Recalc={version:number;total:number;completed:number;remaining:number;processed?:number;busy?:boolean};

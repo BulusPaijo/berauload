@@ -1,0 +1,14 @@
+export type Substation={id:number;unit_id:number;code:string;name:string;feeder_id:number|null;
+ ownership:string|null;purpose:string|null;power_kva:number;phase:number;line_count:number;
+ line_labels:string[];active:boolean;brand:string|null;address:string|null;tap:string|null;
+ serial_number:string|null;year:number|null;lat:number|null;lon:number|null;extra_values:Record<string,unknown>};
+export type Feeder={id:number;unit_id:number;code:string;name:string;active:boolean;display_order:number};
+export type Def={id:number;code:string;name:string;unit:string;scope:string;active:boolean;display_order:number;
+ required:boolean;min_value:number|null;max_value:number|null;kind?:string;options?:string[]};
+export type Definitions={params:Def[];sessions:Def[];flags:Def[];fields:Def[];ownership:Def[];purpose:Def[]};
+export type Value={param_id:number;line_no:number;value:number|null;flag:string|null};
+export type Visit={id:number;substation_id:number;unit_id:number;measured_on:string;session:string;
+ revision:number;state:'draft'|'verified';technician:string|null;note:string|null;measured_at:string|null;
+ values:Value[];updated_by:number|null;updated_at:string;
+ substation_code?:string|null;substation_name?:string|null;unit_code?:string|null;unit_name?:string|null};
+export type Page<T>={items:T[];total:number;page:number;page_size:number};

@@ -1,0 +1,19 @@
+.ui-drawer-backdrop{position:fixed;inset:0;background:rgba(10,30,40,.3);z-index:70}
+.ui-drawer{position:fixed;top:0;right:0;bottom:0;width:min(480px,100%);background:#fff;z-index:71;display:flex;flex-direction:column;box-shadow:-14px 0 34px rgba(10,30,40,.2)}
+.ui-drawer>header{display:flex;gap:10px;align-items:flex-start;padding:16px 20px;border-bottom:1px solid #e3ecef}
+.ui-drawer>header>div{flex:1}.ui-drawer h3{margin:0;font-size:18px;color:#143b52}.ui-drawer header p{margin:3px 0 0;color:#5f7b88;font-size:12px}
+.ui-drawer-body{flex:1;overflow:auto;padding:14px 20px}.ui-drawer>footer{display:flex;gap:8px;justify-content:flex-end;padding:12px 20px;border-top:1px solid #e3ecef}
+.ui-icon-btn{border:0;background:none;width:34px;height:34px;border-radius:8px;cursor:pointer;color:#5f7b88;font-size:15px}.ui-icon-btn:hover{background:#eef4f6}
+.ui-section{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#5f7b88;margin:16px 0 8px}
+.ui-section{margin-top:22px}.ui-drawer-body>div:first-child>.ui-section{margin-top:0}
+.ui-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ui-grid2 .ui-full{grid-column:1/-1}
+.ui-field{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:#3f5f6e}
+.ui-field input,.ui-field select{min-height:38px;border:1px solid #cfdde4;border-radius:8px;padding:0 10px;font:inherit;font-weight:400;color:#14384c;background:#fff}
+.ui-field input:focus,.ui-field select:focus{outline:2px solid #0b8190;outline-offset:0;border-color:#0b8190}
+.ui-field small{font-weight:400;color:#6b8592}
+.ui-kv{display:grid;gap:8px}.ui-kv-row{display:grid;grid-template-columns:1fr 1fr 34px;gap:8px}.ui-kv-row input{min-height:36px;border:1px solid #cfdde4;border-radius:8px;padding:0 10px}
+.ui-drop{display:grid;justify-items:center;gap:4px;border:2px dashed #b8c9d2;border-radius:12px;padding:26px 16px;text-align:center;color:#5f7b88;background:#fafcfd;cursor:pointer}
+.ui-drop:hover,.ui-drop.over,.ui-drop:focus-within{border-color:#0b8190;background:#eaf6f7}
+.ui-drop input{position:absolute;opacity:0;width:1px;height:1px}.ui-drop b{color:#143b52}.ui-drop-icon{font-size:26px;color:#0b8190}
+@media(max-width:560px){.ui-grid2{grid-template-columns:1fr}}
+.ui-drawer.wide{width:min(1060px,100%)}

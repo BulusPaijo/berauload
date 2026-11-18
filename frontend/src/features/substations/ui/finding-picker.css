@@ -1,0 +1,13 @@
+.fp{display:grid;gap:8px;border:1px solid #dce7eb;border-radius:12px;padding:10px 12px;background:#fff;width:100%}
+.fp-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.fp-head b{color:#13384b;font-size:13px}
+.fp-seg{display:inline-flex;background:#eef3f5;border-radius:99px;padding:3px}
+.fp-seg button{border:0;background:none;border-radius:99px;padding:5px 14px;font:inherit;font-size:13px;font-weight:700;color:#4d6876;cursor:pointer}
+.fp-seg button.on{background:#fff;color:#0b6a73;box-shadow:0 1px 3px rgba(18,54,73,.18)}
+.fp-clear{margin-left:auto;font-size:12px}
+.fp-chips{display:flex;flex-wrap:wrap;gap:6px}
+.fp-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid #cfdde3;background:#fff;border-radius:99px;padding:6px 12px;font:inherit;font-size:13px;font-weight:600;color:#26495a;cursor:pointer}
+.fp-chip i{width:9px;height:9px;border-radius:50%}.fp-chip.on{color:#13384b;font-weight:700}
+.fp-chip:hover{border-color:#9cc7cb}.fp-none{font-size:12px;color:#5b7480}
+.fp-say{margin:0;font-size:13px;color:#4d6876}.fp-say b{color:#13384b}
+.fp-join{font-style:normal;font-weight:800;font-size:11px;letter-spacing:.06em;border-radius:5px;padding:1px 5px}
+.fp-join.any{background:#e6f1fb;color:#1d4f8f}.fp-join.all{background:#fbeee0;color:#8a4b07}

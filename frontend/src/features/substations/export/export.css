@@ -1,0 +1,7 @@
+.gardu-export .export-group{margin-bottom:12px}.gardu-export .export-group h4{margin:8px 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#5a7381}
+.gardu-export .export-empty{border:1px dashed #c9d8df;border-radius:10px;padding:20px;text-align:center;color:#5a7381;display:grid;gap:4px}
+.gardu-export .export-findings{border:1px solid #d5e3e9;border-radius:10px;padding:8px 12px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:6px 0}
+.gardu-export .export-findings legend{font-size:12px;font-weight:700;color:#496575;padding:0 6px}
+.gardu-export .export-check{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500}.gardu-export .export-check input{width:auto;min-height:0}
+.gardu-export .export-problems{margin:0 0 10px;padding-left:18px;color:#a32d2d;font-size:13px}
+.gardu-export .export-size{font-size:13px;font-weight:600;margin:8px 0}.gardu-export .export-size.error{color:#a32d2d}.gardu-export .export-size.warn{color:#8a5a00}.gardu-export .export-size.ok{color:#0e6068}

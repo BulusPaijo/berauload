@@ -1,0 +1,7 @@
+.gardu-chart-card{background:#fff;border:1px solid #dce6ea;padding:15px;border-radius:13px}.gardu-chart-card header{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:start}.gardu-chart-card h3{font-size:15px;margin:0;color:#173548}.gardu-chart-card p{font-size:12px;color:#617989}.gardu-chart-card select{border:1px solid #cedde4;border-radius:8px;padding:9px;color:#143547;background:white;min-height:40px}.gardu-chart-plot{width:100%;height:clamp(250px,30vw,390px);min-width:0}.gardu-chart-empty{display:grid;place-items:center;height:100%;color:#617989;background:#f5f8f9;border-radius:9px}
+@media(max-width:680px){.gardu-chart-card .analysis-actions{width:100%}.gardu-chart-card .analysis-actions select{max-width:100%;flex:1}}
+.gardu-chart-card.is-fixed{margin:0;padding:14px 16px;height:100%}.gardu-chart-card.is-fixed h3{font-size:16px;margin:0}.gardu-chart-card.is-fixed header p{font-size:12px;margin:2px 0 0}
+.gardu-chart-card.is-fixed .gardu-chart-plot{height:250px}
+.gardu-chart-more{list-style:none;cursor:pointer;border:1px solid #d7e3e8;border-radius:8px;width:32px;height:30px;display:grid;place-items:center;color:#4d6876}
+.gardu-chart-more::-webkit-details-marker{display:none}
+.gardu-chart-card.is-fixed>header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.gardu-chart-card.is-fixed>header .analysis-actions{flex:none}

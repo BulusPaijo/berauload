@@ -17,6 +17,20 @@ from .catalog import ASSETS, METRICS, CODE_MAP, calculate
 from .importer import parse_load_excel, MAX_FILE_BYTES
 from .security import (hash_password, password_ok, rate_limit, new_session, resolve_session,
                        current_user, require, COOKIE_NAME, SECURE_COOKIE, clear_attempts, cleanup_sessions, set_session_cookie)
+from .modules.substations.router import router as substations_router
+from .modules.substations.analysis_router import router as substations_analysis_router
+from .modules.substations.map_migrations import run as run_substations_map_migration
+from .modules.substations.map_router import router as substations_map_router
+from .modules.substations.export_migrations import run as run_substations_export_migration
+from .modules.substations.export_router import router as substations_export_router
+from .modules.substations.followup_migrations import run as run_substations_followup_migration
+from .modules.substations.followup_router import router as substations_followup_router
+from .modules.substations.end_voltage_migration import run as run_substations_end_voltage_migration
+from .modules.substations.monitoring_router import router as substations_monitoring_router
+from .modules.substations.analysis_migrations import run as run_substations_analysis_migration
+from .modules.substations.calculation_router import router as substations_calc_router
+from .modules.substations.calculation_migrations import run as run_substations_calc_migration
+from .modules.substations.migrations import run as run_substations_migration
 from .modules.branding.router import router as branding_router
 from .modules.branding.migrations import run as run_branding_migration
 from .modules.sessions.migrations import run as run_session_migration
@@ -93,10 +107,17 @@ async def app_lifespan(_app):
     setup()
     yield
 
-app=FastAPI(title='BerauLoad',version='1.6.0-stage8',docs_url=None,redoc_url=None,lifespan=app_lifespan)
+app=FastAPI(title='BerauLoad',version='1.6.0-stage9d5',docs_url=None,redoc_url=None,lifespan=app_lifespan)
 app.include_router(branding_router)
 app.include_router(formula_router)
 app.include_router(monitoring_router)
+app.include_router(substations_router)
+app.include_router(substations_analysis_router)
+app.include_router(substations_map_router)
+app.include_router(substations_export_router)
+app.include_router(substations_followup_router)
+app.include_router(substations_monitoring_router)
+app.include_router(substations_calc_router)
 app.include_router(chart_settings_router)
 app.include_router(historical_router)
 app.include_router(engineering_router)
@@ -133,12 +154,25 @@ def audit(db, u, action, target=None, detail=None):
 def setup():
     precreate_org_units(engine)
     legacy_tables=[t for t in Base.metadata.tables.values()
-                   if t.name not in ('formula_definitions','schema_migrations','dashboard_chart_settings','historical_definitions', 'historical_revisions', 'engineering_rules', 'engineering_rule_revisions', 'dashboard_layouts', 'equipment_kinds', 'input_form_tabs', 'input_form_placements', 'input_form_revision', 'unit_definitions', 'export_templates', 'dashboard_revisions', 'dashboard_shares', 'report_templates', 'standard_report_selections', 'topology_diagrams', 'topology_revisions', 'org_units', 'unit_day_states', 'user_unit_access', 'unit_source_changes', 'login_attempts', 'app_branding')]
+                   if t.name not in ('formula_definitions','schema_migrations','dashboard_chart_settings','historical_definitions', 'historical_revisions', 'engineering_rules', 'engineering_rule_revisions', 'dashboard_layouts', 'equipment_kinds', 'input_form_tabs', 'input_form_placements', 'input_form_revision', 'unit_definitions', 'export_templates', 'dashboard_revisions', 'dashboard_shares', 'report_templates', 'standard_report_selections', 'topology_diagrams', 'topology_revisions', 'org_units', 'unit_day_states', 'user_unit_access', 'unit_source_changes', 'login_attempts', 'app_branding', 'substation_feeders', 'substation_choices', 'substations', 'substation_master_history', 'substation_params', 'substation_sessions', 'substation_value_flags', 'substation_fields', 'substation_measurements', 'substation_values',
+                   'gardu_calc_columns', 'gardu_calc_rules', 'gardu_calc_constants',
+                   'gardu_calc_history', 'gardu_calc_settings', 'gardu_calc_values',
+                   'gardu_calc_matches', 'gardu_calc_marks',
+                   'gardu_analysis_views', 'gardu_analysis_settings', 'gardu_tile_settings',
+                   'gardu_export_templates', 'gardu_followup_types', 'gardu_followups',
+                   'substation_values_archive')]
     Base.metadata.create_all(bind=engine,tables=legacy_tables)
     ensure_config_schema(engine)
     run_migrations(engine)
     run_session_migration(engine)
     run_branding_migration(engine)
+    run_substations_migration(engine)
+    run_substations_calc_migration(engine)
+    run_substations_analysis_migration(engine)
+    run_substations_map_migration(engine)
+    run_substations_export_migration(engine)
+    run_substations_followup_migration(engine)
+    run_substations_end_voltage_migration(engine)
     run_chart_migration(engine)
     run_historical_revision_migration(engine)
     run_engineering_migration(engine)
@@ -184,7 +218,7 @@ def setup():
 def health(db:Session=Depends(get_db)):
     try:db.execute(text('SELECT 1'))
     except Exception:raise HTTPException(503,'Database tidak dapat dihubungi')
-    return {'status':'ok','app':'BerauLoad','version':'1.6.0-stage8','test_instance':os.getenv('BERAULOAD_TEST_INSTANCE','false').lower()=='true'}
+    return {'status':'ok','app':'BerauLoad','version':'1.6.0-stage9d5','test_instance':os.getenv('BERAULOAD_TEST_INSTANCE','false').lower()=='true'}
 
 class LoginBody(BaseModel):
     username:str=Field(min_length=2,max_length=70)

@@ -1,3 +1,34 @@
+## Hotfix 9c-fix — korelasi dan parameter query (2026-11-17)
+
+Filter numerik `analysis_queries._apply_filters` sekarang menggunakan `EXISTS` yang merujuk `chosen.c.mid`, sehingga setiap baris terpilih diuji terhadap `gardu_calc_values` miliknya sendiri pada PostgreSQL maupun SQLite. `kosong` adalah tidak ada nilai non-NULL, termasuk baris hasil yang belum ada; nilai 0 tetap ada. Filter `findings` diambil oleh dependency FastAPI khusus dari parameter query berulang/koma, tidak dari model Pydantic `Depends` langsung. Seluruh /rows, /summary, /export tetap berbagi `filtered()`, dengan validasi 422. Tidak ada migrasi tabel baru.
+
+## Tahap 9c — Analisa pengukuran gardu (2026-11-17)
+
+`modules/substations/analysis_{models,migrations,queries,data,views,export,router}.py`
+mengisolasi kueri, ringkasan, izin, ekspor, tampilan tersimpan dari jalur input.
+SQL window `ROW_NUMBER` memilih pengukuran terakhir per (gardu,sesi), lalu
+mengambil sesi dengan nilai kolom acuan maksimum yang dikonfigurasi admin.
+Gardu aktif tanpa kunjungan tetap masuk mode terakhir/periode. Mode semua memilih
+seluruh kunjungan. `gardu_calc_values` dipakai untuk angka filter/sortir,
+`gardu_calc_matches` untuk kategori/temuan; tanpa JSON lookup untuk hasil.
+Sesi acuan lain dimuat dalam batch. Ringkasan berbagi query filter yang sama.
+
+`gardu_analysis_settings.reference_column_id` menyimpan acuan global;
+`gardu_analysis_views` menyimpan konfigurasi JSON pribadi (`owner_id`) atau
+bersama (NULL), bukan data teknis. Tabel baru dan indeks ditambahkan hanya
+oleh migrasi schema_migrations 20261117_19_stage9c_analysis. Definisi 9b
+dan pengukuran 9a tidak mengalami mutasi skema.
+
+Hotfix `calculation_service` memakai pg_try_advisory_xact_lock per batch,
+SELECT FOR UPDATE OF measurement SKIP LOCKED dan kunci parent per hasil;
+SQLite memakai mutex permintaan untuk hitung ulang. Semua nilai turunan
+dapat dihitung ulang ketika definisi berubah, sedangkan snapshot dan raw verified
+tetap terkunci. Konteks rumus gardu memisahkan NOT_APPLICABLE dari NULL.
+
+## Tahap 9b — Kalkulasi terpisah dari data ukur
+
+`substations/models_calc.py` dan `calculation_migrations.py` menambah `gardu_calc_columns`, `gardu_calc_rules`, `gardu_calc_constants`, `gardu_calc_history`, `gardu_calc_settings`, `gardu_calc_values`, `gardu_calc_matches`, dan `gardu_calc_marks`. Semua definisi global, sedangkan hasil per `substation_measurements.id`. `calculation_service.py` memakai snapshot `snapshot_*` dan data `substation_values`, bukan tabel jam (`hour_records/readings`). Ekstensi `formulas.engine.evaluate_gardu` hanya diaktifkan oleh `GARDU_FUNCTIONS`; API rumus jam tetap identik. `save_visit()` memanggil `save_results()` pada transaksi yang sama, impor dan bulk memakai `save_visit()`. Recalculate memproses hingga 200 pengukuran per request, memakai marks versi agar interrupt/retry aman. Hasil lama tetap terbaca dengan `stale=true`; data ukur verified tidak ditulis. Tidak ada worker background yang dijalankan sendiri. UI berada di `features/substations/formulas/`.
+
 ## Stage 8 — Global display branding (2026-11-17)
 
 - `app_branding` adalah **satu baris global** (`id=1`, CHECK), terpisah dari master unit dan data operasional. Semuanya nullable; `modules/branding/defaults.py` authoritative, disalin ke `features/branding/branding.mjs` dengan pengujian kesamaan. `schema_migrations` menyimpan versi sekali jalan; tanpa backfill data historis.
@@ -386,3 +417,49 @@ Topologi Viewer (`TopologyPage`, `ViewerToolbar`, `Canvas`) dan Editor (`Topolog
 - **Status sumber:** API pembacaan/dashboard/topologi/historis/engineering/report/export mengembalikan `source_status={date,counts,units}`, didasarkan pada unit tempat operand berasal (termasuk referensi formula turunan), bukan mengubah status sumber. Verifier/admin ULP melihat `source_changed_after_final` dalam status hari.
 - `schema_migrations` mencatat versi skema baru; DDL menggunakan `create(checkfirst=True)`, tanpa DROP/ALTER kolom lama, tanpa pemindahan baris produksi. PostgreSQL 16 dan SQLite menggunakan model SQLAlchemy yang sama. Tes restart berulang menjamin idempotensi.
 
+
+
+## Stage 9a — Modul pengukuran gardu distribusi
+
+Domain `backend/app/modules/substations/` memiliki tabel sendiri: `substation_feeders`,
+`substation_choices`, `substations`, `substation_master_history`, `substation_params`,
+`substation_sessions`, `substation_value_flags`, `substation_fields`,
+`substation_measurements`, `substation_values`. Tidak memakai `metrics`, `hour_records`,
+`readings` atau `unit_day_states`. Satu gardu milik satu ULP/KP; kode unik per unit.
+Semua definisi pengukuran global milik admin. Daftar unit turunan dibatasi oleh `unit_context`
+dan hak baca. Pengaturan master hanya admin global (`configure` dari baseline);
+penulisan kunjungan memakai `write_data`, verifikasi/reopen memakai peran `verifier`
+atau admin. Verifikasi gardu terpisah dari `unit_day_states`.
+
+Pengukuran memiliki kunci unik `(substation_id, measured_on, session)` dan `revision`
+optimistic. Pada PostgreSQL, `pg_advisory_xact_lock` dengan hash 64-bit dari
+`unit_id:substation_id:tanggal:session` menserialisasi simpan untuk kunjungan sama;
+`SELECT ... FOR UPDATE` melindungi kunjungan existing. SQLite memakai transaksi
+penulisan biasa; tes lokal tidak mengukur kompetisi PostgreSQL. Setiap save/bulk
+memakai transaksi/safe savepoint; item konflik atau error tidak menimpa item lain.
+Bila verified, data terkunci 409; reopen beralasan dicatat audit.
+Snapshot `snapshot_power_kva`, `snapshot_phase`, `snapshot_line_count`,
+`snapshot_feeder_id` ditulis sekali saat kunjungan dibuat, tidak mengikuti perubahan
+master kemudian. Batas jurusan mengikuti **snapshot**, bukan master terkini.
+
+Pencetakan dan impor menggunakan `openpyxl` dan `csv` yang sudah tersedia.
+Pratinjau disimpan sebagai file JSON per-token sekali pakai setelah apply,
+berlaku maksimum 30 menit dan dibatasi aktor/unit; tidak ada DB write saat preview.
+File output netralisasi leading `=+-@`. Frontend `features/substations/` menggunakan
+pemilih unit dan klien API/CSRF yang telah ada; kisi 100 gardu per halaman memakai
+`HourQueue` Stage 7, tetapi key cadangan khusus per pengguna/unit/tanggal/sesi.
+Tidak ada perubahan jalur input per jam atau rekap lintas unit.
+
+## Stage 9a-fix — validasi master dan antarmuka pengukuran
+
+Perubahan terbatas pada modul `backend/app/modules/substations/{master,definitions,schemas}.py` serta komponen `frontend/src/features/substations/`. Validasi kode duplikat dilakukan sebelum mutasi dan dilindungi `IntegrityError` pada `flush`/`commit`: rollback transaksi membatalkan audit/histori yang belum committed. `MasterPatch.confirm_line_reduction` hanyalah izin tindakan dalam permintaan (bukan kolom database). Bila `line_count` lebih kecil daripada yang ada dan nilai/flag historis di jurusan yang terpengaruh tidak NULL, server merespons 409 `LINE_REDUCTION_CONFIRM_REQUIRED` dan jumlah nilai. Persetujuan eksplisit boleh mengubah master tetapi tidak menghapus `substation_values` ataupun `snapshot_line_count`. Bulk memakai savepoint per gardu dan status `needs_confirmation` untuk baris terkait.
+
+Dialog konflik `frontend/src/features/substations/ConflictDialog.tsx` memakai pembanding murni `conflict.mjs`; memilih data server tidak langsung menghilangkan ketikan yang tertunda—disimpan terpisah dalam cadangan lokal untuk opsi salin kembali. Input grid tetap menggunakan antrean otomatis Stage 7 dan pemilih unit/CSRF/akses dari baseline. Tampilan mengikuti panduan visual HTML unggahan, tanpa mengaktifkan peta, rumus atau analisa Stage 9b yang belum punya sumber terverifikasi.
+
+## Stage 9d1 — Peta gardu, grafik, dan antarmuka
+
+- `backend/app/modules/substations/map_models.py`, `map_migrations.py`, `map_router.py`, `map_service.py`: pengaturan ubin admin satu baris, migrasi aditif idempotent `schema_migrations`, endpoint marker ringkas sesuai akses `UnitContext('read')` dan filter Stage 9c. Master Substation menyimpan koordinat; marker memakai hasil turunan 9b dan **tidak mengubah measurement**.
+- `analysis_charts.py` dan tambahan `analysis_router.py`: grafik sumber data berupa hasil tersimpan `gardu_calc_values`, `gardu_calc_matches`, query 9c, bukan kalkulasi rumus React. Grafik disaring unit, sesi, tanggal dan aturan yang sama dengan Analisa.
+- `frontend/src/features/substations/map/`: Leaflet berbasis npm dengan grid clustering lokal, tile layer OSM dikonfigurasi admin via API, fallback titik tanpa layer ubin, legenda kategori admin, rincian, geolokasi browser lokal. Tidak ada routing, navigasi jalan atau mode peta offline.
+- `frontend/src/features/substations/analysis/ChartDashboard.tsx`: Recharts dan ekspor CSV/SVG→PNG canvas tanpa pustaka tambahan. Jenis grafik disimpan pada layout tampilan personal/shared Stage 9c. UI subnav tidak menambah domain master baru.
+- Hak akses global admin/UP3/ULP/KP, entitas unit, status verified/final, fungsi evaluator rumus 9b, dan aturan NULL ≠ 0 **tidak diubah**.
