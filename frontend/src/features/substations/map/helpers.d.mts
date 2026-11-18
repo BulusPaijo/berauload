@@ -1,0 +1,10 @@
+export function validPoint(p:{lat:number|null;lon:number|null}):boolean;
+export function markerKind(marker:string|undefined):string;
+export function escapeText(text:unknown):string;
+export function categoriesLegend(rules:{active:boolean;kind:string;group_name:string;code:string;name:string;color:string;marker?:string}[],group:string):{code:string;name:string;color:string;marker:string}[];
+export function clusterPoints<T extends {lat:number;lon:number}>(points:T[],project:(lat:number,lon:number)=>{x:number;y:number},cell?:number):{members:T[];lat:number;lon:number}[];
+export function gradedColor(value:number|null|undefined,breaks:number[]):string;
+export function quartiles(numbers:(number|null|undefined)[]):number[];
+export function colorAndShape(point:{age_days?:number|null;category?:{code:string;marker?:string};categories?:{code:string;group_name:string}[];columns?:Record<string,{value:number|null}>},mode:string,group:string,rules:{code:string;kind:string;group_name:string;color:string;marker?:string}[],quantiles?:number[]):{color:string;marker:string};
+export function withinNearest<T extends {lat:number;lon:number}>(points:T[],lat:number,lon:number,limit?:number):(T & {distance_km:number})[];
+export function sharedURL(tab:string,filter:string):string;

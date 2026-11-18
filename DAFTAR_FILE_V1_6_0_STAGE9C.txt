@@ -1,0 +1,42 @@
+BerauLoad 1.6.0-stage9c — daftar file baru/diubah dari Stage 9b
+Paket bersifat full source, bukan patch overlay.
+Version: 1.6.0-stage9c
+
+UBAH   ARSITEKTUR.md
+UBAH   CHANGELOG.md
+UBAH   PANDUAN_PENGGUNA.md
+UBAH   QA_STATUS.md
+BARU   QA_STATUS_STAGE9C.md
+UBAH   README.md
+BARU   README_UPGRADE_V1_6_0_STAGE9C.md
+UBAH   VERSION
+UBAH   backend/app/main.py
+UBAH   backend/app/modules/formulas/engine.py
+BARU   backend/app/modules/substations/analysis_data.py
+BARU   backend/app/modules/substations/analysis_export.py
+BARU   backend/app/modules/substations/analysis_migrations.py
+BARU   backend/app/modules/substations/analysis_models.py
+BARU   backend/app/modules/substations/analysis_queries.py
+BARU   backend/app/modules/substations/analysis_router.py
+BARU   backend/app/modules/substations/analysis_views.py
+UBAH   backend/app/modules/substations/calculation_admin.py
+UBAH   backend/app/modules/substations/calculation_router.py
+UBAH   backend/app/modules/substations/calculation_service.py
+UBAH   backend/app/modules/substations/imports.py
+UBAH   backend/app/modules/substations/visits.py
+UBAH   backend/app/modules/substations/visits_service.py
+BARU   backend/tests/test_stage9c_analysis.py
+UBAH   frontend/package.json
+UBAH   frontend/src/features/substations/SubstationsPage.tsx
+BARU   frontend/src/features/substations/analysis/AnalysisPage.tsx
+BARU   frontend/src/features/substations/analysis/analysis.css
+BARU   frontend/src/features/substations/analysis/helpers.d.mts
+BARU   frontend/src/features/substations/analysis/helpers.mjs
+BARU   frontend/src/features/substations/analysis/types.ts
+UBAH   frontend/src/features/substations/formulas/FormulaSettings.tsx
+UBAH   frontend/src/features/substations/formulas/helpers.d.mts
+UBAH   frontend/src/features/substations/formulas/helpers.mjs
+UBAH   frontend/src/features/substations/formulas/types.ts
+BARU   frontend/tests/garduAnalysis.test.mjs
+BARU   DAFTAR_FILE_V1_6_0_STAGE9C.txt
+UBAH   build_manifest.sha256

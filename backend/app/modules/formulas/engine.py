@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import ast
 import math
+import re
 from dataclasses import dataclass
 from functools import lru_cache
 from typing import Mapping
@@ -34,12 +35,16 @@ class FormulaSpec:
 
 
 @lru_cache(maxsize=512)
-def parse_formula(expression: str) -> tuple[ast.Expression, frozenset[str]]:
+def parse_formula(expression: str, extra_functions: frozenset[str] = frozenset()) -> tuple[ast.Expression, frozenset[str]]:
     if not 1 <= len(expression) <= 500:
         raise FormulaError('Panjang rumus harus 1–500 karakter')
     try:
-        tree = ast.parse(expression, mode='eval')
+        # Excel-style '=' is accepted ONLY in the opt-in gardu context.
+        source = re.sub(r'(?<![<>=!])=(?!=)', '==', expression) if extra_functions else expression
+        tree = ast.parse(source, mode='eval')
     except (SyntaxError, ValueError) as exc:
+        if extra_functions and isinstance(exc, SyntaxError):
+            raise FormulaError(f'Sintaks rumus tidak valid di posisi {exc.offset or 1}') from exc
         raise FormulaError('Sintaks rumus tidak valid') from exc
     if len(list(ast.walk(tree))) > 85:
         raise FormulaError('Rumus terlalu kompleks')
@@ -57,7 +62,7 @@ def parse_formula(expression: str) -> tuple[ast.Expression, frozenset[str]]:
                 raise FormulaError('Angka konstanta di luar batas')
             return
         if isinstance(node, ast.Name):
-            if node.id in FUNCTIONS:
+            if node.id in FUNCTIONS | extra_functions:
                 raise FormulaError('Fungsi harus memakai tanda kurung')
             variables.add(node.id)
             return
@@ -70,9 +75,11 @@ def parse_formula(expression: str) -> tuple[ast.Expression, frozenset[str]]:
             inspect(node.left, depth + 1)
             return inspect(node.comparators[0], depth + 1)
         if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
-            if node.func.id not in FUNCTIONS or node.keywords or not 1 <= len(node.args) <= 12:
+            if node.func.id not in FUNCTIONS | extra_functions or node.keywords or not 1 <= len(node.args) <= 12:
                 raise FormulaError('Fungsi atau jumlah argumen tidak didukung')
-            sizes = {'IF': (3,), 'ABS': (1,), 'ROUND': (1, 2), 'AND': (2, 3, 4), 'OR': (2, 3, 4)}
+            sizes = {'SUM_JURUSAN': (1,), 'MAX_JURUSAN': (1,),
+                     'MIN_JURUSAN': (1,), 'AVG_JURUSAN': (1,),
+                     'KOSONG': (1,), 'FLAG': (2,), 'IF': (3,), 'ABS': (1,), 'ROUND': (1, 2), 'AND': (2, 3, 4), 'OR': (2, 3, 4)}
             if node.func.id in sizes and len(node.args) not in sizes[node.func.id]:
                 raise FormulaError(f'Jumlah argumen {node.func.id} tidak valid')
             for arg in node.args:
@@ -197,3 +204,119 @@ def evaluate(expression: str, values: Mapping[str, float]) -> float:
     if not math.isfinite(result) or not -1e9 < result < 1e9:
         raise FormulaError('Hasil di luar batas numerik sistem')
     return round(result, 5)
+
+
+# Extensions below are opt-in ONLY for gardu calculations. Legacy validate/evaluate
+# retain their exact accepted grammar, missing-data semantics and rounding.
+GARDU_FUNCTIONS = frozenset({'SUM_JURUSAN', 'MAX_JURUSAN', 'MIN_JURUSAN',
+                             'AVG_JURUSAN', 'KOSONG', 'FLAG'})
+
+
+def evaluate_gardu(expression, variables, aggregates, flags, *, skip_missing=False,
+                   absent_lines=frozenset(), not_applicable=None):
+    """Use the existing bounded AST parser; evaluate three-valued gardu cells.
+
+    aggregates: code -> sequence of (existing, numeric or None). Only existing
+    jurusan are included. Numeric 0 is never considered missing.
+    Returns (value, missing-names, complete-count, source-count).
+    """
+    tree, _ = parse_formula(expression, GARDU_FUNCTIONS)
+    missing = set()
+    partial = set()
+    touched = set()
+
+    def symbol(node):
+        if not isinstance(node, ast.Name):
+            raise FormulaError('Argumen fungsi gardu harus kode, bukan ekspresi')
+        return node.id
+
+    def walk(node):
+        if isinstance(node, ast.Expression): return walk(node.body)
+        if isinstance(node, ast.Constant): return float(node.value)
+        if isinstance(node, ast.Name):
+            if node.id in absent_lines:
+                if not_applicable is not None: not_applicable.add(node.id)
+                return None
+            touched.add(node.id)
+            value = variables.get(node.id)
+            if value is None: missing.add(node.id)
+            return value
+        if isinstance(node, ast.UnaryOp):
+            x = walk(node.operand)
+            return None if x is None else (-x if isinstance(node.op, ast.USub) else +x)
+        if isinstance(node, ast.BinOp):
+            a, b = walk(node.left), walk(node.right)
+            if a is None or b is None: return None
+            if isinstance(node.op, ast.Add): return a + b
+            if isinstance(node.op, ast.Sub): return a - b
+            if isinstance(node.op, ast.Mult): return a * b
+            if b == 0: return None
+            return a / b
+        if isinstance(node, ast.Compare):
+            a, b = walk(node.left), walk(node.comparators[0])
+            if a is None or b is None: return None
+            op = node.ops[0]
+            return (a > b if isinstance(op, ast.Gt) else a >= b if isinstance(op, ast.GtE)
+                    else a < b if isinstance(op, ast.Lt) else a <= b if isinstance(op, ast.LtE)
+                    else a == b if isinstance(op, ast.Eq) else a != b)
+        fn = node.func.id
+        if fn == 'IF':
+            condition = walk(node.args[0])
+            return None if condition is None else walk(node.args[1] if condition else node.args[2])
+        if fn in ('AND', 'OR'):
+            result = True if fn == 'AND' else False
+            unknown = False
+            for arg in node.args:
+                value = walk(arg)
+                if value is None: unknown = True
+                elif fn == 'AND' and not bool(value): return False
+                elif fn == 'OR' and bool(value): return True
+            return None if unknown else result
+        if fn in GARDU_FUNCTIONS:
+            code = symbol(node.args[0])
+            if fn == 'FLAG':
+                flag = symbol(node.args[1])
+                if code not in flags: raise FormulaError('Parameter flag tidak dikenal: '+code)
+                return flag.lower() in flags[code]
+            if fn == 'KOSONG':
+                if code not in variables and code not in aggregates:
+                    raise FormulaError('Parameter tidak dikenal: ' + code)
+                if code in aggregates:
+                    return all(value is None for value in aggregates[code])
+                return variables.get(code) is None
+            if code not in aggregates:
+                raise FormulaError('Parameter jurusan tidak dikenal: ' + code)
+            items = list(aggregates[code])
+            touched.update(f'{code}_j{i+1}' for i in range(len(items)))
+            valid = [float(x) for x in items if x is not None]
+            if len(valid) != len(items):
+                missing.update(f'{code}_j{i+1}' for i,x in enumerate(items) if x is None)
+                partial.add(code)
+            if not valid or (not skip_missing and len(valid) != len(items)):
+                return None
+            if fn == 'SUM_JURUSAN': return sum(valid)
+            if fn == 'MAX_JURUSAN': return max(valid)
+            if fn == 'MIN_JURUSAN': return min(valid)
+            return sum(valid)/len(valid)
+        args = [walk(a) for a in node.args]
+        if any(x is None for x in args): return None
+        if fn == 'SUM': return sum(args)
+        if fn == 'AVG': return sum(args)/len(args)
+        if fn == 'MIN': return min(args)
+        if fn == 'MAX': return max(args)
+        if fn == 'ABS': return abs(args[0])
+        if fn == 'ROUND':
+            digits = int(args[1]) if len(args) == 2 else 0
+            if (len(args) == 2 and digits != args[1]) or not -5 <= digits <= 5:
+                raise FormulaError('ROUND menerima digit bulat -5 s.d. 5')
+            return round(args[0], digits)
+        raise FormulaError('Fungsi tidak dikenal')
+
+    try:
+        result = walk(tree)
+        if isinstance(result, (float, int)) and not isinstance(result, bool):
+            if not math.isfinite(result) or abs(result) >= 1e9: result = None
+            elif result is not None: result = round(result, 5)
+    except (ZeroDivisionError, OverflowError):
+        result = None
+    return result, sorted(missing), len(touched - missing), len(touched)

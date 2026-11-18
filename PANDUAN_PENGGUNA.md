@@ -1,3 +1,41 @@
+## Perbaikan filter Analisa gardu (Stage 9c-fix)
+
+Di **Pengukuran Gardu → Analisa**, syarat angka pada kolom hitung (termasuk kolom kustom) mendukung ≥, ≤, antara, kosong, dan tidak kosong; angka **0 bukan kosong**. Pilih beberapa chip temuan untuk melihat **Salah satu** atau **Semua**, lalu hasil tabel/ringkasan/unduhan menggunakan filter yang sama. Filter disimpan pada URL; daftar temuan dapat muncul berulang sebagai parameter `findings`. Jika operator atau nilai syarat angka belum lengkap, server memberi pesan kesalahan, tidak mengabaikan filter. Ambang kategori/temuan tetap berasal dari pengaturan admin global.
+
+## Analisa gardu — Tahap 9c
+
+Buka **Pengukuran Gardu → Analisa**. Mode **Terakhir** memilih kunjungan terbaru
+pada tiap sesi lalu sesi dengan nilai kolom acuan terbesar; bila NULL, sesi itu
+berada setelah nilai terisi. Mode **Periode** memilih kunjungan terbaru pada sesi
+dalam rentang; mode **Semua** menampilkan satu baris per pengukuran. Gardu aktif
+tanpa pengukuran ditandai **Belum diukur**.
+
+Gunakan pencarian, penyulang, unit, status, kategori, temuan atau **Syarat angka**
+untuk menyaring. Pencarian aturan berasal dari definisi yang ditetapkan admin.
+Klik judul kolom untuk sortir. Kolom hitung kosong ditampilkan `—`, angka nol
+tetap `0`, `⚠` menyatakan ada sumber tidak lengkap. `Versi lama` menunjukkan
+hasil yang menunggu hitung ulang setelah perubahan definisi.
+
+Pilih **Atur kolom** untuk tampil/sembunyikan dan seret urutan kolom, termasuk
+atribut tambahan gardu. **Simpan tampilan** menyimpan filter, kolom dan lebar
+di server; admin dapat membagikan tampilan bersama, dan Anda dapat menyimpan
+tampilan pribadi bawaan. Filter juga tercantum di URL untuk dibagikan kepada
+pengguna lain sesuai hak akses unitnya.
+
+**Unduh Excel** menghasilkan lembar Analisa Gardu dan Keterangan (versi definisi,
+filter, rumus, aturan); **CSV** menambahkan baris keterangan di bagian akhir.
+Centang baris untuk ekspor terpilih. Pilih nama gardu untuk membaca rincian ukur,
+hasil hitung dan histori hingga 40 kunjungan; analisa tidak mengubah data ukur.
+Nilai batas dan rumus seed bersifat sementara sampai disahkan pemilik.
+
+## Rumus & Kategori Gardu (Stage 9b)
+
+Buka **Pengukuran Gardu → Rumus & Kategori**. Operator/verifier/management dapat melihat definisi; hanya admin global boleh mengubah. Pilih kolom di kiri, ubah nama/satuan/desimal, pilih `batal` (jika ada satu sumber kosong → NULL) atau `lewati` (agregat mengabaikan sel kosong dan menandai tidak lengkap), dan tulis rumus di tengah. Kode permanen setelah dibuat. Tombol fungsi menyisipkan token, misalnya `SUM_JURUSAN(i_r)`, `AVG_JURUSAN(v_end_rn)`, `IF(fase = 3, ..., ...)`, `FLAG(ground_tr, PUTUS)`, `KOSONG(ground_tr)`, `MIN`, `MAX`, `AVG`, `SUM`, `ROUND`, `ABS`, `AND`, `OR`. Referensi langsung jurusan memakai `_j1`…`_j5`, misalnya `i_r_j1`. `kva`, `fase`, `jumlah_jurusan` adalah snapshot saat kunjungan. `0` sah; kosong dan flag berbeda dari nol. Formula bertingkat tidak boleh memiliki siklus.
+
+Gunakan **Uji** pada pengukuran untuk membandingkan hasil sekarang/draf dan melihat sumber kosong, lalu **Pratinjau dampak** untuk melihat sampel dampak kategori/temuan tanpa menulis. Simpan dengan konfirmasi, kemudian gunakan **Hitung ulang / lanjutkan** untuk memproses hasil turunan per batch. Rekap progres menampilkan `selesai/total`. Hasil versi lama tetap dapat dibaca tetapi diberi tanda menunggu hitung ulang. Pengukuran terverifikasi tidak dapat diedit walau hasil turunannya dihitung ulang.
+
+Aturan kategori dicek menurut urutan dan hanya mengambil kecocokan pertama; jika tidak ada yang cocok hasilnya “Tidak dapat dinilai”. Temuan dapat muncul bersamaan. **Jumlah hari belum diukur** dihitung sewaktu ditampilkan berdasarkan tanggal terakhir, bukan disimpan sebagai hasil hitung. Semua ambang bawaan **sementara**, bukan standar yang sudah disahkan.
+
 ## Stage 8 — Pengaturan Branding (hanya admin)
 
 Admin membuka **Pengaturan → Branding**, mengubah nama aplikasi, nama pendek, tagline, teks login, organisasi/footer serta warna utama/aksen. Cek indikator kontras teks putih (minimal 4.5:1) dan pratinjau login/sidebar sebelum menekan **Simpan Branding**. Unggah logo PNG/JPEG/WebP maksimal 512 KB dan 1024 px; favicon PNG/ICO/WebP maksimal 128 KB dan 256 px. Berkas akan diproses ulang menjadi PNG; SVG unggahan tidak diizinkan. Gunakan tombol Hapus untuk kembali ke ikon bawaan dan tombol **Kembalikan semua ke bawaan** dengan konfirmasi untuk reset menyeluruh.
@@ -677,3 +715,53 @@ Pada **Monitoring → Topologi**, halaman otomatis mengisi lebar ruang kerja. Kl
 4. Verifier ULP dapat memfinalkan hari ULP ketika KP masih draf dengan membaca daftar KP lalu **mengonfirmasi**. Audit menyimpan keputusan tersebut. Jika pembacaan KP diperbaiki setelah ULP verified/final, hasil ULP tetap terkunci. Verifier/admin melihat **Sumber berubah setelah final/verifikasi** pada status hari; admin dapat membuka kembali hari bila memang disetujui untuk memperbarui perhitungan. UP3 mengikuti pembacaan terkini tanpa status hari.
 5. Akun KP tetap hanya melihat KP tersebut; tidak dapat memilih parameter induk atau unit setingkat. Tidak ada tombol tulis pembacaan sumber melalui dashboard rekap.
 
+
+
+## Pengukuran Gardu — Stage 9a
+
+Buka **Operasional → Pengukuran Gardu** setelah memilih ULP/KP pada sidebar.
+Admin global membuat Master Penyulang dan Master Gardu, menetapkan definisi
+parameter/sesi/flag global pada tab **Definisi Global**. Kode tidak dapat diubah
+setelah gardu berpengukuran, sedangkan nama, daya, fase, merek, nomor seri,
+tap, dan penyulang dapat diperbarui; histori/snapshot pengukuran tidak berubah.
+
+**Input Massal:** pilih tanggal dan sesi (contoh Siang/Malam), penyulang bila ingin
+membatasi, nama petugas, lalu isi sel seperti spreadsheet. Enter/Tab/panah berpindah,
+tempel TSV dari Excel, pilih flag dari dropdown sel. `0` bukan sel kosong.
+Jurusan melebihi jumlah yang disetel dinonaktifkan. Penyimpanan otomatis per baris
+3 detik, blur langsung; tanda status muncul di baris. Pada sesi kadaluarsa login
+ulang dengan akun yang sama, dan saat konflik pilih nilai server atau nilai sendiri.
+Backup tersimpan lokal hingga 7 hari; konfirmasi Pulihkan/Buang sebelum menggunakannya.
+Halaman 100 gardu sekaligus; halaman berikutnya melalui navigasi bawah tabel.
+**Form Ponsel** untuk satu gardu tersedia tersendiri.
+
+**Daftar & Verifikasi:** gunakan filter tanggal/sesi/status/penyulang, pilih baris
+untuk aksi massal. Verifier/Admin memverifikasi; pengukuran verified terkunci;
+reopen memerlukan alasan audit. Penghapusan hanya draft. Sistem menyimpan snapshot
+kVA/fase/jumlah jurusan/penyulang pada saat kunjungan pertama dibuat.
+
+**Impor Excel/CSV:** unduh template dari Master atau Daftar Pengukuran. Unggah dan
+periksa validasi per baris sebelum konfirmasi. Penyulang baru dan update master
+harus dipilih eksplisit. Pengukuran impor default hanya mengisi sel yang kosong;
+mode timpa hanya untuk draft. Kolom/teks sembarang tidak diinterpretasikan sebagai
+nilai 0. Lihat `README_UPGRADE_V1_6_0_STAGE9A.md` untuk batas dan rollback.
+
+## Tambahan Stage 9a-fix
+
+**Tampilan Pengukuran Gardu** menampilkan filter tanggal/sesi/penyulang/petugas, pilihan kelompok pengukuran dan input massal dalam tabel spreadsheet. Penanda jumlah gardu, status setiap baris dan petunjuk navigasi ditempatkan berdampingan dengan kisi. Tab *Form Ponsel*, *Master Gardu*, *Daftar & Verifikasi*, dan *Definisi Global* tetap tersedia sesuai izin lama. Referensi HTML juga memuat mockup Peta/Analisa/Rumus, tetapi ketiganya belum menjadi fitur Stage 9a.
+
+**Mengurangi jurusan:** ketika data pernah dicatat di jurusan yang akan dinonaktifkan, sistem menampilkan jumlah nilai terdampak dan meminta konfirmasi. Konfirmasi mengubah master untuk pengukuran berikutnya saja; riwayat dan snapshot pengukuran lama tidak dihapus. Perubahan massal mengembalikan hasil berhasil, gagal, dan butuh konfirmasi per gardu.
+
+**Konflik saat simpan:** dialog menampilkan sel berbeda (nama parameter, jurusan, nilai lokal/server), pengubah, waktu dan status. *Muat ulang data server* menyimpan ketikan konflik dalam cadangan lokal untuk opsi salin ulang, bukan menerapkannya diam-diam. *Pertahankan ketikan saya* mencoba kembali memakai revisi terkini. Pengukuran terverifikasi tidak dapat ditimpa.
+
+**Definisi global:** admin mengedit melalui dialog; kode pengukuran ditampilkan terkunci, nama/satuan/minimum/maksimum/urutan/status bisa diperbarui sesuai kategori. Batas minimum lebih besar daripada maksimum ditolak. Operator dan verifier tidak mendapat izin konfigurasi baru.
+
+## Pengukuran Gardu — Peta, Grafik dan Tampilan (Stage 9d1)
+
+Pilih **Pengukuran Gardu → Peta**. Filter pencarian, unit, penyulang, sesi, kategori dan temuan berlaku pada gardu yang terlihat sesuai hak unit; kategori, warna, simbol, dan angka berasal dari pengaturan administrator serta hasil hitung tersimpan. Gunakan **Warna penanda** untuk kategori, umur ukur, atau kolom hitung. Titik mengelompok saat zoom kecil; klik kelompok untuk memperbesar, klik satu titik untuk menampilkan panel rincian. Pilih **Ukur ulang** untuk membuka form ponsel gardu tersebut, **Riwayat lengkap** ke Analisa, atau **Buka di Google Maps** untuk peta luar.
+
+Jika ada **gardu tanpa koordinat**, daftar kode muncul di bawah peta; klik untuk membuka Master dan memperbaiki koordinat. Ketika ubin tidak tersedia, latar polos dan titik/skala tetap muncul. **Lokasi saya** meminta izin lokasi browser dan hanya bekerja melalui HTTPS atau localhost; jarak **Terdekat** adalah garis lurus, bukan rute jalan.
+
+Pilih **Pengukuran Gardu → Analisa** untuk melihat grafik sebar kategori per penyulang, perbandingan sesi, pareto dan tren. Grafik mengikuti filter yang sama dengan tabel. Gunakan **Unduh CSV/PNG** untuk grafik, dan **Simpan tampilan** untuk menyimpan jenis grafik, kolom, dan filter. Pilih kepadatan **Nyaman/Padat** pada tabel; pengaturan ini diingat untuk pengguna browser yang sama.
+
+Admin global dapat membuka tombol **Atur ubin peta**, mengaktifkan/menonaktifkan ubin, serta memasukkan URL dan atribusi milik penyedia ubin. Konfigurasi awal menggunakan ubin OpenStreetMap (`https://tile.openstreetmap.org/{z}/{x}/{y}.png`) dengan atribusi `© OpenStreetMap contributors`. Penggunaan ubin tunduk pada kebijakan penyedia. Kode gardu dan hasil ukur tetap berada dalam database BerauLoad, bukan diubah oleh peta/grafik.

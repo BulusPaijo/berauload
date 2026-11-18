@@ -1,0 +1,28 @@
+BerauLoad V1.6.0 Stage 9a-fix — daftar file baru/diubah dibanding Full Source Stage 9a
+
+DIUBAH  ARSITEKTUR.md
+DIUBAH  CHANGELOG.md
+DIUBAH  PANDUAN_PENGGUNA.md
+DIUBAH  QA_STATUS.md
+DIUBAH  QA_STATUS_STAGE9A.md
+BARU    QA_STATUS_STAGE9A_FIX.md
+DIUBAH  README.md
+BARU    README_UPGRADE_V1_6_0_STAGE9A_FIX.md
+DIUBAH  VERSION
+DIUBAH  backend/app/main.py
+DIUBAH  backend/app/modules/substations/definitions.py
+DIUBAH  backend/app/modules/substations/master.py
+DIUBAH  backend/app/modules/substations/schemas.py
+BARU    backend/tests/test_stage9a_hotfix.py
+DIUBAH  frontend/package.json
+BARU    frontend/src/features/substations/ConflictDialog.tsx
+DIUBAH  frontend/src/features/substations/DefinitionSettings.tsx
+DIUBAH  frontend/src/features/substations/InputGrid.tsx
+DIUBAH  frontend/src/features/substations/MasterPanel.tsx
+DIUBAH  frontend/src/features/substations/SubstationsPage.tsx
+BARU    frontend/src/features/substations/conflict.d.mts
+BARU    frontend/src/features/substations/conflict.mjs
+DIUBAH  frontend/src/features/substations/substations.css
+BARU    frontend/tests/substationConflict.test.mjs
+
+Tidak ada tabel/migrasi baru, tidak mengubah data per jam atau modul Stage 1–8.

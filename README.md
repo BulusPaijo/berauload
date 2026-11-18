@@ -1,3 +1,41 @@
+## Stage 9c-fix — Koreksi filter PostgreSQL dan build TypeScript (17 November 2026)
+
+Patch kecil kumulatif di atas Stage 9c, dapat di-upgrade langsung dari Stage 9b. Filter angka sekarang berkorelasi pada ID pengukuran yang dipilih, query temuan dapat memakai beberapa kode, input salah menghasilkan HTTP 422, dan deklarasi helper React diselaraskan. **Kandidat staging**: build frontend sungguhan dan eksekusi PostgreSQL 16 di LXC masih perlu dibuktikan. Lihat `README_UPGRADE_V1_6_0_STAGE9C_FIX.md` dan `QA_STATUS_STAGE9C_FIX.md`.
+
+## Stage 9c — Analisa Gardu dan Hotfix Hitung Ulang (17 November 2026)
+
+**Kandidat staging** di atas Stage 9b: benturan dua proses hitung ulang
+ditangani dengan kunci transaksi PostgreSQL dan SKIP LOCKED; draf rumus bersiklus
+ditolak; jurusan yang tidak ada bukan sumber kosong; preview dampak menampilkan
+contoh tanpa menulis. Halaman **Pengukuran Gardu → Analisa** menyediakan mode
+terakhir/periode/semua, filter SQL kolom hitung dan aturan admin, sortir NULL di
+akhir, tabel responsif, ekspor CSV/XLSX + keterangan versi, serta tampilan pribadi
+atau bersama. Definisi dan data ukur Stage 9b/9a tidak diubah.
+
+**Jangan upgrade production sebelum validasi PostgreSQL 16, Docker build, browser,
+dan pengukuran kinerja LXC.** Lihat `README_UPGRADE_V1_6_0_STAGE9C.md` serta
+`QA_STATUS_STAGE9C.md`.
+
+## Stage 9b — Rumus & Kategori Pengukuran Gardu (17 November 2026)
+
+Kandidat staging di atas **Stage 9a-fix**. Admin global dapat menyusun **kolom
+hitung, kategori, temuan, konstanta**, dan ambang *belum diukur* yang berlaku di
+seluruh unit melalui **Pengukuran Gardu → Rumus & Kategori**. Ekspresi memakai
+parser AST aman yang sama dengan rumus beban harian, dengan ekstensi yang hanya
+aktif dalam konteks gardu. Hasil turunan disimpan per kunjungan sebagai tabel
+relasional berversi; data ukur verified tetap tidak dapat diubah. Revisi definisi
+menaikkan versi dan dapat dihitung ulang secara bertahap dan dilanjutkan.
+
+**Penting:** definisi awal merupakan konfigurasi *sementara* yang harus disetujui
+pemilik sebelum dipakai untuk keputusan teknis. Dibutuhkan validasi PostgreSQL 16,
+NPM build, dan browser di LXC pengguna. Panduan: `README_UPGRADE_V1_6_0_STAGE9B.md`,
+`QA_STATUS_STAGE9B.md`. Tahap 9c (tabel analisa) dan 9d (peta/grafik) **tidak**
+masuk paket ini.
+
+## Stage 9a — Pengukuran Gardu (17 November 2026)
+
+Pengukuran beban gardu distribusi kini dicatat **per kunjungan** (gardu/tanggal/sesi), terpisah sepenuhnya dari pembacaan per jam. Modul `substations` memiliki master gardu+penyulang, definisi parameter global, sesi/flag, snapshot trafo dan penyulang, penyimpanan draft/verified ber-revision, Excel/CSV preview-first, aksi massal, serta kisi input dan form ponsel. Migrasi hanya tabel baru, tidak menyentuh `HourRecord`/`Reading`. Stage 9b (rumus/kategori/analisis) belum diimplementasikan. **Kandidat staging: build frontend dan PostgreSQL/browser LXC wajib divalidasi**. Baca `README_UPGRADE_V1_6_0_STAGE9A.md` dan `QA_STATUS_STAGE9A.md`.
+
 ### Stage 8 — Branding global yang dapat diatur
 
 Versi terbaru `1.6.0-stage8`: Pengaturan → Branding (admin) mengubah nama tampilan, logo, favicon, warna, teks login, header/footer laporan dan unduhan tanpa rebuild setelah perubahan setting. Identitas teknis BerauLoad, format template Excel/JSON, kunci localStorage/cookie, database serta Compose **tetap**. Lihat `README_UPGRADE_V1_6_0_STAGE8.md` dan `QA_STATUS_STAGE8.md` sebelum pemasangan staging/produksi.
@@ -236,3 +274,11 @@ Visual Editor Tahap 4 menyediakan penggambaran jalur manual dan palet simbol pen
 Modul terisolasi `backend/app/modules/topology/` menambah API `/api/topology` untuk konfigurasi diagram satu garis, validasi layout/metric/peralatan/aturan, revisi immutable, dan pembacaan data per jam/24 jam. Tahap 2 menambahkan menu dan Viewer berbasis API tersebut; editor akan dikembangkan terpisah pada Tahap 3.
 
 Diagram baru kosong. Admin membuat dan memperbarui konfigurasi tanpa menyimpan pembacaan listrik; semua user login dapat melihat. API tidak menyediakan aksi operasi pemutus. BerauLoad tetap data per jam WITA, bukan SCADA realtime. Lihat `README_UPGRADE_V1_5_0_STAGE1.md` untuk prosedur staging, backup, rollback.
+
+## BerauLoad 1.6.0 Stage 9a-fix
+
+Hotfix UI Pengukuran Gardu berdasarkan referensi desain HTML, kode duplikat 409, konfirmasi pengurangan jurusan, dialog konflik yang menjaga ketikan, serta editor definisi tanpa prompt. Tidak ada migrasi baru. Petunjuk: `README_UPGRADE_V1_6_0_STAGE9A_FIX.md`. Fitur contoh Stage 9b dalam desain tidak ditambahkan pada hotfix ini.
+
+### Stage 9d1 — Peta, Grafik dan Tampilan Gardu
+
+Pengukuran Gardu memiliki peta distribusi (Leaflet), filter bersama Analisa, kategori/temuan 9b, panel rincian, geolokasi browser, serta lima grafik Recharts di Analisa. Admin global dapat mengatur ubin peta dari UI. Tidak mengubah data ukur maupun rumus. **Kandidat staging**; baca `README_UPGRADE_V1_6_0_STAGE9D1.md` dan `QA_STATUS_STAGE9D1.md` sebelum upgrade ke server operasional.

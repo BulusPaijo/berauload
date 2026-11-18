@@ -1,0 +1,62 @@
+/* 9d-3 input grid (approved design). Explicit frozen columns: checkbox + Gardu only. */
+.gx-page .gx-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.gx-page .gx-head h3{font-size:24px;margin:2px 0}.gx-page .gx-head p{margin:0;color:#5b7480}
+.gx-filters{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;background:#fff;border:1px solid #dce7eb;border-radius:14px;padding:14px 16px}
+.gx-filters label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:#5b7480;font-weight:600}
+.gx-filters input,.gx-filters select{min-height:40px;border:1px solid #cfdde3;border-radius:9px;padding:0 10px;font:inherit;color:#13384b;background:#fff}
+.gx-filters .gx-tech input{min-width:220px}
+.gx-chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-left:auto}.gx-chips>span{font-size:12px;color:#5b7480}
+.gx-chip{border:1px solid #cfdde3;background:#fff;border-radius:99px;padding:7px 14px;font-size:13px;font-weight:600;color:#26495a;cursor:pointer}
+.gx-chip.on{background:#e3f4f4;border-color:#0b8190;color:#0b6a73}
+.gx-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.gx-bar strong{color:#173f52;margin-right:4px}
+.gx-sum{margin-left:auto;color:#5b7480;font-size:12px}
+.substation-grid.gx{max-height:70vh;overflow:auto;border:1px solid #dce7eb;border-radius:14px;background:#fff;box-shadow:none}
+.substation-grid.gx table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;font-variant-numeric:tabular-nums}
+.substation-page .substation-grid.gx th,.substation-page .substation-grid.gx td{position:static;min-width:0;padding:0;border-bottom:1px solid #e8eef1;border-right:1px solid #f0f4f6;font-size:13px;background:#fff;text-transform:none;letter-spacing:0;text-align:left}
+.substation-page .substation-grid.gx thead th{position:sticky;top:0;z-index:3;background:#eef4f6;color:#26495a;font-weight:700;height:36px;padding:0 10px}
+.substation-page .substation-grid.gx thead tr.gx-sub th{top:36px;text-align:right;font-weight:700;min-width:62px}
+.substation-page .substation-grid.gx thead th.gx-block{text-align:center;font-size:13px}
+.substation-page .substation-grid.gx thead .gx-a{background:#e9f2f4}.substation-page .substation-grid.gx thead .gx-b{background:#f3f7f8}
+.substation-page .substation-grid.gx .gx-first{border-left:2px solid #d3e2e7}
+.gx-unit{font-weight:500;color:#5b7480}
+.substation-page .substation-grid.gx .gx-freeze{position:sticky;z-index:4}
+.substation-page .substation-grid.gx thead .gx-freeze{z-index:6;background:#eef4f6}
+.substation-page .substation-grid.gx .gx-pick{left:0;width:44px;min-width:44px;text-align:center}
+.substation-page .substation-grid.gx .gx-name{left:44px;min-width:210px;max-width:210px;padding:6px 12px;box-shadow:2px 0 0 #d3e2e7}
+.substation-page .substation-grid.gx tbody .gx-name b{display:block;color:#13384b}.substation-page .substation-grid.gx tbody .gx-name small{display:block;color:#647d89;font-size:11px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.substation-page .substation-grid.gx .gx-status{min-width:150px;padding:0 12px;white-space:nowrap}
+.gx-tone-ok{color:#0e7a4a!important;font-weight:600}.gx-tone-warn{color:#9a5b00!important;font-weight:600}.gx-tone-danger{color:#a32d2d!important;font-weight:700}.gx-tone-muted{color:#647d89!important}
+.gx-status .gx-calc{margin-left:8px;font-size:11px}
+.gx-cell{position:relative;height:46px}
+.gx-cell input{width:78px;height:46px;border:0;background:transparent;text-align:right;padding:0 10px;font:inherit;color:#13384b}
+.gx-cell input:focus{outline:2px solid #0b8190;outline-offset:-2px;background:#e8f6f7}
+.gx-cell .gx-flag-pick{position:absolute;left:2px;top:2px;width:16px;height:16px;opacity:0;cursor:pointer;border:0;font-size:11px}
+.gx-cell:hover .gx-flag-pick,.gx-cell:focus-within .gx-flag-pick{opacity:.55;width:auto;max-width:70px;background:#fff;border:1px solid #cfdde3;border-radius:4px;height:18px}
+.gx-flag{position:absolute;inset:10px 8px auto auto;background:#efe9fb;color:#5b3aa4;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;pointer-events:none}
+.substation-page .substation-grid.gx td.gx-na{background:repeating-linear-gradient(135deg,#f1f4f6,#f1f4f6 6px,#e6ecef 6px,#e6ecef 12px)}
+.gx-row:hover th{background:#f6fbfb}.gx-row:focus-within td:not(.gx-na),.gx-row:focus-within th{background:#f0f9f9}
+.substation-page .substation-grid.gx .gx-row-danger td:not(.gx-na),.substation-page .substation-grid.gx .gx-row-danger th{background:#fdf1f1}
+.substation-page .substation-grid.gx .gx-row-picked td:not(.gx-na),.substation-page .substation-grid.gx .gx-row-picked th{background:#eef7f7}
+.gx-empty{display:grid;gap:4px;padding:28px;text-align:center;color:#5b7480;border:1px dashed #cfdde3;border-radius:12px}.gx-empty b{color:#13384b}
+.gx-pager{display:flex;gap:8px;align-items:center;justify-content:flex-end;color:#5b7480;font-size:13px}.gx-pager span{margin-right:auto}
+.gx-help{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.gx-help section{background:#fff;border:1px solid #dce7eb;border-radius:14px;padding:14px 16px}.gx-help h4{margin:0 0 6px;color:#13384b}.gx-help p{margin:0;color:#5b7480;font-size:13px;line-height:1.55}
+.gx-help .gx-conflict{border-color:#efb5b5;background:#fff7f7}
+@media(max-width:760px){.gx-chips{margin-left:0}.substation-page .substation-grid.gx .gx-name{min-width:140px;max-width:140px}}
+
+/* 9d-4: soft tint per jurusan so blocks are easy to tell apart (header slightly stronger) */
+.substation-page .substation-grid.gx td.gx-l1{background:#f3f8fd}.substation-page .substation-grid.gx thead .gx-l1{background:#e3eefa}
+.substation-page .substation-grid.gx td.gx-l2{background:#f3faf5}.substation-page .substation-grid.gx thead .gx-l2{background:#e1f2e6}
+.substation-page .substation-grid.gx td.gx-l3{background:#fdf8ef}.substation-page .substation-grid.gx thead .gx-l3{background:#f8ecd6}
+.substation-page .substation-grid.gx td.gx-l4{background:#f8f5fc}.substation-page .substation-grid.gx thead .gx-l4{background:#ece5f6}
+.substation-page .substation-grid.gx td.gx-l5{background:#fcf4f7}.substation-page .substation-grid.gx thead .gx-l5{background:#f5e3ea}
+.substation-page .substation-grid.gx td.gx-l0{background:#f6f7f8}.substation-page .substation-grid.gx thead .gx-l0{background:#e9edf0}
+.substation-page .substation-grid.gx .gx-row:hover td.gx-cell:not(.gx-na){filter:brightness(.97)}
+
+/* 9d-5: gardu-level groups each get their own colour (rel F-N teal, rel F-F blue, ujung amber, grounding grey) */
+.substation-page .substation-grid.gx td.gx-t-relfn{background:#eef8f7}.substation-page .substation-grid.gx thead .gx-t-relfn{background:#d5efec;color:#0b5f66}
+.substation-page .substation-grid.gx td.gx-t-relff{background:#eff4fc}.substation-page .substation-grid.gx thead .gx-t-relff{background:#d9e6f8;color:#1d4f8f}
+.substation-page .substation-grid.gx td.gx-t-ujung{background:#fdf6ea}.substation-page .substation-grid.gx thead .gx-t-ujung{background:#f6e3c2;color:#7a4d06}
+.substation-page .substation-grid.gx td.gx-t-ground{background:#f3f3f1}.substation-page .substation-grid.gx thead .gx-t-ground{background:#e2e1dc;color:#4a4943}
+.substation-page .substation-grid.gx .gx-t-relfn.gx-first{border-left-color:#7cc8c0}.substation-page .substation-grid.gx .gx-t-relff.gx-first{border-left-color:#8fb2e3}
+.substation-page .substation-grid.gx .gx-t-ujung.gx-first{border-left-color:#e2b46a}.substation-page .substation-grid.gx .gx-t-ground.gx-first{border-left-color:#b4b2a9}

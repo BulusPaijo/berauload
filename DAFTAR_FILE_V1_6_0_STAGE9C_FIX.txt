@@ -1,0 +1,23 @@
+BerauLoad 1.6.0-stage9c-fix — perubahan dibanding ZIP Stage 9c sebelumnya
+Catatan: ini paket FULL SOURCE, dapat dipasang langsung dari Stage 9b.
+
+UBAH   ARSITEKTUR.md
+UBAH   CHANGELOG.md
+UBAH   PANDUAN_PENGGUNA.md
+UBAH   QA_STATUS.md
+BARU   QA_STATUS_STAGE9C_FIX.md
+UBAH   README.md
+BARU   README_UPGRADE_V1_6_0_STAGE9C_FIX.md
+UBAH   VERSION
+UBAH   backend/app/main.py
+UBAH   backend/app/modules/substations/analysis_queries.py
+UBAH   backend/app/modules/substations/analysis_router.py
+BARU   backend/tests/test_stage9c_fix.py
+BARU   deploy/upgrade_stage9b_to_stage9c_fix.sh
+UBAH   frontend/package.json
+UBAH   frontend/src/features/input-form/autosave/core.d.mts
+UBAH   frontend/src/features/substations/analysis/helpers.d.mts
+UBAH   frontend/src/features/substations/analysis/types.ts
+UBAH   frontend/tests/garduAnalysis.test.mjs
+BARU   DAFTAR_FILE_V1_6_0_STAGE9C_FIX.txt
+UBAH   build_manifest.sha256 (dihitung ulang)

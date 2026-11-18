@@ -1,3 +1,60 @@
+## 1.6.0-stage9d5 — 18 Nov 2026
+- Tegangan rel dipisah fasa-netral dan fasa-fasa; rel F-N, rel F-F, ujung JTR, dan grounding masing-masing punya warna (kisi + ponsel)
+- Rincian pengukuran: kepala dengan kode/nama gardu, tab Tabel nilai (sel berubah oranye + nilai lama), Riwayat dalam bahasa sehari-hari, Data teknis tersembunyi, Unduh Excel per pengukuran
+- Daftar Pengukuran menampilkan kode + nama gardu
+- Urutan kategori bernomor dengan seret ⋮⋮ dan panah kecil
+- Pemilih temuan: chip + "salah satu / semua" + kalimat contoh (Analisa & Export)
+
+## 1.6.0-stage9d4 — 18 Nov 2026
+- Perbaikan: ubah master gardu gagal (422)
+- Form ponsel: cari gardu; warna per jurusan; tegangan ujung per gardu (arsip + nilai terendah)
+- ULP/KP: verifikator ULP kelola master ULP+KP, pindah gardu ke KP, ULP isi data gardu KP, kolom unit di impor
+
+## 1.6.0-stage9d3 — 17 Nov 2026
+- Perbaikan kolom beku kisi input; form ponsel per jurusan dengan warna fasa
+- Tindak lanjut (Daftar Kerja), Pemantauan cakupan, laporan PDF/Excel, lembar kerja lapangan
+- Analisa dan Peta mengikuti rancangan pemilik; panel rincian gardu bersama
+
+## 1.6.0-stage9d2 — 17 Nov 2026
+- Titik peta ringkas (12 MB → 1,6 MB untuk 4.480 titik)
+- Export Data Gardu: pilih kolom, lebar/panjang, XLSX/CSV, template, audit
+- UI: header kisi per jurusan R S T N, Analisa tanpa slider + panel rincian + menu ekspor, Master dalam panel samping
+
+## 1.6.0-stage9c-fix — 17 November 2026
+- Perbaiki subkueri filter angka menjadi EXISTS yang berkorelasi dengan pengukuran terpilih, dan 422 untuk operator/nilai yang tidak sah.
+- Perbaiki parsing `findings` berulang atau koma pada rows/summary/export dan perbandingan any/all.
+- Hilangkan SAWarning subquery `IN` pada kategori tidak dapat dinilai melalui `select()` eksplisit.
+- Selaraskan deklarasi TypeScript `applyView`, tipe field `active`, dan ekspor helper `pause`.
+- Tambah tes SQLite end-to-end dengan 3 pengukuran tiap gardu, tes kompilasi dialek PostgreSQL, dan petunjuk upgrade aman Stage 9b → Stage 9c-fix. Tidak ada migrasi baru atau perubahan data/seed/izin.
+
+## 1.6.0-stage9c — 2026-11-17 (kandidat staging)
+- Hotfix 9b: advisory transaction lock, SKIP LOCKED, serialisasi hasil pengukuran,
+  tidak turun versi; retry 409 pada benturan sisa; busy 200 dan UI mencoba lagi.
+- Draf siklus /test dan /preview ditolak dengan rantai; fallback definisi
+  tersimpan rusak ditandai; jurusan di luar snapshot tidak berlaku.
+- Batch hitung ulang memuat definisi/parameter dan nilai ukur sekali; bulk
+  mengulang snapshot definisi, tanpa mengubah data ukur.
+- Aturan kategori diurutkan atomik; preview contoh 10 gardu.
+- Analisa: tiga mode, sesi tertinggi atau terpilih, master+hasil SQL,
+  filter kategori/temuan/angka, sortir stabil NULL terakhir, ringkasan dinamis.
+- Ekspor CSV/XLSX aman rumus spreadsheet; XLSX memiliki tab Keterangan.
+- Tampilan tersimpan pribadi/bersama, set default, audit, pengaturan kolom acuan.
+- Migrasi 9c menambah dua tabel dan indeks; seed tampilan sekali dan tidak
+  menimpa perubahan admin; tidak ada DROP/ubah tipe pada tabel lama.
+
+## V1.6.0 Stage 9b — Rumus & Kategori (17 November 2026)
+
+Menambah domain gardu: 13 kolom hitung bawaan, 11 aturan awal, 3 konstanta, perhitungan NULL-safe dengan agregasi jurusan/IF malas/FLAG/KOSONG, validasi siklus, CRUD admin dan histori, tabel hasil berversi, batch recalc yang dapat dilanjutkan, uji/pratinjau read-only dan UI tiga kolom. Migrasi satu kali tanpa DROP, pembacaan tiap jam/rekap H-J dan raw verified tidak berubah. Default teknis masih provisional; PostgreSQL, Docker, browser, dan build NPM tidak diklaim lulus.
+
+## 1.6.0-stage9a — 2026-11-17
+- Modul Pengukuran Gardu terpisah dari data per jam, per kunjungan (gardu/tanggal/sesi).
+- Master gardu, penyulang, histori trafo/pindah penyulang, definisi global, snapshot, nilai/flag, revision optimistic, draft/verified.
+- Server-side paging, edit dan simpan massal per baris, audit serta API baca induk dengan filter izin unit.
+- Template impor Excel/CSV dengan pratinjau dan konfirmasi; sanitasi formula pada ekspor.
+- Input spreadsheet, local backup/autosave baris, daftar pengukuran, input ponsel dan pengaturan parameter global.
+- Migrasi aditif sekali dengan idempotent seed; tidak ada perubahan ke pembacaan per jam.
+- Status QA: kandidat staging; PostgreSQL 16, browser dan build Vite penuh belum terverifikasi.
+
 ## V1.6.0 Stage 8 — Branding dapat diatur (2026-11-17)
 
 - Modul baru `modules/branding` berisi default authoritative, tabel global `app_branding` ber-ID 1, migrasi aditif/idempotent `20261117_16_stage8_branding`, validasi CSRF/admin, audit, publik GET/ETag/cache, unggahan aman melalui Pillow, dan reset.
@@ -329,3 +386,20 @@
 - **V1.4.3 — Advanced Visualization**: chart tangga dan batang bertumpuk, warna seri `#RRGGBB`, pilihan legend, ketelitian desimal, titik data, tooltip WITA, konversi satuan tampilan, agregasi min/rata-rata/puncak existing.
 - Grafik H/J tetap wajib memakai pasangan jam yang sama dan tidak dapat dijadikan stacked bar; hanya penyajian UI berubah.
 - 35 tes backend lulus, import workbook sumber tetap 307 jam / 14.031 nilai. npm/Vite/Docker belum tervalidasi di environment build.
+
+## V1.6.0 Stage 9a-fix — 2026-11-17
+- Penyesuaian tampilan **Pengukuran Gardu** berdasarkan referensi HTML: tab, kartu filter, input massal spreadsheet, status per gardu, label, tabel master dan dialog. Tidak membuat halaman/analisa Stage 9b dari contoh statis.
+- Perlindungan kode ganda master/penyulang/definisi: respons 409 dengan alasan bahasa Indonesia, rollback saat pelanggaran keunikan; kode terpakai yang permanen tidak dapat diubah diam-diam.
+- Pengurangan jumlah jurusan yang sudah memiliki nilai historis memerlukan konfirmasi eksplisit beserta jumlah nilai terdampak; pengukuran lama dan snapshot jumlah jurusan tidak berubah. Aksi massal mengembalikan hasil per gardu.
+- Penggantian JSON mentah konflik pengisian dengan dialog sel berbeda, siapa/kapan/status, dan keputusan pengguna yang tetap menjaga ketikan lokal di cadangan.
+- Editor definisi memakai form dialog tanpa `window.prompt`; validasi minimum <= maksimum di frontend/backend, HTTP 422 untuk nilai terbalik.
+- Tidak ada tabel/migrasi baru atau perubahan `hour_records`, pembacaan per jam, formula, stage 1–8, izin unit, atau proses bisnis gardu.
+
+## 1.6.0-stage9d1 — 17 November 2026 (kandidat staging)
+
+- Tambah peta gardu Leaflet 1.9.4 lokal npm: `/api/substations/map/points` mengikuti filter Analisa 9c dan hasil hitung 9b, marker warna+bentuk aturan, pengelompokan titik per zoom, daftar koordinat kosong/tidak sah, panel detail, lokasi saya (HTTPS), terdekat, skala saat ubin gagal.
+- Konfigurasi ubin global admin (`gardu_tile_settings`, migrasi aditif idempotent `20261117_20_stage9d1_tiles`, audit dan validasi URL); default tile OSM + atribusi.
+- Grafik Analisa Recharts: batang bertumpuk kategori per penyulang, scatter dua sesi, pareto kolom acuan/temuan, tren sesi, CSV/PNG, tipe grafik disimpan dalam tampilan pengguna.
+- UI Pengukuran Gardu diseragamkan: submenu, header tabel/input, densitas tabel, dialog aplikasi, responsivitas ponsel, tombol akses dari peta ke input/master/analisa.
+- Tambah pengujian backend Stage 9d1 dan frontend helper; dokumentasi upgrade, QA, dan daftar file perubahan. Tidak mengubah data ukur, mesin formula dan seed 9b.
+- Paket **kandidat staging**: PostgreSQL 16, browser nyata, 5.000 pin dan build npm belum tervalidasi di lingkungan build akibat `EAI_AGAIN`.

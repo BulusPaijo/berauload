@@ -1,3 +1,18 @@
+## Status 1.6.0-stage9c-fix (17 November 2026)
+
+Hotfix Stage 9c diterapkan pada kueri angka, filter temuan, SAWarning, dan deklarasi TypeScript tanpa migrasi baru. Tes lama dan baru lulus dalam kelompok (197 tes pada run awal dalam tiga kelompok + satu tes compiler SQL tambahan; run ulang kelompok lain 36 dan 50 lulus, tetapi run gabungan legacy terkena state SQLite antartes) serta 69 tes Node. Uji PostgreSQL 16 nyata dan build frontend masih **belum lulus/terverifikasi** karena server PG tidak tersedia dan npm registry `EAI_AGAIN`. Baca `QA_STATUS_STAGE9C_FIX.md` untuk rincian jujur. **Jangan langsung upgrade produksi sebelum staging**.
+
+**QA Stage 9c (17 November 2026):** 186/186 tes backend utama, 7/7 tes load-test, 68/68 tes frontend Node lulus. `npm install` gagal DNS `EAI_AGAIN`; build React/PostgreSQL 16/browser belum diverifikasi. Masih kandidat staging. Lihat `QA_STATUS_STAGE9C.md`.
+
+
+**QA tambahan per 17 November 2026:** backend utama 179/179 lulus (`--ignore=backend/tests/test_loadtest_runner.py`), load-test runner 7/7 lulus, frontend `node --experimental-strip-types --test frontend/tests/*.test.mjs` 61/61 lulus. Instalasi npm gagal DNS EAI_AGAIN sehingga Vite build masih belum terverifikasi; PostgreSQL 16 produksi, browser dan 100.000 data belum diuji. Lihat `QA_STATUS_STAGE9B.md`.
+
+## Stage 9b (17 November 2026) — Status kandidat staging
+
+Tambahan baru Stage 9b diperiksa dengan tes terfokus SQLite dan JS murni; lihat `QA_STATUS_STAGE9B.md`. Backend lama tidak diubah asersi tesnya. Build npm/Vite dan PostgreSQL 16 LXC belum lolos verifikasi; jangan klaim production-ready.
+
+**Stage 9a (2026-11-17):** lihat `QA_STATUS_STAGE9A.md`. 11 tes backend khusus Stage 9a, 56 tes Node lulus; baseline dites per kelompok, tetapi suite final satu proses dan build Vite belum lulus. npm install gagal `EAI_AGAIN`. Rilis kandidat staging; PostgreSQL/browser belum diuji.
+
 # QA — BerauLoad V1.6.0 Stage 8 (2026-11-17)
 
 **STATUS: KANDIDAT STAGING. BELUM LULUS BUILD FRONTEND / BELUM DIUJI DI LXC POSTGRESQL.**
@@ -491,3 +506,11 @@ Invarian: Tidak ada migrasi DB; perubahan hanya konfigurasi simbol/layout. Tidak
 4. User non-admin hanya dapat melihat diagram. Uji H/J, input, import, formula, rule, dashboard, laporan dan tidak ada error console.
 
 **Belum dilakukan:** pengujian React DOM/drag otomatis di browser nyata, build frontend asli, PostgreSQL 16 runtime, Docker pada LXC, dan load test ratusan simbol. Hasil uji ini belum menyatakan performa/keberhasilan production.
+
+## Stage 9a-fix — 2026-11-17
+
+Validasi regresi dilakukan per kelompok: 174 backend + 7 runner lulus; 57 tes Node frontend lulus. `npm install` gagal DNS EAI_AGAIN, `npm run build` masih gagal dependensi React/tipe belum tersedia. Build nyata, PostgreSQL 16 staging, dan pengujian browser belum dinyatakan lulus. Detail dan batas: `QA_STATUS_STAGE9A_FIX.md`.
+
+## Stage 9d1 — 2026-11-17
+
+Peta Leaflet, grafik Analisa, perapian UI, endpoint titik, pengaturan ubin admin/migrasi aditif, dan regression tests. **Kandidat staging, belum dinyatakan siap produksi**. Lihat `QA_STATUS_STAGE9D1.md` untuk hasil terukur dan keterbatasan npm/PostgreSQL/browser.

@@ -8,6 +8,7 @@ export function readBackup(storage:Storage|null,key:string,now?:number):Backup|n
 export function shouldHeartbeat(lastActivity:number,dirty:boolean,now:number):boolean;
 export function sessionRemaining(expiresAt:string,now?:number):number;
 export function showExpiryBanner(expiresAt:string,now?:number):boolean;
+export const pause:(ms:number)=>Promise<void>;
 export class HourQueue {
   paused:boolean;
   constructor(send:(hour:number)=>Promise<void>,onStatus?:(hour:number,status:string)=>void,delay?:number,sleep?:(ms:number)=>Promise<void>);

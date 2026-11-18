@@ -1,0 +1,14 @@
+export type ExportColumn = { key: string; header?: string };
+export type CatalogItem = { key: string; label: string; group: string };
+export const MAX_COLUMNS: number;
+export function emptyFilter(): Record<string, string | string[]>;
+export function filterBody(state: Record<string, unknown>): Record<string, unknown>;
+export function buildSpec(s: { columns: ExportColumn[]; shape: string; format: string; delimiter: string }): { columns: ExportColumn[]; shape: string; format: string; delimiter: string };
+export function moveColumn(columns: ExportColumn[], index: number, step: number): ExportColumn[];
+export function addColumn(columns: ExportColumn[], key: string): ExportColumn[];
+export function removeColumn(columns: ExportColumn[], key: string): ExportColumn[];
+export function renameColumn(columns: ExportColumn[], key: string, header: string): ExportColumn[];
+export function groupCatalog(items: CatalogItem[], chosenKeys: string[], search: string, shape: string): { group: string; entries: CatalogItem[] }[];
+export function validateSpec(s: { columns: ExportColumn[]; shape: string }, catalogKeys?: Set<string>): string[];
+export function fromTemplate(t: { spec?: unknown }, catalogKeys?: Set<string>): { columns: ExportColumn[]; shape: 'wide' | 'long'; format: 'xlsx' | 'csv'; delimiter: ';' | ','; dropped: string[] };
+export function sizeNote(total: number, limit: number): { level: 'ok' | 'warn' | 'error'; text: string };

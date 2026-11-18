@@ -1,0 +1,45 @@
+DAFTAR FILE PERUBAHAN — BerauLoad V1.6.0 Stage 9b
+Sumber: Stage9a-fix full source dari pemilik proyek
+
+17 berkas baru, 15 berkas berubah; semua berkas lainnya tetap disertakan.
+
+BERKAS BARU
+  QA_STATUS_STAGE9B.md
+  README_UPGRADE_V1_6_0_STAGE9B.md
+  backend/app/modules/substations/calculation_admin.py
+  backend/app/modules/substations/calculation_migrations.py
+  backend/app/modules/substations/calculation_router.py
+  backend/app/modules/substations/calculation_rules.py
+  backend/app/modules/substations/calculation_seed.py
+  backend/app/modules/substations/calculation_service.py
+  backend/app/modules/substations/models_calc.py
+  backend/tests/test_stage9b_calculations.py
+  frontend/src/features/substations/formulas/FormulaSettings.tsx
+  frontend/src/features/substations/formulas/ResultPanel.tsx
+  frontend/src/features/substations/formulas/formulas.css
+  frontend/src/features/substations/formulas/helpers.d.mts
+  frontend/src/features/substations/formulas/helpers.mjs
+  frontend/src/features/substations/formulas/types.ts
+  frontend/tests/garduCalculations.test.mjs
+
+BERKAS DIUBAH
+  ARSITEKTUR.md
+  CHANGELOG.md
+  PANDUAN_PENGGUNA.md
+  QA_STATUS.md
+  README.md
+  VERSION
+  backend/app/main.py
+  backend/app/modules/formulas/engine.py
+  backend/app/modules/substations/visits.py
+  backend/app/modules/substations/visits_service.py
+  frontend/package.json
+  frontend/src/features/substations/InputGrid.tsx
+  frontend/src/features/substations/MobileVisitForm.tsx
+  frontend/src/features/substations/SubstationsPage.tsx
+  frontend/src/features/substations/VisitList.tsx
+
+CATATAN
+  Tidak mencakup berkas hasil uji, database sementara, hasil build, atau dependensi.
+  Berkas asli tidak dihapus.
+  Lihat README_UPGRADE_V1_6_0_STAGE9B.md dan QA_STATUS_STAGE9B.md.

@@ -1,0 +1,48 @@
+# DAFTAR FILE Stage 9d1 — dibandingkan Stage 9c-fix Rev1
+# Basis: BerauLoad_V1_6_0_STAGE9C_FIX_Rev1_Full_Source.zip
+# Isi lengkap setiap berkas baru/diubah tersedia dalam ZIP full source.
+# Baru: 22 · Diubah: 21 · Dihapus: 0
+
+UBAH   ARSITEKTUR.md
+UBAH   CHANGELOG.md
+UBAH   PANDUAN_PENGGUNA.md
+UBAH   QA_STATUS.md
+BARU   QA_STATUS_STAGE9D1.md
+UBAH   README.md
+BARU   README_UPGRADE_V1_6_0_STAGE9D1.md
+UBAH   VERSION
+UBAH   backend/app/main.py
+BARU   backend/app/modules/substations/analysis_charts.py
+UBAH   backend/app/modules/substations/analysis_data.py
+UBAH   backend/app/modules/substations/analysis_router.py
+UBAH   backend/app/modules/substations/analysis_views.py
+BARU   backend/app/modules/substations/map_migrations.py
+BARU   backend/app/modules/substations/map_models.py
+BARU   backend/app/modules/substations/map_router.py
+BARU   backend/app/modules/substations/map_service.py
+BARU   backend/tests/test_stage9d1_map.py
+BARU   deploy/upgrade_to_stage9d1.sh
+UBAH   frontend/package.json
+BARU   frontend/src/features/substations/ActionDialog.tsx
+UBAH   frontend/src/features/substations/InputGrid.tsx
+UBAH   frontend/src/features/substations/MasterPanel.tsx
+UBAH   frontend/src/features/substations/MobileVisitForm.tsx
+UBAH   frontend/src/features/substations/SubstationsPage.tsx
+UBAH   frontend/src/features/substations/VisitList.tsx
+UBAH   frontend/src/features/substations/analysis/AnalysisPage.tsx
+BARU   frontend/src/features/substations/analysis/ChartDashboard.tsx
+UBAH   frontend/src/features/substations/analysis/analysis.css
+BARU   frontend/src/features/substations/analysis/chartHelpers.d.mts
+BARU   frontend/src/features/substations/analysis/chartHelpers.mjs
+BARU   frontend/src/features/substations/analysis/charts.css
+UBAH   frontend/src/features/substations/analysis/types.ts
+UBAH   frontend/src/features/substations/formulas/FormulaSettings.tsx
+BARU   frontend/src/features/substations/map/MapCanvas.tsx
+BARU   frontend/src/features/substations/map/MapDetails.tsx
+BARU   frontend/src/features/substations/map/MapPage.tsx
+BARU   frontend/src/features/substations/map/helpers.d.mts
+BARU   frontend/src/features/substations/map/helpers.mjs
+BARU   frontend/src/features/substations/map/map.css
+BARU   frontend/src/features/substations/map/types.ts
+UBAH   frontend/src/features/substations/substations.css
+BARU   frontend/tests/garduStage9d1.test.mjs
