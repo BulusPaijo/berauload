@@ -1,3 +1,9 @@
+## 1.6.0-stage9e — 19 Nov 2026
+- Saran penanganan overload: Tukar trafo / Pindah beban ke gardu terdekat (satu ULP, koordinat), memakai mesin rumus & ambang kategori yang sama dengan Analisa
+- Tinjau sebelum/sesudah, slider porsi pindah beban, Jadikan tindak lanjut (jenis baru tukar_trafo, pindah_beban), Terapkan ke master untuk tukar trafo (riwayat + audit)
+- Migrasi aditif: kolom plan pada gardu_followups
+- Esc pada drawer bertingkat hanya menutup drawer teratas
+
 ## 1.6.0-stage9d5 — 18 Nov 2026
 - Tegangan rel dipisah fasa-netral dan fasa-fasa; rel F-N, rel F-F, ujung JTR, dan grounding masing-masing punya warna (kisi + ponsel)
 - Rincian pengukuran: kepala dengan kode/nama gardu, tab Tabel nilai (sel berubah oranye + nilai lama), Riwayat dalam bahasa sehari-hari, Data teknis tersembunyi, Unduh Excel per pengukuran

@@ -45,7 +45,7 @@ export default function AnalysisPage({admin,userId,canInput,onNavigate}:Props){
    .then(([r,t])=>{if(valid){setRows(r);setSummary(t);setError('');setSelected([]);}})
    .catch(e=>{if(valid)setError(message(e))}).finally(()=>{if(valid)setBusy(false)});
   return()=>{valid=false};},[query,unit,reload]);
- useEffect(()=>{if(!open)return;const k=(e:KeyboardEvent)=>{if(e.key==='Escape')setOpen(null)};window.addEventListener('keydown',k);return()=>window.removeEventListener('keydown',k)},[open]);
+ useEffect(()=>{if(!open)return;const k=(e:KeyboardEvent)=>{if(e.key==='Escape'&&!document.querySelector('.ui-drawer'))setOpen(null)};window.addEventListener('keydown',k);return()=>window.removeEventListener('keydown',k)},[open]);
  const shown=columns??designColumns(defs);
  const marks=useMemo(()=>findingColumns(defs?.rules??[]),[defs]);
  const refUnit=defs?.columns.find(c=>c.code===defs.reference_code)?.unit??'';

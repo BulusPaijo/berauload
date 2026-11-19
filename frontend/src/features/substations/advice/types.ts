@@ -1,0 +1,12 @@
+import type {Side,Eval} from './adviceView.mjs';
+export type Target={id:number;code:string;name:string;distance_km:number|null;kva:number;phase:number;persen_now:number|null;
+ category:{code:string;name:string;color:string}|null;measured_on:string;session:string;state:string;age_days:number};
+export type SwapOpt={target:Target;feasible:boolean;reason:string|null;x_after:number|null;z_after:number|null};
+export type MoveOpt={target:Target;line_no:number;line_label:string;feasible:boolean;reason:string|null;p_min?:number;p_max?:number;target_line?:number};
+export type Advice={station_id:number;code:string;name:string;available:boolean;reason:string|null;overload:boolean|null;examined?:number;
+ basis:{measurement_id:number;measured_on:string;session:string;state:string;age_days:number;persen:number|null;beban_kva:number|null;kva:number;kva_changed:boolean;category:{name:string;color:string}|null}|null;
+ excluded:Record<string,number>;swap:SwapOpt[];move:MoveOpt[];disclaimer:string[]};
+export type Review={kind:'swap'|'move';disclaimer:string[];target:Target;source:Target;line_no?:number;portion?:number;sides:Side[];
+ option:{feasible:boolean;reason:string|null;p_min?:number;p_max?:number;x_after?:number|null;z_after?:number|null};ok_after:boolean};
+export type {Side,Eval};
+export type Pick={kind:'swap'|'move';target:Target;line_no?:number;line_label?:string;range?:{p_min:number;p_max:number}};

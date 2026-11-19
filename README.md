@@ -102,6 +102,8 @@ Semua tangkapan layar memakai **data contoh sintetis**, bukan data pelanggan ata
 - Zona waktu bisnis: Asia/Makassar (WITA). Port web bawaan: 8092
 
 ## Fitur Pengukuran Gardu (Stage 9)
+
+- **Saran penanganan overload (9e):** tukar trafo atau pindah beban ke gardu terdekat, dengan tinjauan sebelum/sesudah, tindak lanjut, dan penerapan ke master.
 - Master gardu per ULP dan KP, input massal seperti Excel, form ponsel, impor/ekspor Excel
 - Hasil hitung, kategori beban, dan temuan yang bisa diatur admin
 - Analisa, peta, tindak lanjut, pemantauan cakupan, laporan PDF/Excel

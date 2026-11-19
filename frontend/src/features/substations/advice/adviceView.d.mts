@@ -1,0 +1,16 @@
+export const KIND_TITLE:Record<string,string>;
+export const pct:(v:number|null|undefined)=>string;
+export const rangeText:(o:{feasible?:boolean;p_min?:number;p_max?:number}|null|undefined)=>string;
+export const ageText:(days:number|null|undefined)=>string;
+export const EXCLUDED_TEXT:Record<string,string>;
+export function excludedLines(excluded:Record<string,number>|undefined):string[];
+export function splitOptions<T extends {feasible:boolean}>(list:T[]|undefined):{ok:T[];no:T[]};
+export function clampPortion(value:number|string,range?:{p_min?:number}|null):number;
+export function sliderState(portion:number,option:{feasible?:boolean;p_min?:number;p_max?:number}|null|undefined):{inside:boolean;tone:string};
+export type Eval={persen:number|null;beban_kva:number|null;tak_seimbang?:number|null;overload:boolean|null;category:{code:string;name:string;color:string}|null};
+export type Side={id:number;code:string;name:string;kva_before:number;kva_after:number;phase_before:number;phase_after:number;before:Eval;after:Eval;
+ lines_before:{line_no:number;i_r:number|null;i_s:number|null;i_t:number|null;i_n:number|null}[];lines_after:{line_no:number;i_r:number|null;i_s:number|null;i_t:number|null;i_n:number|null}[]};
+export function sideRows(side:Side):{label:string;before:string;after:string;changed:boolean}[];
+export function linesRows(side:Side):{line:number;before:number|null;after:number|null;changed:boolean}[];
+export const planSummary:(plan:{kind:string;target_code:string;portion?:number|null;line_no?:number|null}|null|undefined)=>string;
+export const canApply:(f:{type_code:string;status:string;plan?:{kind:string;applied?:unknown}|null}|null|undefined,canManage:boolean)=>boolean;

@@ -765,3 +765,12 @@ Jika ada **gardu tanpa koordinat**, daftar kode muncul di bawah peta; klik untuk
 Pilih **Pengukuran Gardu → Analisa** untuk melihat grafik sebar kategori per penyulang, perbandingan sesi, pareto dan tren. Grafik mengikuti filter yang sama dengan tabel. Gunakan **Unduh CSV/PNG** untuk grafik, dan **Simpan tampilan** untuk menyimpan jenis grafik, kolom, dan filter. Pilih kepadatan **Nyaman/Padat** pada tabel; pengaturan ini diingat untuk pengguna browser yang sama.
 
 Admin global dapat membuka tombol **Atur ubin peta**, mengaktifkan/menonaktifkan ubin, serta memasukkan URL dan atribusi milik penyedia ubin. Konfigurasi awal menggunakan ubin OpenStreetMap (`https://tile.openstreetmap.org/{z}/{x}/{y}.png`) dengan atribusi `© OpenStreetMap contributors`. Penggunaan ubin tunduk pada kebijakan penyedia. Kode gardu dan hasil ukur tetap berada dalam database BerauLoad, bukan diubah oleh peta/grafik.
+
+## Saran penanganan overload — Stage 9e
+Di **Pengukuran Gardu → Analisa**, buka gardu berstatus **Overload**. Bagian *Saran penanganan overload* menampilkan:
+- **Tukar trafo**: gardu lain sefasa di ULP yang sama yang trafonya bisa ditukar sehingga kedua gardu tidak overload.
+- **Pindah beban**: rentang persen jurusan yang boleh dipindah ke gardu terdekat agar keduanya di bawah ambang overload.
+
+Klik **Tinjau** untuk melihat sebelum/sesudah. **Jadikan tindak lanjut** menyimpan rencana di menu Tindak lanjut. Setelah tukar trafo dikerjakan dan statusnya **Selesai**, admin/verifikator ULP dapat **Terapkan ke master** (tanggal efektif + konfirmasi); riwayat master dan audit tercatat. Ukur ulang kedua gardu agar Analisa mengikuti trafo baru.
+
+Catatan: ini saran hitungan dari data ukur terakhir. Tidak memperhitungkan jatuh tegangan, impedansi, rugi-rugi atau pertumbuhan beban; jarak adalah garis lurus. Pindah sebagian jurusan perlu survei lapangan. Gardu tanpa koordinat atau tanpa pengukuran tidak menjadi kandidat.
