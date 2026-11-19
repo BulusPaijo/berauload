@@ -45,6 +45,21 @@ Semua tangkapan layar memakai **data contoh sintetis**, bukan data pelanggan ata
 ![Export](docs/screenshots/12-export.png)
 **Export data** ke Excel atau CSV dengan filter dan pilihan kolom.
 
+### Saran penanganan overload (Stage 9e)
+![Saran penanganan overload](docs/screenshots/34-saran-overload.png)
+**Saran untuk gardu overload:** daftar gardu terdekat (satu ULP, berdasarkan koordinat) untuk **Tukar trafo** atau **Pindah beban**, lengkap dengan perkiraan beban sesudahnya.
+
+![Tinjau tukar trafo](docs/screenshots/35-tinjau-tukar-trafo.png)
+**Tinjau tukar trafo:** kapasitas, beban, persen, dan kategori kedua gardu, sebelum dan sesudah.
+
+![Tinjau pindah beban](docs/screenshots/36-tinjau-pindah-beban.png)
+**Tinjau pindah beban:** geser porsi arus jurusan yang dipindah. Porsi di luar rentang aman ditolak, dan hasilnya langsung dihitung ulang.
+
+![Tindak lanjut dan penerapan ke master](docs/screenshots/37-tindak-lanjut-diterapkan.png)
+**Tindak lanjut:** rencana disimpan sebagai tindak lanjut. Setelah tukar trafo selesai, admin atau verifikator ULP menerapkannya ke master gardu, dengan riwayat dan audit.
+
+Perhitungan memakai mesin rumus dan ambang kategori yang sama dengan Analisa. Hasilnya saran, bukan keputusan teknis: jatuh tegangan, impedansi, rugi-rugi, dan pertumbuhan beban tidak dihitung.
+
 ### Rumus dan kategori
 ![Rumus dan kategori](docs/screenshots/13-rumus-kategori.png)
 **Rumus & Kategori:** kolom hitung dan kategori pembebanan yang bisa diatur admin, termasuk urutan seret-dan-lepas.
