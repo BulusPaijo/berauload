@@ -62,8 +62,10 @@ def context(db, measurement, prepared=None):
     return variables, aggregates, flags, absent
 
 
-def compute(db, measurement, draft=None, prepared=None):
-    """No writes. Draft cycles raise 422; damaged stored definitions are noted."""
+def compute(db, measurement, draft=None, prepared=None, adjust=None):
+    """No writes. Draft cycles raise 422; damaged stored definitions are noted.
+
+    adjust(variables, aggregates) lets a what-if simulation (stage 9e) change inputs in memory."""
     fallback = None
     if draft:
         ordered = order_columns(db, draft)  # do not silently ignore a draft cycle
@@ -76,6 +78,7 @@ def compute(db, measurement, draft=None, prepared=None):
                 GarduCalcColumn.display_order).all()
     conf = prepared or prepare_for_fallback(db, ordered)
     variables, aggregates, flags, absent = context(db, measurement, conf)
+    if adjust is not None: adjust(variables, aggregates)
     values = []
     for col in ordered:
         not_applicable = set()

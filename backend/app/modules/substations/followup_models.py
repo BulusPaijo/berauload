@@ -30,6 +30,7 @@ class GarduFollowup(Base):
     status = Column(String(12), nullable=False, default='terbuka')
     assignee = Column(String(150))
     due_on = Column(Date)
+    plan = Column(JSON)   # stage 9e: snapshot of a swap/move advice at creation; NULL for ordinary tasks
     version = Column(Integer, nullable=False, default=1)
     created_by = Column(Integer, ForeignKey('users.id'))
     updated_by = Column(Integer, ForeignKey('users.id'))

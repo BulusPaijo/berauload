@@ -1,8 +1,10 @@
 import {useEffect,useState} from 'react';
 import {api} from '../../../api';
 import {followTone} from './detail.mjs';
+import PlanNote from '../advice/PlanNote';
+import type {Plan} from '../advice/PlanNote';
 
-export type Followup={id:number;type_code:string;type_name:string;status:string;priority:string;assignee:string|null;due_on:string|null;note:string|null;version:number;substation_id:number};
+export type Followup={id:number;type_code:string;type_name:string;status:string;priority:string;assignee:string|null;due_on:string|null;note:string|null;version:number;substation_id:number;plan?:Plan|null};
 type FType={code:string;name:string;active:boolean};
 type Suggest={type_code:string;name:string;because:string[]};
 const msg=(e:unknown)=>e instanceof Error?e.message:String(e);
@@ -14,6 +16,7 @@ export default function FollowupBox({stationId,measurementId,canEdit,onChange}:{
   api<FType[]>('/substations/followups/types'),api<{suggestions:Suggest[]}>(`/substations/followups/suggest/${stationId}`+(measurementId?`?measurement_id=${measurementId}`:''))])
   .then(([f,t,s])=>{setItems(f.items);setTypes(t.filter(x=>x.active));setSugs(s.suggestions)}).catch(e=>setError(msg(e)));
  useEffect(()=>{setForm(null);void load()},[stationId,measurementId]);
+ useEffect(()=>{const h=()=>void load();window.addEventListener('gardu-followup-changed',h);return()=>window.removeEventListener('gardu-followup-changed',h)},[stationId,measurementId]);
  async function create(){if(!form)return;try{await api('/substations/followups',{method:'POST',body:JSON.stringify({...form,substation_id:stationId,measurement_id:measurementId,due_on:form.due_on||null})});
   setForm(null);await load();onChange?.();}catch(e){setError(msg(e))}}
  async function setStatus(f:Followup,status:string){try{await api(`/substations/followups/${f.id}`,{method:'PATCH',body:JSON.stringify({substation_id:f.substation_id,type_code:f.type_code,priority:f.priority,
@@ -21,7 +24,7 @@ export default function FollowupBox({stationId,measurementId,canEdit,onChange}:{
  const start=(code='')=>setForm({type_code:code||types[0]?.code||'',priority:'sedang',assignee:'',due_on:'',note:''});
  return <div className="gd-follow">
   {error&&<p className="gd-error" role="alert">{error}</p>}
-  {items.map(f=><div key={f.id} className="gd-follow-item"><div><b>{f.type_name}</b><small>{[f.assignee,f.due_on&&`target ${f.due_on}`,f.priority!=='sedang'&&`prioritas ${f.priority}`].filter(Boolean).join(' · ')||'Belum ada penanggung jawab'}</small>{f.note&&<p>{f.note}</p>}</div>
+  {items.map(f=><div key={f.id} className="gd-follow-item"><div><b>{f.type_name}</b><small>{[f.assignee,f.due_on&&`target ${f.due_on}`,f.priority!=='sedang'&&`prioritas ${f.priority}`].filter(Boolean).join(' · ')||'Belum ada penanggung jawab'}</small>{f.note&&<p>{f.note}</p>}<PlanNote f={f} onDone={()=>{void load();onChange?.()}}/></div>
    {canEdit?<select aria-label="Status tindak lanjut" className={'gd-status gd-'+followTone(f.status)} value={f.status} onChange={e=>void setStatus(f,e.target.value)}>{STATUSES.map(s=><option key={s} value={s}>{s}</option>)}</select>
     :<span className={'gd-status gd-'+followTone(f.status)}>{f.status}</span>}</div>)}
   {!items.length&&!form&&<p className="gd-muted">Belum ada tindak lanjut.</p>}

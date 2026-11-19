@@ -32,7 +32,8 @@ def test_migration_seed_once_and_admin_edit_survives(site):
     run(engine); run(engine)
     with Session() as db:
         assert db.query(SchemaMigration).filter_by(version=VERSION).count() == 1
-        assert db.query(GarduFollowupType).count() == 7
+        assert db.query(GarduFollowupType).count() == 9      # 7 seeded in 9d-3 + tukar_trafo, pindah_beban (9e)
+        assert {'penyeimbangan', 'uprating', 'mutasi', 'pecah_beban', 'grounding', 'perbaikan_jtr', 'pantau'} <= {t.code for t in db.query(GarduFollowupType)}
     h = as_unit(admin, units['kp'])
     r = client.post(F + '/types', headers=h, json={'code': 'pantau', 'name': 'Pantau rutin', 'suggest_for': []})
     assert r.status_code == 200

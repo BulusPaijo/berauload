@@ -5,6 +5,7 @@ import type {Definitions} from '../types';
 import type {AnalysisDetail} from '../analysis/types';
 import {lineTable,mapsLink,phaseBars,trendRows} from './detail.mjs';
 import FollowupBox from './FollowupBox';
+import AdviceBox from '../advice/AdviceBox';
 import './detail.css';
 
 export type DetailStation={id:number;code:string;name:string;feeder:string|null;power_kva:number;unit_id:number;measurement_id:number|null;
@@ -46,6 +47,7 @@ export default function GarduDetail({station,canInput,canFollow,onClose,onNaviga
     <table className="gd-table"><thead><tr><th>Jurusan</th>{table.head.map(h=><th key={h}>{h}</th>)}</tr></thead>
      <tbody>{table.rows.map(r=><tr key={r.line}><td>Jurusan {r.line}</td>{r.cells.map((c,i)=><td key={i} className={typeof c==='string'?'gd-flag':''}>{c==null?'—':typeof c==='string'?c:num(c,1)}</td>)}</tr>)}</tbody></table></>}
    {!!station.findings?.length&&<><h4>Temuan</h4><div className="gd-chips">{station.findings.map(f=><span key={f.code} style={{color:f.color,background:f.color+'18'}}>{f.name}</span>)}</div></>}
+   {station.category.code==='overload'&&<><h4>Saran penanganan overload</h4><AdviceBox stationId={station.id} measurementId={station.measurement_id} canCreate={canFollow} onChange={onChange}/></>}
    <h4>Tindak lanjut</h4><FollowupBox stationId={station.id} measurementId={station.measurement_id} canEdit={canFollow} onChange={onChange}/>
    <h4>Riwayat {unit==='%'?'% beban':'nilai acuan'}</h4>
    {t.rows.length?<div className="gd-chart"><ResponsiveContainer width="100%" height="100%"><LineChart data={t.rows} margin={{top:8,right:12,bottom:0,left:-18}}>

@@ -25,6 +25,9 @@ from .modules.substations.export_migrations import run as run_substations_export
 from .modules.substations.export_router import router as substations_export_router
 from .modules.substations.followup_migrations import run as run_substations_followup_migration
 from .modules.substations.followup_router import router as substations_followup_router
+from .modules.substations.advice_router import router as substations_advice_router
+from .modules.substations.advice_followup import router as substations_advice_followup_router
+from .modules.substations.advice_migrations import run as run_substations_advice_migration
 from .modules.substations.end_voltage_migration import run as run_substations_end_voltage_migration
 from .modules.substations.monitoring_router import router as substations_monitoring_router
 from .modules.substations.analysis_migrations import run as run_substations_analysis_migration
@@ -107,7 +110,7 @@ async def app_lifespan(_app):
     setup()
     yield
 
-app=FastAPI(title='BerauLoad',version='1.6.0-stage9d5',docs_url=None,redoc_url=None,lifespan=app_lifespan)
+app=FastAPI(title='BerauLoad',version='1.6.0-stage9e',docs_url=None,redoc_url=None,lifespan=app_lifespan)
 app.include_router(branding_router)
 app.include_router(formula_router)
 app.include_router(monitoring_router)
@@ -116,6 +119,8 @@ app.include_router(substations_analysis_router)
 app.include_router(substations_map_router)
 app.include_router(substations_export_router)
 app.include_router(substations_followup_router)
+app.include_router(substations_advice_router)
+app.include_router(substations_advice_followup_router)
 app.include_router(substations_monitoring_router)
 app.include_router(substations_calc_router)
 app.include_router(chart_settings_router)
@@ -172,6 +177,7 @@ def setup():
     run_substations_map_migration(engine)
     run_substations_export_migration(engine)
     run_substations_followup_migration(engine)
+    run_substations_advice_migration(engine)
     run_substations_end_voltage_migration(engine)
     run_chart_migration(engine)
     run_historical_revision_migration(engine)
@@ -218,7 +224,7 @@ def setup():
 def health(db:Session=Depends(get_db)):
     try:db.execute(text('SELECT 1'))
     except Exception:raise HTTPException(503,'Database tidak dapat dihubungi')
-    return {'status':'ok','app':'BerauLoad','version':'1.6.0-stage9d5','test_instance':os.getenv('BERAULOAD_TEST_INSTANCE','false').lower()=='true'}
+    return {'status':'ok','app':'BerauLoad','version':'1.6.0-stage9e','test_instance':os.getenv('BERAULOAD_TEST_INSTANCE','false').lower()=='true'}
 
 class LoginBody(BaseModel):
     username:str=Field(min_length=2,max_length=70)
